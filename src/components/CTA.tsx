@@ -42,7 +42,7 @@ export default function CTA() {
           className="flex flex-wrap items-center justify-center gap-6"
         >
           <Link
-            href="/tools/seo-audit"
+            href="/seo-audit"
             className="group inline-flex items-center gap-2 bg-accent text-ground pl-6 pr-2 py-2 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150"
           >
             Get Free Audit

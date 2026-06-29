@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { ArrowRight } from "@phosphor-icons/react";
 
 const posts = [
@@ -74,12 +73,9 @@ export default function Blog() {
                   <p className="text-sm text-text-secondary leading-relaxed max-w-[52ch] mb-6">
                     {featured.excerpt}
                   </p>
-                  <Link
-                    href="/insights"
-                    className="inline-flex items-center gap-1 text-xs text-text-secondary hover:text-accent transition-colors group"
-                  >
-                    Read <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
-                  </Link>
+                  <span className="inline-flex items-center gap-1 text-xs text-text-secondary/40">
+                    Read <ArrowRight size={12} />
+                  </span>
                 </div>
               </div>
             </div>
@@ -110,12 +106,9 @@ export default function Blog() {
                     <p className="text-sm text-text-secondary leading-relaxed flex-1">
                       {post.excerpt}
                     </p>
-                    <Link
-                      href="/insights"
-                      className="inline-flex items-center gap-1 text-xs text-text-secondary hover:text-accent transition-colors group"
-                    >
-                      Read <ArrowRight size={12} className="transition-transform group-hover:translate-x-0.5" />
-                    </Link>
+                    <span className="inline-flex items-center gap-1 text-xs text-text-secondary/40">
+                      Read <ArrowRight size={12} />
+                    </span>
                   </div>
                 </div>
               </motion.div>

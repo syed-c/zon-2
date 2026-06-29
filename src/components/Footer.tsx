@@ -7,12 +7,24 @@ const footerLinks = [
   {
     title: "Services",
     links: [
-      { label: "Search & Organic", href: "/services/seo" },
-      { label: "GEO & AI Search", href: "/services/geo-ai-search" },
-      { label: "Digital PR", href: "/services/digital-pr" },
-      { label: "Paid Media", href: "/services/paid-media" },
-      { label: "Web Development", href: "/services/web-development" },
-      { label: "AI Automation", href: "/services/ai-automation" },
+      { label: "All Services", href: "/services" },
+      { label: "Search & Organic", href: "/seo-strategy" },
+      { label: "GEO & AI Search", href: "/generative-engine-optimisation" },
+      { label: "Digital PR", href: "/digital-pr" },
+      { label: "Paid Media", href: "/google-ads" },
+      { label: "Web Development", href: "/nextjs-development" },
+      { label: "AI Automation", href: "/ai-agents" },
+    ],
+  },
+  {
+    title: "Industries",
+    links: [
+      { label: "All Industries", href: "/industries" },
+      { label: "Dental & Healthcare", href: "/dental-healthcare" },
+      { label: "E-commerce", href: "/ecommerce" },
+      { label: "SaaS & Technology", href: "/saas-technology" },
+      { label: "Real Estate", href: "/real-estate" },
+      { label: "Legal Services", href: "/legal-services" },
     ],
   },
   {
@@ -20,17 +32,31 @@ const footerLinks = [
     links: [
       { label: "About", href: "/about" },
       { label: "Work", href: "/work" },
-      { label: "Insights", href: "/insights" },
+      { label: "Team", href: "/team" },
       { label: "Careers", href: "/careers" },
       { label: "Contact", href: "/contact" },
     ],
   },
   {
-    title: "Legal",
+    title: "Solutions",
     links: [
-      { label: "Privacy", href: "/legal/privacy" },
-      { label: "Terms", href: "/legal/terms" },
-      { label: "Cookies", href: "/legal/cookies" },
+      { label: "All Solutions", href: "/solutions" },
+      { label: "Generate More Leads", href: "/generate-more-qualified-leads" },
+      { label: "Improve Search Visibility", href: "/improve-search-visibility" },
+      { label: "AI Search Visibility", href: "/become-visible-in-ai-search" },
+      { label: "Build a Custom CRM", href: "/build-custom-crm" },
+      { label: "Automate Manual Work", href: "/reduce-manual-work-automation" },
+    ],
+  },
+  {
+    title: "Tools",
+    links: [
+      { label: "All Tools", href: "/tools" },
+      { label: "SEO Audit", href: "/seo-audit" },
+      { label: "GEO Readiness", href: "/geo-readiness" },
+      { label: "SERP Preview", href: "/serp-preview-tool" },
+      { label: "Schema Generator", href: "/schema-generator" },
+      { label: "Ads Calculator", href: "/ads-calculator" },
     ],
   },
 ];
@@ -39,7 +65,7 @@ export default function Footer() {
   return (
     <footer className="bg-ground border-t border-[#F2EDE6]/[0.04]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid lg:grid-cols-4 gap-12 lg:gap-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-16">
           <div>
             <Link href="/" className="font-display text-lg font-semibold text-text-primary tracking-tight">
               ZON

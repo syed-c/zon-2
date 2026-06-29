@@ -7,9 +7,12 @@ import { List, X, ArrowRight } from "@phosphor-icons/react";
 
 const navLinks = [
   { label: "Services", href: "/services" },
+  { label: "Solutions", href: "/solutions" },
+  { label: "Tools", href: "/tools" },
+  { label: "Industries", href: "/industries" },
   { label: "Work", href: "/work" },
-  { label: "Process", href: "/#process" },
-  { label: "Thinking", href: "/insights" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Nav() {
@@ -44,7 +47,7 @@ export default function Nav() {
         </div>
 
         <Link
-          href="/tools/seo-audit"
+          href="/seo-audit"
           className="hidden lg:inline-flex items-center gap-2 bg-accent text-ground text-sm font-medium px-5 py-2.5 rounded-full active:scale-[0.97] transition-transform duration-150 hover:brightness-105 group"
         >
           Get Free Audit
@@ -94,7 +97,7 @@ export default function Nav() {
                 className="mt-4"
               >
                 <Link
-                  href="/tools/seo-audit"
+                  href="/seo-audit"
                   onClick={() => setMobileOpen(false)}
                   className="inline-flex items-center gap-2 bg-accent text-ground text-sm font-medium px-6 py-3 rounded-full"
                 >

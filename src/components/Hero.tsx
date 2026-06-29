@@ -3,7 +3,10 @@
 import { useRef, useEffect, useState, memo, useCallback } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { ArrowRight } from "@phosphor-icons/react";
+
+const Beams = dynamic(() => import("@/components/Beams"), { ssr: false });
 
 /* ------------------------------------------------------------------ */
 /*  Background Layers                                                  */
@@ -384,6 +387,18 @@ export default function Hero() {
   return (
     <section className="relative min-h-[100dvh] bg-ground flex items-center overflow-hidden" id="hero">
       {/* Background layers */}
+      <div className="absolute inset-0 z-0 opacity-40">
+        <Beams
+          beamWidth={2.5}
+          beamHeight={25}
+          beamNumber={16}
+          lightColor="#d4a849"
+          speed={1.5}
+          noiseIntensity={1.2}
+          scale={0.15}
+          rotation={25}
+        />
+      </div>
       <HeroGrid />
       <div
         className="absolute inset-0 pointer-events-none z-0"
@@ -433,7 +448,7 @@ export default function Hero() {
             >
               <div className="relative">
                 <Link
-                  href="/tools/seo-audit"
+                  href="/seo-audit"
                   className="group inline-flex items-center gap-2 bg-accent text-ground pl-6 pr-2 py-2 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150 relative z-10"
                 >
                   Get Free Audit
