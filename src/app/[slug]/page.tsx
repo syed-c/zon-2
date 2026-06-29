@@ -20,6 +20,8 @@ export async function generateStaticParams() {
   return [...serviceSlugs, ...solutionSlugs, ...industrySlugs, ...toolSlugs, ...caseStudySlugs].map((slug) => ({ slug }));
 }
 
+const siteUrl = "https://zon-growth.com";
+
 export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await props.params;
   const service = getServiceInPillar(slug);
@@ -27,6 +29,8 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     return {
       title: `${service.service.name} — ZON Services`,
       description: `${service.service.name} service from ZON. ${service.pillar.name} expertise to help your business grow through search, AI, and software.`,
+      alternates: { canonical: `${siteUrl}/${slug}` },
+      openGraph: { title: `${service.service.name} — ZON Services`, description: `${service.service.name} service from ZON. ${service.pillar.name} expertise to help your business grow through search, AI, and software.`, url: `${siteUrl}/${slug}` },
     };
   }
   const solution = getSolution(slug);
@@ -34,6 +38,8 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     return {
       title: `${solution.name} — ZON Solutions`,
       description: solution.description,
+      alternates: { canonical: `${siteUrl}/${slug}` },
+      openGraph: { title: `${solution.name} — ZON Solutions`, description: solution.description, url: `${siteUrl}/${slug}` },
     };
   }
   const industry = getIndustry(slug);
@@ -41,6 +47,8 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     return {
       title: `${industry.name} — ZON Industries`,
       description: industry.shortDesc,
+      alternates: { canonical: `${siteUrl}/${slug}` },
+      openGraph: { title: `${industry.name} — ZON Industries`, description: industry.shortDesc, url: `${siteUrl}/${slug}` },
     };
   }
   const tool = getTool(slug);
@@ -48,6 +56,8 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     return {
       title: `${tool.name} — ZON Free Tools`,
       description: tool.shortDesc,
+      alternates: { canonical: `${siteUrl}/${slug}` },
+      openGraph: { title: `${tool.name} — ZON Free Tools`, description: tool.shortDesc, url: `${siteUrl}/${slug}` },
     };
   }
   const caseStudy = getCaseStudy(slug);
@@ -55,6 +65,8 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     return {
       title: `${caseStudy.client} — ZON Case Study`,
       description: caseStudy.description,
+      alternates: { canonical: `${siteUrl}/${slug}` },
+      openGraph: { title: `${caseStudy.client} — ZON Case Study`, description: caseStudy.description, url: `${siteUrl}/${slug}` },
     };
   }
   return { title: "Not Found" };

@@ -72,6 +72,9 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ShapeGrid from "@/components/ShapeGrid";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedSection from "@/components/RelatedSection";
+import { getBreadcrumbs, getRelatedContent } from "@/data/relations";
 import Link from "next/link";
 import {
   ArrowRight, ArrowLineUpRight, CaretDown, CaretRight,

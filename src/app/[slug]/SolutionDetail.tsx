@@ -3,6 +3,9 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedSection from "@/components/RelatedSection";
+import { getBreadcrumbs, getRelatedContent } from "@/data/relations";
 import {
   Target, Binoculars, Robot, Gear, Code, Rocket, Globe, MapPin,
   ChartLineUp, Lightning, ChartBar, FolderOpen, Handshake,
@@ -1559,6 +1562,9 @@ function LeadsPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<FunnelSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <ToolsShowcase toolSlugs={solution.relevantTools} />
@@ -1572,6 +1578,22 @@ function LeadsPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -1636,6 +1658,9 @@ function SearchVisibilityPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<SERPSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="timeline" />
@@ -1649,6 +1674,22 @@ function SearchVisibilityPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -1712,6 +1753,9 @@ function AIVisibilityPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<NeuralSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="grid" />
@@ -1725,6 +1769,22 @@ function AIVisibilityPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -1789,6 +1849,9 @@ function AutomationPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<PipelineSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <MetricsDashboard metrics={kpiMetrics} />
@@ -1802,6 +1865,22 @@ function AutomationPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -1866,6 +1945,9 @@ function CustomCRMPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<ArchitectureStacksSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="pipeline" />
@@ -1879,6 +1961,22 @@ function CustomCRMPage({ solution }: { solution: SolutionItem }) {
       <ToolsShowcase toolSlugs={solution.relevantTools} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -1943,6 +2041,9 @@ function LaunchProductPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<PhasesSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="timeline" />
@@ -1956,6 +2057,22 @@ function LaunchProductPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -2021,6 +2138,9 @@ function MultiLocationPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<MapSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="pipeline" />
@@ -2034,6 +2154,22 @@ function MultiLocationPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -2098,6 +2234,9 @@ function LocalVisibilityPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<LocalPackSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="cards" />
@@ -2111,6 +2250,22 @@ function LocalVisibilityPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -2175,6 +2330,9 @@ function CROPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<FunnelBarsSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="pipeline" />
@@ -2188,6 +2346,22 @@ function CROPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -2251,6 +2425,9 @@ function ModerniseWebsitePage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<BeforeAfterSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="pipeline" />
@@ -2264,6 +2441,22 @@ function ModerniseWebsitePage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -2328,6 +2521,9 @@ function DataConnectPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<DataSourcesSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="grid" />
@@ -2341,6 +2537,22 @@ function DataConnectPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -2404,6 +2616,9 @@ function ClientPortalPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<PortalUISVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="pipeline" />
@@ -2417,6 +2632,22 @@ function ClientPortalPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }
@@ -2481,6 +2712,9 @@ function ReputationPage({ solution }: { solution: SolutionItem }) {
   return (
     <>
       <HeroSection solution={solution} visual={<ReputationGraphSVG />} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(solution.slug, "solution")} />
+      </div>
       <ProblemSection solution={solution} />
       <OpportunitySection metrics={kpiMetrics} />
       <FrameworkSection process={solution.process} visual="timeline" />
@@ -2494,6 +2728,22 @@ function ReputationPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
+      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
+        getRelatedContent(solution.slug, "solution").services.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
+              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
+              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
     </>
   );
 }

@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedSection from "@/components/RelatedSection";
+import { getBreadcrumbs } from "@/data/relations";
 import {
   ArrowRight,
   LinkedinLogo,
@@ -265,6 +268,20 @@ export function TeamContent() {
             </Link>
           </motion.div>
         </div>
+      </section>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <Breadcrumbs crumbs={getBreadcrumbs("team", "hub")} />
+        <div className="text-center mb-12">
+          <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+          <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">More About ZON</h2>
+        </div>
+        <RelatedSection
+          groups={[
+            { title: "Company", links: [{ label: "About", href: "/about" }, { label: "Careers", href: "/careers" }, { label: "Contact", href: "/contact" }, { label: "Our Work", href: "/work" }] },
+            { title: "Services", links: [{ label: "All Services", href: "/services" }, { label: "SEO Strategy", href: "/seo-strategy" }, { label: "Generative Engine Optimisation", href: "/generative-engine-optimisation" }] },
+            { title: "Solutions", links: [{ label: "All Solutions", href: "/solutions" }, { label: "Improve Search Visibility", href: "/improve-search-visibility" }, { label: "Become Visible in AI Search", href: "/become-visible-in-ai-search" }] },
+          ]}
+        />
       </section>
     </>
   );

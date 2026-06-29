@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedSection from "@/components/RelatedSection";
+import { getBreadcrumbs, getRelatedContent, getTypeForSlug } from "@/data/relations";
 import { ArrowRight, Check, Binoculars, Robot, Lightning, ChartBar, PencilCircle, Code, Gear, MagnifyingGlass, Compass, Airplane, Globe, MapPin, ShoppingCart, Buildings, BookOpenText, ShareNetwork, FileText, ChatCircleDots, Graph, Sun, Target, Rocket, SealCheck, Database, Brain, Eye, Stack, Certificate, Microphone, CurrencyCircleDollar, ChartLineUp, ChartDonut, ArrowsClockwise } from "@phosphor-icons/react";
 import type { PillarData, ServiceItem } from "@/data/services";
 import ShapeGrid from "@/components/ShapeGrid";
@@ -1563,6 +1566,10 @@ function StrategyLayout({ service, pillar, Icon, description, deliverables, faq,
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="approach." />
@@ -1604,6 +1611,27 @@ function StrategyLayout({ service, pillar, Icon, description, deliverables, faq,
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -1645,6 +1673,10 @@ function TechnicalLayout({ service, pillar, Icon, description, deliverables, faq
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
 
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1709,6 +1741,27 @@ function TechnicalLayout({ service, pillar, Icon, description, deliverables, faq
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -1749,6 +1802,10 @@ function ContentLayout({ service, pillar, Icon, description, deliverables, faq, 
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
 
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1791,6 +1848,27 @@ function ContentLayout({ service, pillar, Icon, description, deliverables, faq, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -1828,6 +1906,10 @@ function AuthorityLayout({ service, pillar, Icon, description, deliverables, faq
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
 
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1892,6 +1974,27 @@ function AuthorityLayout({ service, pillar, Icon, description, deliverables, faq
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -1930,6 +2033,10 @@ function SpecializedLayout({ service, pillar, Icon, description, deliverables, f
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="Process" title="Our" accent="process." />
@@ -1951,6 +2058,27 @@ function SpecializedLayout({ service, pillar, Icon, description, deliverables, f
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -1970,6 +2098,10 @@ function DefaultLayout({ service, pillar, Icon, description, deliverables, faq, 
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
 
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2021,6 +2153,27 @@ function DefaultLayout({ service, pillar, Icon, description, deliverables, faq, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2072,6 +2225,10 @@ function GEOCoreLayout({ service, pillar, Icon, description, deliverables, faq, 
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -2113,6 +2270,27 @@ function GEOCoreLayout({ service, pillar, Icon, description, deliverables, faq, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2166,6 +2344,10 @@ function GEOAuditLayout({ service, pillar, Icon, description, deliverables, faq,
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
 
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2230,6 +2412,27 @@ function GEOAuditLayout({ service, pillar, Icon, description, deliverables, faq,
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2270,6 +2473,10 @@ function GEOStructureLayout({ service, pillar, Icon, description, deliverables, 
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
 
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2312,6 +2519,27 @@ function GEOStructureLayout({ service, pillar, Icon, description, deliverables, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2344,6 +2572,10 @@ function GEOAuthorityLayout({ service, pillar, Icon, description, deliverables, 
           </div>
         </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
 
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2386,6 +2618,27 @@ function GEOAuthorityLayout({ service, pillar, Icon, description, deliverables, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2437,6 +2690,10 @@ function PRCampaignLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -2478,6 +2735,27 @@ function PRCampaignLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2529,6 +2807,10 @@ function PRMediaLayout({ service, pillar, Icon, description, deliverables, faq, 
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -2570,6 +2852,27 @@ function PRMediaLayout({ service, pillar, Icon, description, deliverables, faq, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2611,6 +2914,10 @@ function PRPositioningLayout({ service, pillar, Icon, description, deliverables,
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -2652,6 +2959,27 @@ function PRPositioningLayout({ service, pillar, Icon, description, deliverables,
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2685,6 +3013,10 @@ function PRReputationLayout({ service, pillar, Icon, description, deliverables, 
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -2726,6 +3058,27 @@ function PRReputationLayout({ service, pillar, Icon, description, deliverables, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2775,6 +3128,10 @@ function PaidSearchLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -2816,6 +3173,27 @@ function PaidSearchLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2865,6 +3243,10 @@ function PaidDisplayLayout({ service, pillar, Icon, description, deliverables, f
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -2906,6 +3288,27 @@ function PaidDisplayLayout({ service, pillar, Icon, description, deliverables, f
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -2957,6 +3360,10 @@ function PaidStrategyLayout({ service, pillar, Icon, description, deliverables, 
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -2998,6 +3405,27 @@ function PaidStrategyLayout({ service, pillar, Icon, description, deliverables, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3049,6 +3477,10 @@ function PaidOptimisationLayout({ service, pillar, Icon, description, deliverabl
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -3090,6 +3522,27 @@ function PaidOptimisationLayout({ service, pillar, Icon, description, deliverabl
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3139,6 +3592,10 @@ function SocialStrategyLayout({ service, pillar, Icon, description, deliverables
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -3180,6 +3637,27 @@ function SocialStrategyLayout({ service, pillar, Icon, description, deliverables
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3231,6 +3709,10 @@ function ContentCreateLayout({ service, pillar, Icon, description, deliverables,
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -3272,6 +3754,27 @@ function ContentCreateLayout({ service, pillar, Icon, description, deliverables,
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3321,6 +3824,10 @@ function BrandMessagingLayout({ service, pillar, Icon, description, deliverables
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -3362,6 +3869,27 @@ function BrandMessagingLayout({ service, pillar, Icon, description, deliverables
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3413,6 +3941,10 @@ function EmailSystemsLayout({ service, pillar, Icon, description, deliverables, 
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -3454,6 +3986,27 @@ function EmailSystemsLayout({ service, pillar, Icon, description, deliverables, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3505,6 +4058,10 @@ function WebsiteDevLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -3546,6 +4103,27 @@ function WebsiteDevLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3597,6 +4175,10 @@ function EcomCmsLayout({ service, pillar, Icon, description, deliverables, faq, 
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -3638,6 +4220,27 @@ function EcomCmsLayout({ service, pillar, Icon, description, deliverables, faq, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3689,6 +4292,10 @@ function UXAppLayout({ service, pillar, Icon, description, deliverables, faq, pr
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -3730,6 +4337,27 @@ function UXAppLayout({ service, pillar, Icon, description, deliverables, faq, pr
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3781,6 +4409,10 @@ function PerfAccessLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -3822,6 +4454,27 @@ function PerfAccessLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3873,6 +4526,10 @@ function AIStrategyLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -3914,6 +4571,27 @@ function AIStrategyLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -3965,6 +4643,10 @@ function AIAgentsLayout({ service, pillar, Icon, description, deliverables, faq,
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4006,6 +4688,27 @@ function AIAgentsLayout({ service, pillar, Icon, description, deliverables, faq,
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -4057,6 +4760,10 @@ function AIAutomationLayout({ service, pillar, Icon, description, deliverables, 
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4098,6 +4805,27 @@ function AIAutomationLayout({ service, pillar, Icon, description, deliverables, 
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -4149,6 +4877,10 @@ function AIWorkflowLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4190,6 +4922,27 @@ function AIWorkflowLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -4241,6 +4994,10 @@ function SoftwareDevLayout({ service, pillar, Icon, description, deliverables, f
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4282,6 +5039,27 @@ function SoftwareDevLayout({ service, pillar, Icon, description, deliverables, f
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -4333,6 +5111,10 @@ function PlatformToolsLayout({ service, pillar, Icon, description, deliverables,
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4374,6 +5156,27 @@ function PlatformToolsLayout({ service, pillar, Icon, description, deliverables,
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -4423,6 +5226,10 @@ function DashboardsLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4464,6 +5271,27 @@ function DashboardsLayout({ service, pillar, Icon, description, deliverables, fa
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -4515,6 +5343,10 @@ function APIIntegrationsLayout({ service, pillar, Icon, description, deliverable
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4556,6 +5388,27 @@ function APIIntegrationsLayout({ service, pillar, Icon, description, deliverable
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -4605,6 +5458,10 @@ function AnalyticsSetupLayout({ service, pillar, Icon, description, deliverables
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4646,6 +5503,27 @@ function AnalyticsSetupLayout({ service, pillar, Icon, description, deliverables
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -4695,6 +5573,10 @@ function DataDashboardsLayout({ service, pillar, Icon, description, deliverables
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4736,6 +5618,27 @@ function DataDashboardsLayout({ service, pillar, Icon, description, deliverables
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -4785,6 +5688,10 @@ function DataAttributionLayout({ service, pillar, Icon, description, deliverable
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4826,6 +5733,27 @@ function DataAttributionLayout({ service, pillar, Icon, description, deliverable
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );
@@ -4877,6 +5805,10 @@ function DataAuditLayout({ service, pillar, Icon, description, deliverables, faq
         </div>
       </section>
 
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <Breadcrumbs crumbs={getBreadcrumbs(service.slug, "service")} />
+      </div>
+
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeader label="How It Works" title="Our" accent="process." />
@@ -4918,6 +5850,27 @@ function DataAuditLayout({ service, pillar, Icon, description, deliverables, faq
         </div>
       </section>
 
+      {/* Related content */}
+      {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
+        getRelatedContent(service.slug, "service").industries.length > 0 ||
+        getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+              Connected Services & Solutions
+            </h2>
+          </div>
+          <RelatedSection
+            groups={[
+              { title: "Solutions", links: getRelatedContent(service.slug, "service").solutions.slice(0, 6) },
+              { title: "Industries", links: getRelatedContent(service.slug, "service").industries.slice(0, 6) },
+              { title: "Case Studies", links: getRelatedContent(service.slug, "service").caseStudies.slice(0, 4) },
+              { title: "Related Services", links: getRelatedContent(service.slug, "service").services.slice(0, 4) },
+            ]}
+          />
+        </section>
+      )}
       <CTA />
     </>
   );

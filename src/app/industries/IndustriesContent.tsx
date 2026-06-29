@@ -2,6 +2,9 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import RelatedSection from "@/components/RelatedSection";
+import { getBreadcrumbs } from "@/data/relations";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import ShapeGrid from "@/components/ShapeGrid";
 import {
@@ -1785,6 +1788,60 @@ export function IndustriesContent() {
 
       {/* Section 12: CTA */}
       <Section12CTA />
+
+        {/* Hub interlinking */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <Breadcrumbs crumbs={getBreadcrumbs("industries", "hub")} />
+          <div className="text-center mb-12">
+            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
+            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Solutions by Industry</h2>
+            <p className="text-text-secondary text-sm mt-3 max-w-[50ch] mx-auto">
+              See how our services, tools, and solutions apply to your industry.
+            </p>
+          </div>
+          <RelatedSection
+            groups={[
+              {
+                title: "Services",
+                links: [
+                  { label: "SEO Strategy", href: "/seo-strategy" },
+                  { label: "Generative Engine Optimisation", href: "/generative-engine-optimisation" },
+                  { label: "Google Ads", href: "/google-ads" },
+                  { label: "AI Agents & Automation", href: "/ai-agents" },
+                  { label: "All Services", href: "/services" },
+                ],
+              },
+              {
+                title: "Solutions",
+                links: [
+                  { label: "Generate More Qualified Leads", href: "/generate-more-qualified-leads" },
+                  { label: "Improve Search Visibility", href: "/improve-search-visibility" },
+                  { label: "Become Visible in AI Search", href: "/become-visible-in-ai-search" },
+                  { label: "All Solutions", href: "/solutions" },
+                ],
+              },
+              {
+                title: "Tools",
+                links: [
+                  { label: "Local SEO Audit", href: "/local-seo-audit" },
+                  { label: "Website SEO Audit", href: "/seo-audit" },
+                  { label: "GEO Readiness Audit", href: "/geo-readiness" },
+                  { label: "Ads Cost Calculator", href: "/ads-calculator" },
+                  { label: "All Tools", href: "/tools" },
+                ],
+              },
+              {
+                title: "Case Studies",
+                links: [
+                  { label: "Pulse Health — GEO for HealthTech", href: "/pulse-health" },
+                  { label: "Urban Spaces — Real Estate SEO", href: "/urban-spaces" },
+                  { label: "FitSync — SaaS Growth", href: "/fitsync" },
+                  { label: "All Case Studies", href: "/work" },
+                ],
+              },
+            ]}
+          />
+        </section>
     </>
   );
 }
