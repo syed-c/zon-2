@@ -269,14 +269,13 @@ export function WorkContent() {
               </div>
 
               <div>
-                <AnimatePresence mode="popLayout">
+                <AnimatePresence mode="wait">
                   <div className="grid sm:grid-cols-2 gap-4">
                     {filteredByExplorer.map((study, index) => {
                       const Icon = industryIcons[study.industry] || Globe;
                       return (
                         <motion.div
                           key={study.slug}
-                          layout
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.95 }}

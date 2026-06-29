@@ -485,7 +485,7 @@ function Section2Explorer() {
                   {cat.filter.length || solutionData.length} {cat.filter.length === 1 ? "solution" : "solutions"}
                 </span>
                 {activeCategory === i && (
-                  <motion.div className="absolute left-0 top-0 bottom-0 w-0.5 bg-accent rounded-r-full" layoutId="explorerIndicator" />
+                  <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-accent rounded-r-full" />
                 )}
               </motion.button>
             ))}
@@ -493,15 +493,15 @@ function Section2Explorer() {
 
           {/* Right cards */}
           <div className="lg:col-span-9">
-            <AnimatePresence mode="popLayout">
-              <motion.div layout className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
+            <AnimatePresence mode="wait">
+              <motion.div layout={false} className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 {filteredSolutions.map((sol, i) => {
                   const Icon = (iconMap[sol.icon] || Target) as React.ComponentType<any>;
                   const isHovered = hoveredCard === sol.slug;
                   return (
                     <motion.div
                       key={sol.slug}
-                      layout
+                      layout={false}
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
@@ -707,7 +707,7 @@ function Section4Problems() {
             return (
               <motion.div
                 key={p.slug}
-                layout
+                layout={false}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -994,7 +994,7 @@ function Section7Results() {
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Connected solutions produce connected results — every channel feeds the next, every gain multiplies.</p>
         </FadeIn>
 
-        {/* Desktop: Full layout */}
+        {/* Desktop: Full layout={false} */}
         <div className="hidden lg:block">
           <div className="grid grid-cols-4 gap-3 mb-3">
             {metrics.map((m, i) => {
@@ -1016,7 +1016,7 @@ function Section7Results() {
                     </span>
                     <span className="text-[11px] text-[rgba(255,255,255,0.50)] font-mono mt-1 block">{m.sub}</span>
                     {isActive && (
-                      <motion.div className="absolute -bottom-0.5 left-4 right-4 h-px bg-accent/40" layoutId="resultIndicator" />
+                      <div className="absolute -bottom-0.5 left-4 right-4 h-px bg-accent/40" />
                     )}
                   </PanelCard>
                 </motion.div>

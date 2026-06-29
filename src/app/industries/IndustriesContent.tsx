@@ -613,7 +613,7 @@ function Section1Explorer() {
 
           {/* Right preview panel - sticky */}
           <div className="hidden lg:block lg:col-span-6 lg:col-start-7 lg:sticky lg:top-32 lg:h-fit">
-            <AnimatePresence mode="popLayout">
+            <AnimatePresence mode="wait">
               <motion.div
                 key={current.slug}
                 initial={{ opacity: 0, y: 12 }}
@@ -925,7 +925,7 @@ function Section4Dashboard() {
           })}
         </div>
 
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait">
           <motion.div
             key={current.slug}
             initial={{ opacity: 0, y: 12 }}
@@ -1016,7 +1016,7 @@ function Section5Frameworks() {
           })}
         </div>
 
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait">
           {/* Desktop: Timeline flow */}
           <motion.div
             key={`${current.slug}-desktop`}
@@ -1140,7 +1140,7 @@ function Section6Solutions() {
           })}
         </div>
 
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait">
           <motion.div
             key={current.slug}
             initial={{ opacity: 0, y: 12 }}
@@ -1218,7 +1218,7 @@ function Section7Metrics() {
           })}
         </div>
 
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait">
           <motion.div
             key={current.slug}
             initial={{ opacity: 0, y: 12 }}
@@ -1401,7 +1401,7 @@ function Section9Comparison() {
           })}
         </div>
 
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait">
           <motion.div
             key={`${selectedA}-${selectedB}`}
             initial={{ opacity: 0, y: 12 }}

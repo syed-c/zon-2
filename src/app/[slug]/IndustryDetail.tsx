@@ -64,7 +64,7 @@
  * Conventions:
  *   - Tailwind v4 @theme tokens and arbitrary values
  *   - CSS transitions for hover, Framer Motion for mount/unmount
- *   - transform-gpu for performance, AnimatePresence mode="popLayout"
+ *   - transform-gpu for performance, AnimatePresence mode="wait"
  *   - Per-page functions guarantee unique section ordering
  *   - Shared section components accept industry prop for data injection
  */
@@ -1851,15 +1851,14 @@ function ExploreOtherIndustriesSection({ industry }: { industry: IndustryItem })
             </button>
           ))}
         </div>
-        <AnimatePresence mode="popLayout">
-          <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <AnimatePresence mode="wait">
+          <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {filtered.map((ind, i) => {
               const IndIcon = (iconMap[ind.icon] || Target) as React.ComponentType<any>;
               const snap = industrySnapshotData[ind.slug];
               return (
                 <motion.div
                   key={ind.slug}
-                  layout
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
@@ -3420,7 +3419,7 @@ function TestimonialsSection({ industry }: { industry: IndustryItem }) {
         </FadeIn>
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
           <div className="lg:col-span-7">
-            <AnimatePresence mode="popLayout">
+            <AnimatePresence mode="wait">
               {testimonials.map((t, i) => (
                 activeIdx === i && (
                   <motion.div
