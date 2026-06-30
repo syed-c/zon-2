@@ -43,7 +43,7 @@ const testimonials = [
 
 const rotations = ["-2deg", "1.5deg", "-1deg", "2deg", "-1.5deg"];
 
-export default function Testimonials() {
+export default function Testimonials({ isHomePage }: { isHomePage?: boolean } = {}) {
   const [active, setActive] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -59,44 +59,70 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile: horizontal swipe carousel */}
         <div className="lg:hidden">
-          <div
-            ref={scrollRef}
-            onScroll={handleScroll}
-            className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none -mx-4 px-4 gap-4"
-          >
-            {testimonials.map((t) => (
-              <div key={t.name} className="snap-center shrink-0 w-[85vw] max-w-[400px]">
-                <div className="bg-[#181818] border border-accent/25 rounded-[1.25rem] p-6 h-full">
-                  <svg className="w-6 h-6 text-accent/20 mb-3" viewBox="0 0 24 24" fill="currentColor"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" /></svg>
-                  <p className="text-sm text-text-secondary leading-relaxed mb-4">&ldquo;{t.quote}&rdquo;</p>
-                  <div className="flex items-center gap-3 mt-auto">
-                    <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent text-sm font-semibold">
-                      {t.initials}
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-text-primary">{t.name}</div>
-                      <div className="text-xs text-text-secondary">{t.role}</div>
+          {isHomePage ? (
+            <div className="hp-testimonial-card">
+              <svg className="hp-testimonial-quote-icon w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" /></svg>
+              <p className="hp-testimonial-quote">&ldquo;{testimonials[active].quote}&rdquo;</p>
+              <span className="hp-testimonial-author">{testimonials[active].name}</span>
+              <span className="hp-testimonial-role">{testimonials[active].role}</span>
+              <div className="hp-testimonial-stars">
+                {Array.from({ length: testimonials[active].rating }).map((_, i) => (
+                  <span key={i} className="hp-testimonial-star">&#9679;</span>
+                ))}
+              </div>
+              <div className="hp-testimonial-dots">
+                {testimonials.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => { setActive(i); }}
+                    className={`hp-testimonial-dot ${i === active ? "active" : ""}`}
+                    aria-label={`Testimonial ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <>
+              <div
+                ref={scrollRef}
+                onScroll={handleScroll}
+                className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none -mx-4 px-4 gap-4"
+              >
+                {testimonials.map((t) => (
+                  <div key={t.name} className="snap-center shrink-0 w-[85vw] max-w-[400px]">
+                    <div className="bg-[#181818] border border-accent/25 rounded-[1.25rem] p-6 h-full">
+                      <svg className="w-6 h-6 text-accent/20 mb-3" viewBox="0 0 24 24" fill="currentColor"><path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z" /></svg>
+                      <p className="text-sm text-text-secondary leading-relaxed mb-4">&ldquo;{t.quote}&rdquo;</p>
+                      <div className="flex items-center gap-3 mt-auto">
+                        <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent text-sm font-semibold">
+                          {t.initials}
+                        </div>
+                        <div>
+                          <div className="text-sm font-medium text-text-primary">{t.name}</div>
+                          <div className="text-xs text-text-secondary">{t.role}</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className="flex items-center justify-center gap-2 mt-6">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => {
-                  setActive(i);
-                  scrollRef.current?.children[i]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-                }}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  i === active ? "bg-accent w-6" : "bg-accent/25"
-                }`}
-                aria-label={`Testimonial ${i + 1}`}
-              />
-            ))}
-          </div>
+              <div className="flex items-center justify-center gap-2 mt-6">
+                {testimonials.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      setActive(i);
+                      scrollRef.current?.children[i]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+                    }}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      i === active ? "bg-accent w-6" : "bg-accent/25"
+                    }`}
+                    aria-label={`Testimonial ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         {/* Desktop: grid + quote display */}

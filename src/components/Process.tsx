@@ -16,7 +16,7 @@ const steps = [
   { number: "06", title: "Optimise", desc: "Continuous refinement based on performance data. We iterate fast, double down on what works, and cut what does not." },
 ];
 
-export default function Process() {
+export default function Process({ isHomePage }: { isHomePage?: boolean } = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(true);
@@ -66,7 +66,23 @@ export default function Process() {
         </motion.h2>
       </div>
 
-      {isMobile ? (
+      {isHomePage ? (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:hidden">
+          <div className="hp-timeline">
+            {steps.map((step) => (
+              <div key={step.number} className="hp-timeline-step">
+                <span className="hp-timeline-step-num">{step.number}</span>
+                <div className="hp-timeline-step-content">
+                  <span className="hp-timeline-step-title">{step.title}</span>
+                  <p className="hp-timeline-step-desc">{step.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {isMobile && !isHomePage ? (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-3">
             {steps.map((step) => (
@@ -80,7 +96,9 @@ export default function Process() {
             ))}
           </div>
         </div>
-      ) : (
+      ) : null}
+
+      {!isMobile && (
         <div ref={trackRef} className="flex gap-6 px-[calc((100vw-1200px)/2)]" style={{ width: "max-content" }}>
           {steps.map((step) => (
             <div key={step.number} className="process-step min-w-[400px] h-full">

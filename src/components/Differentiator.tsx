@@ -29,7 +29,30 @@ const cards = [
   },
 ];
 
-export default function Differentiator() {
+const systemNodes = [
+  { icon: "S", label: "Search & Organic", desc: "Technical SEO, entity authority, and content that compounds." },
+  { icon: "C", label: "Content & AI", desc: "AI-assisted content systems built for search and reader value." },
+  { icon: "A", label: "Automation & Software", desc: "Custom platforms, AI agents, and workflow automation." },
+  { icon: "M", label: "Media & Conversion", desc: "Paid media, digital PR, and conversion rate optimisation." },
+  { icon: "G", label: "Analytics & Growth", desc: "Real dashboards, attribution, and continuous optimisation." },
+];
+
+function SystemNode({ node, index }: { node: typeof systemNodes[0]; index: number }) {
+  return (
+    <div className="hp-system-node">
+      <div style={{ position: "relative" }}>
+        <div className="hp-system-node-dot" />
+        {index < systemNodes.length - 1 && <div className="hp-system-node-line" />}
+      </div>
+      <div className="hp-system-node-content">
+        <span className="hp-system-node-title">{node.label}</span>
+        <p className="hp-system-node-desc">{node.desc}</p>
+      </div>
+    </div>
+  );
+}
+
+export default function Differentiator({ isHomePage }: { isHomePage?: boolean } = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
@@ -88,7 +111,20 @@ export default function Differentiator() {
             </h2>
           </div>
 
-          <div ref={rightRef} className="lg:col-span-7 space-y-4 lg:space-y-6 relative">
+          {isHomePage && (
+            <div className="lg:hidden w-full">
+              <div className="hp-system-flow">
+                {systemNodes.map((node, i) => (
+                  <SystemNode key={node.label} node={node} index={i} />
+                ))}
+              </div>
+              <div className="hp-system-summary">
+                Each capability feeds the next, creating one measurable growth system.
+              </div>
+            </div>
+          )}
+
+          <div ref={rightRef} className={`lg:col-span-7 space-y-4 lg:space-y-6 relative ${isHomePage ? "hidden lg:block" : ""}`}>
             {cards.map((card) => (
               <div key={card.number} className="diff-card">
                 <div className="double-bezel">

@@ -383,7 +383,40 @@ function StaggeredHeadline() {
 /*  Main Hero Section                                                  */
 /* ------------------------------------------------------------------ */
 
-export default function Hero() {
+function HeroMobileVisual() {
+  const bars = Array.from({ length: 8 });
+  return (
+    <div className="hero-mobile-visual lg:hidden">
+      <div className="hero-mobile-visual-inner">
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-[10px] text-[#8A8480] tracking-wide">Organic Traffic</span>
+          <span className="font-mono text-[17px] font-semibold text-accent">47.3%</span>
+        </div>
+        <div className="hero-mobile-sparkline">
+          {bars.map((_, i) => (
+            <div key={i} className="hero-mobile-sparkline-dot" style={{ height: `${30 + Math.random() * 70}%`, flex: 1 }} />
+          ))}
+        </div>
+      </div>
+      <div className="hero-mobile-metrics-row">
+        <div className="hero-mobile-metric-chip">
+          <span className="hero-mobile-metric-chip-value">98%</span>
+          <span className="hero-mobile-metric-chip-label">Lighthouse</span>
+        </div>
+        <div className="hero-mobile-metric-chip">
+          <span className="hero-mobile-metric-chip-value">2.8x</span>
+          <span className="hero-mobile-metric-chip-label">Conversion</span>
+        </div>
+        <div className="hero-mobile-metric-chip">
+          <span className="hero-mobile-metric-chip-value">3.2x</span>
+          <span className="hero-mobile-metric-chip-label">Content vel.</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Hero({ isHomePage }: { isHomePage?: boolean } = {}) {
   return (
     <section className="relative min-h-[100dvh] bg-ground flex items-center overflow-hidden" id="hero">
       {/* Background layers */}
@@ -471,6 +504,8 @@ export default function Hero() {
                 See our work
               </Link>
             </motion.div>
+
+            {isHomePage && <HeroMobileVisual />}
           </div>
 
           {/* Right column — Metric Constellation (desktop only) */}

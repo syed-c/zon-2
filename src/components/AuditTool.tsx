@@ -11,7 +11,7 @@ const auditCategories = [
   { label: "Performance", bars: 4 },
 ];
 
-export default function AuditTool() {
+export default function AuditTool({ isHomePage }: { isHomePage?: boolean } = {}) {
   const [url, setUrl] = useState("");
   const [scanning, setScanning] = useState(false);
   const [scanned, setScanned] = useState(false);
@@ -47,18 +47,18 @@ export default function AuditTool() {
             </p>
 
             <form onSubmit={handleSubmit} className="mb-4">
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-0">
+              <div className={`${isHomePage ? "hp-audit-form-stacked lg:flex lg:flex-row" : "flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-0"}`}>
                 <input
                   type="url"
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="Enter your website URL"
-                  className="flex-1 bg-surface-alt border border-[#F2EDE6]/8 rounded-full sm:rounded-r-none px-5 sm:px-6 py-3.5 sm:py-4 text-text-primary placeholder:text-text-secondary outline-none focus:outline-[#D4A849] focus:outline-2 focus:outline-offset-0 text-sm transition-all"
+                  className={`${isHomePage ? "hp-audit-input lg:bg-surface-alt lg:border lg:border-[#F2EDE6]/8 lg:rounded-full lg:rounded-r-none lg:px-5 lg:px-6 lg:py-4 lg:text-text-primary" : "flex-1 bg-surface-alt border border-[#F2EDE6]/8 rounded-full sm:rounded-r-none px-5 sm:px-6 py-3.5 sm:py-4 text-text-primary placeholder:text-text-secondary outline-none focus:outline-[#D4A849] focus:outline-2 focus:outline-offset-0 text-sm transition-all"}`}
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-accent text-ground px-6 py-3.5 sm:py-4 rounded-full sm:rounded-l-none font-medium text-sm active:scale-[0.98] transition-transform duration-150 hover:brightness-105 flex items-center justify-center gap-2 z-10"
+                  className={`${isHomePage ? "hp-audit-btn lg:bg-accent lg:text-ground lg:px-6 lg:py-4 lg:rounded-full lg:rounded-l-none lg:font-medium lg:text-sm" : "bg-accent text-ground px-6 py-3.5 sm:py-4 rounded-full sm:rounded-l-none font-medium text-sm active:scale-[0.98] transition-transform duration-150 hover:brightness-105 flex items-center justify-center gap-2 z-10"}`}
                 >
                   {scanning ? "Scanning..." : "Audit"}
                   <ArrowRight size={14} weight="bold" />
@@ -66,11 +66,32 @@ export default function AuditTool() {
               </div>
             </form>
 
-            <div className="flex gap-4 text-[11px] text-text-secondary tracking-wide">
+            <div className="hp-audit-trust lg:flex lg:gap-4 lg:text-[11px] lg:text-text-secondary lg:tracking-wide">
               <span>&#10003; Free</span>
               <span>&#10003; No signup</span>
               <span>&#10003; Instant results</span>
             </div>
+
+            {isHomePage && (
+              <div className="hp-audit-preview-grid lg:hidden">
+                <div className="hp-audit-preview-item">
+                  <span className="hp-audit-preview-dot" />
+                  <span className="hp-audit-preview-text">Technical foundation</span>
+                </div>
+                <div className="hp-audit-preview-item">
+                  <span className="hp-audit-preview-dot" />
+                  <span className="hp-audit-preview-text">Search visibility</span>
+                </div>
+                <div className="hp-audit-preview-item">
+                  <span className="hp-audit-preview-dot" />
+                  <span className="hp-audit-preview-text">AI discoverability</span>
+                </div>
+                <div className="hp-audit-preview-item">
+                  <span className="hp-audit-preview-dot" />
+                  <span className="hp-audit-preview-text">Content authority</span>
+                </div>
+              </div>
+            )}
           </motion.div>
 
           <motion.div

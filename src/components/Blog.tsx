@@ -34,7 +34,7 @@ const posts = [
   },
 ];
 
-export default function Blog() {
+export default function Blog({ isHomePage }: { isHomePage?: boolean } = {}) {
   const featured = posts[0];
   const rest = posts.slice(1);
 
@@ -51,7 +51,31 @@ export default function Blog() {
           Latest thinking from our team.
         </motion.h2>
 
-        <div className="space-y-6">
+        {isHomePage && (
+          <div className="lg:hidden space-y-6 mb-6">
+            <div className="hp-blog-featured-card">
+              <div className="hp-blog-featured-image" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=75)" }} />
+              <div className="hp-blog-featured-body">
+                <span className="hp-blog-featured-category">{featured.category}</span>
+                <span className="hp-blog-featured-title">{featured.title}</span>
+                <p className="hp-blog-featured-desc">{featured.excerpt}</p>
+                <span className="hp-blog-featured-link">Read <ArrowRight size={12} weight="bold" /></span>
+              </div>
+            </div>
+            <div className="hp-blog-secondary-scroll">
+              {rest.map((post) => (
+                <div key={post.title} className="hp-blog-secondary-card">
+                  <span className="hp-blog-secondary-category">{post.category}</span>
+                  <span className="hp-blog-secondary-title">{post.title}</span>
+                  <span className="hp-blog-secondary-meta">{post.date}</span>
+                </div>
+              ))}
+            </div>
+            <span className="hp-blog-view-all">View all insights <ArrowRight size={12} weight="bold" /></span>
+          </div>
+        )}
+
+        <div className={`space-y-6 ${isHomePage ? "hidden lg:block" : ""}`}>
           <motion.div
             initial={{ y: 32, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}

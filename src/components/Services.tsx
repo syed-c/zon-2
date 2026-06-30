@@ -118,7 +118,24 @@ function ServiceCard({ service }: { service: typeof services[0] }) {
   );
 }
 
-export default function Services() {
+function MobileServiceCard({ service, featured }: { service: typeof services[0]; featured?: boolean }) {
+  const Icon = service.icon;
+  return (
+    <div className={featured ? "hp-services-featured" : ""}>
+      <div className="hp-service-card">
+        <div className="hp-service-card-icon">
+          <Icon size={18} weight="light" />
+        </div>
+        <span className="hp-service-card-category">{service.category}</span>
+        <span className="hp-service-card-name">{service.name}</span>
+        <p className="hp-service-card-desc">{service.desc}</p>
+        <span className="hp-service-card-metric">{service.metric}</span>
+      </div>
+    </div>
+  );
+}
+
+export default function Services({ isHomePage }: { isHomePage?: boolean } = {}) {
   return (
     <section className="py-16 sm:py-20 lg:py-32 bg-ground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -132,12 +149,25 @@ export default function Services() {
           Every capability a growth-obsessed business requires.
         </motion.h2>
 
+        {isHomePage ? (
+          <div className="lg:hidden">
+            <MobileServiceCard service={services[0]} featured />
+            <div className="hp-services-carousel-wrap">
+              <div className="hp-services-carousel">
+                {services.slice(1).map((s) => (
+                  <MobileServiceCard key={s.name} service={s} />
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : null}
+
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 auto-rows-auto grid-flow-dense"
+          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 auto-rows-auto grid-flow-dense ${isHomePage ? "hidden lg:grid" : ""}`}
         >
           <div className="sm:col-span-2 row-span-1">
             <ServiceCard service={services[0]} />

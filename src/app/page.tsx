@@ -8,21 +8,24 @@ import Process from "@/components/Process";
 import Testimonials from "@/components/Testimonials";
 import Blog from "@/components/Blog";
 import CTA from "@/components/CTA";
+import ProofStrip from "@/components/ProofStrip";
+import FeaturedCaseStudy from "@/components/FeaturedCaseStudy";
 
 export default function Home() {
   return (
-    <>
-      <Hero />
-      <MarqueeTicker />
-      <Services />
-      <AuditTool />
-      <CaseStudies />
-      <Differentiator />
-      <Process />
-      <Testimonials />
-      <Blog />
-      <CTA />
-      {/* . */}
-    </>
+    <div className="home-page">
+      <Hero isHomePage />
+      <div className="hp-marquee"><MarqueeTicker /></div>
+      <div className="hp-proof-strip lg:hidden"><ProofStrip /></div>
+      <Services isHomePage />
+      <AuditTool isHomePage />
+      <CaseStudies isHomePage />
+      <Differentiator isHomePage />
+      <Process isHomePage />
+      <div className="hp-featured-case-study lg:hidden"><FeaturedCaseStudy /></div>
+      <Testimonials isHomePage />
+      <Blog isHomePage />
+      <CTA isHomePage />
+    </div>
   );
 }
