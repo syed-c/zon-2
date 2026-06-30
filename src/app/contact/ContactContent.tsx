@@ -31,6 +31,7 @@ import {
   CurrencyCircleDollar,
 } from "@phosphor-icons/react";
 import ShapeGrid from "@/components/ShapeGrid";
+import LeadIntelligenceEngine, { LeadEngineTrigger } from "@/components/LeadIntelligenceEngine";
 
 const ease = [0.32, 0.72, 0, 1] as const;
 
@@ -225,7 +226,7 @@ const faqs = [
 
 /* ─── HERO ─── */
 
-function HeroSection() {
+function HeroSection({ onStartAssessment }: { onStartAssessment?: () => void }) {
   return (
     <section className="relative pt-36 pb-24 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
@@ -246,6 +247,19 @@ function HeroSection() {
           <p className="text-lg text-text-secondary/80 leading-relaxed max-w-[55ch]">
             Tell us about your business and we&apos;ll show you exactly how search, AI, and software can drive measurable revenue. No fluff. No pressure. Just a clear path forward.
           </p>
+        </FadeUp>
+        <FadeUp delay={0.15}>
+          <div className="flex flex-wrap items-center gap-4 mt-8">
+            {onStartAssessment && (
+              <LeadEngineTrigger onClick={onStartAssessment} label="Start Assessment" />
+            )}
+            <a
+              href="mailto:hello@zon.agency"
+              className="text-sm text-text-secondary/50 underline underline-offset-4 hover:text-text-primary transition-colors duration-200"
+            >
+              Or email us directly
+            </a>
+          </div>
         </FadeUp>
       </div>
     </section>
@@ -899,7 +913,7 @@ function FAQSection() {
 
 /* ─── SECTION 9: Premium CTA ─── */
 
-function CTASection() {
+function CTASection({ onStartAssessment }: { onStartAssessment?: () => void }) {
   return (
     <section className="py-28 lg:py-32 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 0%, rgba(212,168,73,0.06), transparent)" }} />
@@ -942,15 +956,9 @@ function CTASection() {
           transition={{ duration: 0.7, delay: 0.1, ease }}
           className="flex flex-wrap items-center justify-center gap-6"
         >
-          <Link
-            href="#consultation"
-            className="group inline-flex items-center gap-2 bg-accent text-ground pl-8 pr-3 py-3 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150 shadow-[0_0_30px_rgba(212,168,73,0.15)] hover:shadow-[0_0_40px_rgba(212,168,73,0.25)]"
-          >
-            Start Your Consultation
-            <span className="w-8 h-8 rounded-full bg-ground/10 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-px">
-              <ArrowRight size={14} weight="bold" />
-            </span>
-          </Link>
+          {onStartAssessment && (
+            <LeadEngineTrigger onClick={onStartAssessment} label="Start Assessment" />
+          )}
           <a
             href="mailto:hello@zon.agency"
             className="text-text-secondary/50 underline underline-offset-4 hover:text-text-primary text-sm transition-colors duration-200"
@@ -966,9 +974,11 @@ function CTASection() {
 /* ─── MAIN EXPORT ─── */
 
 export function ContactContent() {
+  const [engineOpen, setEngineOpen] = useState(false);
   return (
     <>
-      <HeroSection />
+      <LeadIntelligenceEngine open={engineOpen} onOpenChange={setEngineOpen} />
+      <HeroSection onStartAssessment={() => setEngineOpen(true)} />
       <ConsultationSection />
       <JourneySection />
       <ProcessSection />
@@ -976,7 +986,7 @@ export function ContactContent() {
       <GlobalSection />
       <TrustSection />
       <FAQSection />
-      <CTASection />
+      <CTASection onStartAssessment={() => setEngineOpen(true)} />
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <Breadcrumbs crumbs={getBreadcrumbs("contact", "hub")} />
         <div className="text-center mb-12">
