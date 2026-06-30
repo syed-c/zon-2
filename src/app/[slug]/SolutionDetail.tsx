@@ -778,7 +778,7 @@ function FAQSection({ items }: { items: { q: string; a: string }[] }) {
                     {isOpen ? <X size={10} className="text-accent/80" /> : <Plus size={10} className="text-accent/60" />}
                   </div>
                 </button>
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {isOpen && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}

@@ -89,7 +89,7 @@ export default function Process() {
                     &#709;
                   </motion.span>
                 </div>
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {openStep === Number(step.number) && (
                     <motion.p
                       initial={{ height: 0, opacity: 0 }}

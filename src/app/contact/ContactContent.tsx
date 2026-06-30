@@ -871,7 +871,7 @@ function FAQSection() {
                       <CaretDown size={14} className="text-accent/60" />
                     </motion.div>
                   </button>
-                  <AnimatePresence>
+                  <AnimatePresence mode="wait">
                     {openIndex === i && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}

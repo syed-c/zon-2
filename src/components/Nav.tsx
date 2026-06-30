@@ -65,7 +65,7 @@ export default function Nav() {
         </button>
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0 }}

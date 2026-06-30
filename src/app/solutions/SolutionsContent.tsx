@@ -598,7 +598,7 @@ function Section3Featured() {
                     </div>
                     <p className="text-sm text-text-secondary leading-relaxed max-w-[52ch] mb-6">{sol.description}</p>
 
-                    <AnimatePresence>
+                    <AnimatePresence mode="wait">
                       {isExpanded && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
@@ -805,7 +805,7 @@ function Section5Architecture() {
           >
             <ArchitectureIllo activeNode={activeNode} onNodeHover={setActiveNode} />
           </motion.div>
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             {activeNode !== null && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -831,7 +831,7 @@ function Section5Architecture() {
                 <span className="text-sm font-medium text-white">{item.label}</span>
                 {mobileAccordion === i ? <CaretDown size={14} className="text-accent/60" /> : <CaretRight size={14} className="text-text-secondary/40" />}
               </button>
-              <AnimatePresence>
+              <AnimatePresence mode="wait">
                 {mobileAccordion === i && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
@@ -899,7 +899,7 @@ function Section6Industries() {
                     <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <Icon size={28} className={`mx-auto mb-3 transition-all duration-500 ${isHovered ? "text-accent scale-110" : "text-text-secondary/50"}`} />
                     <span className={`text-sm font-medium transition-colors duration-300 ${isHovered ? "text-accent" : "text-white"}`}>{ind.name}</span>
-                    <AnimatePresence>
+                    <AnimatePresence mode="wait">
                       {isHovered && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
@@ -946,7 +946,7 @@ function Section6Industries() {
                   <Icon size={22} className={`mx-auto mb-2 transition-colors duration-300 ${isExpanded ? "text-accent" : "text-text-secondary/50"}`} />
                   <span className={`text-xs font-medium ${isExpanded ? "text-accent" : "text-white"}`}>{ind.name}</span>
                 </button>
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {isExpanded && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}

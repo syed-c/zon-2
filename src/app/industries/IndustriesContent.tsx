@@ -586,7 +586,7 @@ function Section1Explorer() {
                       <span className={`text-sm flex-1 ${mobileOpen === i ? "text-accent" : "text-text-secondary"}`}>{ind.name}</span>
                       {mobileOpen === i ? <CaretDown size={12} className="text-accent/60" /> : <CaretRight size={12} className="text-text-secondary/40" />}
                     </button>
-                    <AnimatePresence>
+                    <AnimatePresence mode="wait">
                       {mobileOpen === i && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
@@ -1528,7 +1528,7 @@ function Section10Navigator() {
         </div>
 
         {/* Preview panel - shows below grid */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {selectedIdx !== null && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
