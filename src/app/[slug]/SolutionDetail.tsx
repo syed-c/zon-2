@@ -1,11 +1,10 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import RelatedSection from "@/components/RelatedSection";
-import { getBreadcrumbs, getRelatedContent } from "@/data/relations";
+import { getBreadcrumbs } from "@/data/relations";
 import {
   Target, Binoculars, Robot, Gear, Code, Rocket, Globe, MapPin,
   ChartLineUp, Lightning, ChartBar, FolderOpen, Handshake,
@@ -539,7 +538,7 @@ function ExploreOtherNavigator({ currentSlug }: { currentSlug: string }) {
   };
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={"explore-" + currentSlug} />
         <BgRadial position="br" />
@@ -551,7 +550,7 @@ function ExploreOtherNavigator({ currentSlug }: { currentSlug: string }) {
           accent="fit."
           desc="Every solution is a connected system. Choose another path to explore."
         />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           {others.map((sol, i) => {
             const Icon = (iconMap[sol.icon] || Target) as React.ComponentType<any>;
             const isHovered = hoveredCard === sol.slug;
@@ -567,9 +566,9 @@ function ExploreOtherNavigator({ currentSlug }: { currentSlug: string }) {
               >
                 <Link href={"/" + sol.slug} className="group block h-full">
                   <motion.div
-                    className="relative h-full bg-[#181818] border border-accent/25 rounded-[1.25rem] p-5 transition-all duration-500 overflow-hidden"
+                    className="relative h-full bg-[#181818] border border-accent/25 rounded-[1.25rem] p-4 lg:p-5 transition-all duration-500 overflow-hidden"
                     animate={{ y: isHovered ? -6 : 0 }}
-                    style={{ boxShadow: isHovered ? "0 12px 40px rgba(212,168,73,0.06)" : "0 2px 12px rgba(0,0,0,0.15)" }}
+                    style={{ minHeight: 56, boxShadow: isHovered ? "0 12px 40px rgba(212,168,73,0.06)" : "0 2px 12px rgba(0,0,0,0.15)" }}
                   >
                     {isHovered && (
                       <motion.div
@@ -621,7 +620,7 @@ function MetricsDashboard({ metrics }: {
   const [activeMetric, setActiveMetric] = useState<number | null>(null);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={"metrics-" + (metrics[0]?.label || "default")} />
         <BgRadial position="center" />
@@ -640,13 +639,13 @@ function MetricsDashboard({ metrics }: {
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.3 }}
               >
-                <PanelCard className={"p-5 lg:p-6 transition-all duration-500 " + (isActive ? "border-accent/60" : "")}>
-                  <Icon size={16} className="text-accent mb-3" />
-                  <span className="text-[10px] font-mono text-[rgba(255,255,255,0.60)] tracking-wider uppercase block mb-1">{m.label}</span>
-                  <span className="font-display text-[clamp(1.6rem,2.5vw,2.2rem)] font-semibold text-accent leading-none block">
+                <PanelCard className={"p-4 lg:p-6 transition-all duration-500 " + (isActive ? "border-accent/60" : "")}>
+                  <Icon size={14} className="text-accent mb-2 lg:mb-3" />
+                  <span className="text-[9px] lg:text-[10px] font-mono text-[rgba(255,255,255,0.60)] tracking-wider uppercase block mb-1">{m.label}</span>
+                  <span className="font-display text-[clamp(1.4rem,4vw,2.2rem)] font-semibold text-accent leading-none block">
                     <AnimatedCounter target={parseInt(m.value)} />{m.suffix}
                   </span>
-                  <span className="text-[11px] text-[rgba(255,255,255,0.50)] font-mono mt-1 block">{m.sub}</span>
+                  <span className="text-[10px] lg:text-[11px] text-[rgba(255,255,255,0.50)] font-mono mt-1 block leading-tight">{m.sub}</span>
                 </PanelCard>
               </motion.div>
             );
@@ -667,7 +666,7 @@ function TimelineSection({ steps, label = "Timeline", title = "Your", accent = "
   const [activeStep, setActiveStep] = useState<number | null>(null);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={"timeline-" + (steps[0]?.week || "default")} />
         <BgRadial position="bl" />
@@ -716,30 +715,40 @@ function TimelineSection({ steps, label = "Timeline", title = "Your", accent = "
           </div>
         </div>
 
-        <div className="lg:hidden space-y-3">
-          {steps.map((step, i) => {
-            const isActive = activeStep === i;
-            return (
-              <motion.div
-                key={step.week}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.04, ease }}
-                onMouseEnter={() => setActiveStep(i)}
-                onMouseLeave={() => setActiveStep(null)}
-              >
-                <div className={"bg-[#181818] border rounded-xl p-4 transition-all duration-500 " + (isActive ? "border-accent/50" : "border-accent/20")}>
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className={"font-mono text-[11px] transition-colors duration-300 " + (isActive ? "text-accent" : "text-text-secondary/50")}>{step.week}</span>
-                    <div className={"w-2 h-2 rounded-full transition-colors duration-300 " + (isActive ? "bg-accent" : "bg-accent/30")} />
-                  </div>
-                  <h4 className="text-sm font-medium text-white mb-1">{step.title}</h4>
-                  <p className="text-xs text-text-secondary leading-relaxed">{step.desc}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+        <div className="lg:hidden relative">
+          <div className="absolute top-0 bottom-0 left-[21px] w-px bg-gradient-to-b from-accent/0 via-accent/20 to-accent/0" />
+          <div className="space-y-8">
+            {steps.map((step, i) => {
+              const isActive = activeStep === i;
+              return (
+                <motion.div
+                  key={step.week}
+                  className="flex items-start gap-4 group"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.08, ease }}
+                >
+                  <motion.div
+                    className="relative z-10 shrink-0"
+                    animate={{ scale: isActive ? 1.2 : 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className={"w-[42px] h-[42px] rounded-full border-2 flex items-center justify-center transition-all duration-500 " + (isActive ? "bg-accent/20 border-accent/70 shadow-lg shadow-accent/10" : "bg-[#181818] border-accent/30")}>
+                      <span className={"font-mono text-[10px] transition-colors duration-300 " + (isActive ? "text-accent" : "text-text-secondary/50")}>{step.week}</span>
+                    </div>
+                  </motion.div>
+                  <motion.div
+                    className={"flex-1 bg-[#181818] border rounded-xl p-4 transition-all duration-500 " + (isActive ? "border-accent/50 shadow-lg" : "border-accent/20")}
+                    animate={{ y: isActive ? -2 : 0 }}
+                  >
+                    <h4 className="text-sm font-medium text-white mb-1">{step.title}</h4>
+                    <p className="text-xs text-text-secondary leading-relaxed">{step.desc}</p>
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
@@ -750,7 +759,7 @@ function FAQSection({ items }: { items: { q: string; a: string }[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={"faq-" + (items[0]?.q?.slice(0, 10) || "default")} />
         <BgRadial position="tl" />
@@ -772,18 +781,17 @@ function FAQSection({ items }: { items: { q: string; a: string }[] }) {
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : i)}
                   className="w-full flex items-center justify-between p-4 lg:p-5 text-left"
+                  style={{ minHeight: 56 }}
                 >
-                  <span className="text-sm font-medium text-white pr-4">{item.q}</span>
-                  <div className={"shrink-0 w-6 h-6 rounded-full border border-accent/30 flex items-center justify-center transition-all duration-300 " + (isOpen ? "bg-accent/20 border-accent/60" : "")}>
-                    {isOpen ? <X size={10} className="text-accent/80" /> : <Plus size={10} className="text-accent/60" />}
+                  <span className="text-sm font-medium text-white pr-4 leading-snug">{item.q}</span>
+                  <div className={"shrink-0 w-7 h-7 rounded-full border border-accent/30 flex items-center justify-center transition-all duration-300 " + (isOpen ? "bg-accent/20 border-accent/60" : "")}>
+                    {isOpen ? <X size={11} className="text-accent/80" /> : <Plus size={11} className="text-accent/60" />}
                   </div>
                 </button>
-                <AnimatePresence mode="wait">
                   {isOpen && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease }}
                       className="overflow-hidden"
                     >
@@ -791,9 +799,8 @@ function FAQSection({ items }: { items: { q: string; a: string }[] }) {
                         <p className="text-xs lg:text-sm text-text-secondary leading-relaxed">{item.a}</p>
                       </div>
                     </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                    )}
+                </motion.div>
             );
           })}
         </div>
@@ -804,14 +811,14 @@ function FAQSection({ items }: { items: { q: string; a: string }[] }) {
 
 function DeliverablesGrid({ items }: { items: { title: string; desc: string; icon: string }[] }) {
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={"deliverables-" + (items[0]?.title || "default")} />
         <BgRadial position="tr" />
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeader label="Deliverables" title="What you" accent="receive." desc="Every engagement comes with a complete set of deliverables." />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
           {items.map((item, i) => {
             const Icon = (iconMap[item.icon] || Target) as React.ComponentType<any>;
             return (
@@ -823,10 +830,10 @@ function DeliverablesGrid({ items }: { items: { title: string; desc: string; ico
                 transition={{ duration: 0.5, delay: i * 0.04, ease }}
                 whileHover={{ y: -4 }}
               >
-                <PanelCard className="p-5 lg:p-6 h-full group">
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors duration-300">
-                      <Icon size={18} className="text-accent" />
+                <PanelCard className="p-4 lg:p-6 h-full group">
+                  <div className="flex flex-col lg:flex-row items-start gap-3">
+                    <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-colors duration-300">
+                      <Icon size={16} className="text-accent" />
                     </div>
                     <div>
                       <h3 className="text-sm font-medium text-white mb-1">{item.title}</h3>
@@ -845,7 +852,7 @@ function DeliverablesGrid({ items }: { items: { title: string; desc: string; ico
 
 function IndustriesGrid({ industries }: { industries: { name: string; icon: string; desc: string }[] }) {
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={"industries-" + (industries[0]?.name || "default")} />
         <BgRadial position="bl" />
@@ -884,7 +891,7 @@ function ConnectedServicesFlow({ services }: { services: { name: string; desc: s
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={"connected-" + (services[0]?.name || "default")} />
         <BgRadial position="center" />
@@ -929,26 +936,35 @@ function ConnectedServicesFlow({ services }: { services: { name: string; desc: s
             })}
           </div>
 
-          <div className="lg:hidden overflow-x-auto snap-x snap-mandatory scrollbar-none -mx-4 px-4">
-            <div className="flex gap-4 w-max">
-              {services.map((svc, i) => (
-                <motion.div
-                  key={svc.name}
-                  className="snap-center w-[220px] shrink-0"
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.04, ease }}
-                >
-                  <PanelCard className="p-4">
-                    <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center mb-2">
-                      <span className="text-xs font-mono text-accent">{String(i + 1).padStart(2, "0")}</span>
+          <div className="lg:hidden relative">
+            <div className="absolute top-0 bottom-0 left-[21px] w-px bg-gradient-to-b from-accent/0 via-accent/25 to-accent/0" />
+            <div className="space-y-6">
+              {services.map((svc, i) => {
+                const isLast = i === services.length - 1;
+                return (
+                  <motion.div
+                    key={svc.name}
+                    className="flex items-start gap-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.08, ease }}
+                  >
+                    <motion.div className="relative z-10 shrink-0"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="w-[42px] h-[42px] rounded-full border-2 border-accent/40 bg-[#181818] flex items-center justify-center">
+                        <span className="text-xs font-mono text-accent">{String(i + 1).padStart(2, "0")}</span>
+                      </div>
+                    </motion.div>
+                    <div className={"flex-1 bg-[#181818] border border-accent/25 rounded-xl p-4 transition-all duration-300 hover:border-accent/50 " + (isLast ? "" : "mb-0")}>
+                      <h4 className="text-sm font-medium text-white mb-1">{svc.name}</h4>
+                      <p className="text-xs text-text-secondary leading-relaxed">{svc.desc}</p>
                     </div>
-                    <h4 className="text-xs font-medium text-white mb-1">{svc.name}</h4>
-                    <p className="text-[10px] text-text-secondary leading-relaxed">{svc.desc}</p>
-                  </PanelCard>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -982,7 +998,7 @@ function ToolsShowcase({ toolSlugs }: { toolSlugs: string[] }) {
       ];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={"tools-" + (toolSlugs[0] || "generic")} />
         <BgRadial position="tr" />
@@ -1022,7 +1038,7 @@ function ToolsShowcase({ toolSlugs }: { toolSlugs: string[] }) {
 function CaseStudyPreviews({ caseStudies: studies }: { caseStudies: { client: string; result: string; desc: string }[] }) {
   if (studies.length === 0) return null;
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="casestudies" />
         <BgRadial position="br" />
@@ -1059,7 +1075,7 @@ function CaseStudyPreviews({ caseStudies: studies }: { caseStudies: { client: st
 function InsightsSection({ insights }: { insights: { title: string; tag: string; readTime: string; excerpt: string }[] }) {
   if (insights.length === 0) return null;
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="insights" />
         <BgRadial position="bl" />
@@ -1139,7 +1155,7 @@ function HeroSection({ solution, visual }: { solution: SolutionItem; visual: Rea
   const Icon = (iconMap[solution.icon] || Target) as React.ComponentType<any>;
 
   return (
-    <section className="relative pt-36 pb-20 lg:pb-28 bg-ground overflow-hidden">
+    <section className="relative pt-32 pb-16 lg:pt-36 lg:pb-28 bg-ground overflow-hidden">
       <div className="absolute inset-0">
         <BgGrid id={"hero-" + solution.slug} />
         <BgRadial position="center" />
@@ -1167,7 +1183,7 @@ function HeroSection({ solution, visual }: { solution: SolutionItem; visual: Rea
               </div>
             </motion.div>
             <motion.h1
-              className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.03em] leading-[0.95] text-text-primary"
+              className="font-display font-semibold text-[clamp(2.4rem,6vw,4rem)] tracking-[-0.03em] leading-[0.95] text-text-primary"
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.12, ease }}
@@ -1175,7 +1191,7 @@ function HeroSection({ solution, visual }: { solution: SolutionItem; visual: Rea
               {solution.name}
             </motion.h1>
             <motion.p
-              className="text-text-secondary leading-relaxed max-w-[55ch] mt-5 text-sm lg:text-base"
+              className="text-text-secondary leading-relaxed mt-4 lg:mt-5 text-sm lg:text-base"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.18, ease }}
@@ -1183,7 +1199,7 @@ function HeroSection({ solution, visual }: { solution: SolutionItem; visual: Rea
               {solution.description}
             </motion.p>
             <motion.div
-              className="flex flex-wrap items-center gap-3 mt-8"
+              className="flex flex-wrap items-center gap-3 mt-6 lg:mt-8"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.22, ease }}
@@ -1193,14 +1209,14 @@ function HeroSection({ solution, visual }: { solution: SolutionItem; visual: Rea
             </motion.div>
           </div>
           <motion.div
-            className="hidden lg:block lg:col-span-4 lg:col-start-9"
+            className="lg:col-span-4 lg:col-start-9 mt-8 lg:mt-0"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.2, ease }}
           >
-            <div className="relative">
+            <div className="relative max-w-[280px] lg:max-w-none mx-auto lg:mx-0">
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-accent/[0.03] rounded-2xl border border-accent/15" />
-              <div className="relative bg-[#181818] border border-accent/25 rounded-[1.5rem] p-4">
+              <div className="relative bg-[#181818] border border-accent/25 rounded-[1.5rem] p-3 lg:p-4">
                 {visual}
               </div>
             </div>
@@ -1237,7 +1253,7 @@ function ProblemSection({ solution }: { solution: SolutionItem }) {
           </div>
           <div className="lg:col-span-4 lg:col-start-9">
             <FadeIn delay={0.1}>
-              <div className="bg-[#181818] border border-accent/25 rounded-[1.5rem] p-6 lg:p-8">
+              <div className="bg-[#181818] border border-accent/25 rounded-[1.5rem] p-5 sm:p-6 lg:p-8">
                 <h3 className="font-display text-lg font-medium text-text-primary mb-6">Root Causes</h3>
                 <div className="space-y-4">
                   {solution.symptoms.slice(0, 4).map((symptom, i) => (
@@ -1271,7 +1287,7 @@ function ProblemSection({ solution }: { solution: SolutionItem }) {
 
 function OpportunitySection({ metrics }: { metrics: { label: string; value: string; suffix: string; sub: string; icon: string }[] }) {
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="opportunity" />
         <BgRadial position="br" />
@@ -1314,7 +1330,7 @@ function FrameworkSection({ process, visual }: { process: { step: string; title:
   const display = visual || "cards";
 
   return (
-    <section id="process" className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section id="process" className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={"framework-" + (process[0]?.step || "default")} />
         <BgRadial position="center" />
@@ -1342,7 +1358,7 @@ function FrameworkSection({ process, visual }: { process: { step: string; title:
                   >
                     <div className={"flex-1 " + (isLeft ? "text-right" : "text-left")}>
                       <motion.div
-                        className={"inline-block bg-[#181818] border rounded-[1.5rem] p-6 transition-all duration-500 max-w-[380px] " + (isActive ? "border-accent/60 shadow-lg" : "border-accent/25")}
+                        className={"inline-block bg-[#181818] border rounded-[1.5rem] p-5 sm:p-6 transition-all duration-500 max-w-[380px] " + (isActive ? "border-accent/60 shadow-lg" : "border-accent/25")}
                         animate={{ y: isActive ? -6 : 0, scale: isActive ? 1.02 : 1 }}
                       >
                         <span className="text-[10px] font-mono text-accent/60 tracking-[0.12em] uppercase">{step.step}</span>
@@ -1423,7 +1439,7 @@ function FrameworkSection({ process, visual }: { process: { step: string; title:
                   onMouseLeave={() => setActiveStep(null)}
                   whileHover={{ y: -4 }}
                 >
-                  <PanelCard className={"p-6 lg:p-8 h-full transition-all duration-500 " + (isActive ? "border-accent/60" : "")}>
+                  <PanelCard className={"p-5 sm:p-6 lg:p-8 h-full transition-all duration-500 " + (isActive ? "border-accent/60" : "")}>
                     <div className="flex items-center gap-3 mb-3">
                       <div className={"w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-500 " + (isActive ? "bg-accent/20 border-accent/70" : "bg-ground border-accent/30")}>
                         <span className="text-xs font-mono text-accent">{step.step}</span>
@@ -1470,31 +1486,123 @@ function FrameworkSection({ process, visual }: { process: { step: string; title:
           </div>
         )}
 
-        <div className="lg:hidden overflow-x-auto snap-x snap-mandatory scrollbar-none -mx-4 px-4 mt-6">
-          <div className="flex gap-4 w-max">
-            {process.map((step, i) => (
-              <motion.div key={step.step} className="snap-center w-[260px] shrink-0"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.04, ease }}
-              >
-                <PanelCard className="p-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[9px] font-mono text-accent/60 tracking-wider uppercase">{step.step}</span>
-                  </div>
-                  <h3 className="font-display text-[1.1rem] font-semibold text-white mb-1">{step.title}</h3>
-                  <p className="text-xs text-text-secondary leading-relaxed">{step.desc}</p>
-                  <div className="flex gap-1 mt-3">
-                    {process.map((_, j) => (
-                      <div key={j} className={"w-1.5 h-1.5 rounded-full transition-colors duration-300 " + (j === i ? "bg-accent/60" : "bg-accent/15")} />
-                    ))}
-                  </div>
-                </PanelCard>
-              </motion.div>
-            ))}
+        {/* Mobile: differentiated layouts per variant */}
+        {display === "timeline" && (
+          <div className="lg:hidden relative mt-8">
+            <div className="absolute top-0 bottom-0 left-[21px] w-px bg-gradient-to-b from-accent/0 via-accent/20 to-accent/0" />
+            <div className="space-y-8">
+              {process.map((step, i) => {
+                const isActive = activeStep === i;
+                return (
+                  <motion.div
+                    key={step.step}
+                    className="flex items-start gap-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: i * 0.08, ease }}
+                  >
+                    <motion.div className="relative z-10 shrink-0" animate={{ scale: isActive ? 1.2 : 1 }} transition={{ duration: 0.3 }}>
+                      <div className={"w-[42px] h-[42px] rounded-full border-2 flex items-center justify-center transition-all duration-500 " + (isActive ? "bg-accent/20 border-accent/70 shadow-lg shadow-accent/10" : "bg-[#181818] border-accent/30")}>
+                        <span className="text-xs font-mono text-accent">{step.step}</span>
+                      </div>
+                    </motion.div>
+                    <div className={"flex-1 bg-[#181818] border rounded-xl p-4 transition-all duration-500 " + (isActive ? "border-accent/50 shadow-lg" : "border-accent/20")}>
+                      <h3 className="font-display text-[1.1rem] font-semibold text-white mb-1">{step.title}</h3>
+                      <p className="text-xs text-text-secondary leading-relaxed">{step.desc}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
+
+        {display === "pipeline" && (
+          <div className="lg:hidden mt-8 space-y-4">
+            {process.map((step, i) => {
+              const isActive = activeStep === i;
+              const isLast = i === process.length - 1;
+              return (
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.06, ease }}
+                >
+                  <div className={"bg-[#181818] border rounded-xl p-4 transition-all duration-500 " + (isActive ? "border-accent/60 shadow-lg" : "border-accent/20")}>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className={"w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all duration-500 " + (isActive ? "bg-accent/20 border-accent/70" : "bg-ground border-accent/30")}>
+                        <span className="text-[10px] font-mono text-accent">{step.step}</span>
+                      </div>
+                      <span className="text-[10px] font-mono text-accent/60 tracking-[0.12em] uppercase">{step.step}</span>
+                    </div>
+                    <h3 className="font-display text-[1.1rem] font-semibold text-white mb-1">{step.title}</h3>
+                    <p className="text-xs text-text-secondary leading-relaxed">{step.desc}</p>
+                    {!isLast && <ArrowRight size={12} className="text-accent/30 mt-3 ml-1" />}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
+
+        {display === "grid" && (
+          <div className="lg:hidden mt-8 grid grid-cols-2 gap-3">
+            {process.map((step, i) => {
+              const isActive = activeStep === i;
+              return (
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.04, ease }}
+                >
+                  <div className={"bg-[#181818] border rounded-xl p-4 h-full transition-all duration-500 " + (isActive ? "border-accent/60" : "border-accent/20")}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className={"w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all duration-500 " + (isActive ? "bg-accent/20 border-accent/70" : "bg-ground border-accent/30")}>
+                        <span className="text-[9px] font-mono text-accent">{step.step}</span>
+                      </div>
+                      <span className="text-[9px] font-mono text-accent/60 tracking-[0.12em] uppercase">{step.step}</span>
+                    </div>
+                    <h3 className="font-display text-[0.95rem] font-semibold text-white mb-1">{step.title}</h3>
+                    <p className="text-[11px] text-text-secondary leading-relaxed">{step.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
+
+        {(!display || display === "cards") && (
+          <div className="lg:hidden mt-8 grid grid-cols-2 gap-3">
+            {process.map((step, i) => {
+              const isActive = activeStep === i;
+              return (
+                <motion.div
+                  key={step.step}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.04, ease }}
+                >
+                  <div className={"bg-[#181818] border rounded-xl p-4 h-full transition-all duration-500 " + (isActive ? "border-accent/60" : "border-accent/20")}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className={"w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all duration-500 " + (isActive ? "bg-accent/20 border-accent/70" : "bg-ground border-accent/30")}>
+                        <span className="text-[9px] font-mono text-accent">{step.step}</span>
+                      </div>
+                      <span className="text-[9px] font-mono text-accent/60 tracking-[0.12em] uppercase">{step.step}</span>
+                    </div>
+                    <h3 className="font-display text-[0.95rem] font-semibold text-white mb-1">{step.title}</h3>
+                    <p className="text-[11px] text-text-secondary leading-relaxed">{step.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );
@@ -1578,22 +1686,6 @@ function LeadsPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -1674,22 +1766,6 @@ function SearchVisibilityPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -1769,22 +1845,6 @@ function AIVisibilityPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -1865,22 +1925,6 @@ function AutomationPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -1961,22 +2005,6 @@ function CustomCRMPage({ solution }: { solution: SolutionItem }) {
       <ToolsShowcase toolSlugs={solution.relevantTools} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -2057,22 +2085,6 @@ function LaunchProductPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -2154,22 +2166,6 @@ function MultiLocationPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -2250,22 +2246,6 @@ function LocalVisibilityPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -2346,22 +2326,6 @@ function CROPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -2441,22 +2405,6 @@ function ModerniseWebsitePage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -2537,22 +2485,6 @@ function DataConnectPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -2632,22 +2564,6 @@ function ClientPortalPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }
@@ -2728,22 +2644,6 @@ function ReputationPage({ solution }: { solution: SolutionItem }) {
       <InsightsSection insights={insightsData} />
       <ExploreOtherNavigator currentSlug={solution.slug} />
       <CTAFinal />
-      {(getRelatedContent(solution.slug, "solution").caseStudies.length > 0 ||
-        getRelatedContent(solution.slug, "solution").services.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Related</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Explore What's Connected</h2>
-          </div>
-          <RelatedSection
-            groups={[
-              { title: "Services", links: getRelatedContent(solution.slug, "solution").services.slice(0, 6) },
-              { title: "Tools", links: getRelatedContent(solution.slug, "solution").tools.slice(0, 4) },
-              { title: "Case Studies", links: getRelatedContent(solution.slug, "solution").caseStudies.slice(0, 4) },
-            ]}
-          />
-        </section>
-      )}
     </>
   );
 }

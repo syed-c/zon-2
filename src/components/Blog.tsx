@@ -39,14 +39,14 @@ export default function Blog() {
   const rest = posts.slice(1);
 
   return (
-    <section className="py-28 lg:py-32 bg-ground">
+    <section className="py-16 sm:py-20 lg:py-32 bg-ground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2
           initial={{ y: 32, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-          className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.02em] leading-[1.05] text-text-primary text-balance mb-16"
+          className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.02em] leading-[1.05] text-text-primary text-balance mb-8 lg:mb-16"
         >
           Latest thinking from our team.
         </motion.h2>

@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowRight, Quotes, Heartbeat, Scales, Buildings, HardHat, House, Bed,
@@ -166,9 +166,9 @@ function ExecutiveSummary({ study }: { study: CaseStudyItem }) {
 
 function BusinessChallenge({ study }: { study: CaseStudyItem }) {
   return (
-    <section className="py-20 lg:py-28 bg-ground">
+    <section className="py-12 sm:py-16 lg:py-20 bg-ground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           <FadeUp>
             <SectionLabel text="The Challenge" />
             <SectionTitle>What they <span className="text-accent">faced.</span></SectionTitle>
@@ -211,7 +211,7 @@ function StrategyBlueprint({ study }: { study: CaseStudyItem }) {
     { step: "04", title: "Optimise", desc: "Analysing results, refining tactics, scaling what works, and building repeatable systems for sustained growth beyond the engagement." },
   ];
   return (
-    <section className="py-20 lg:py-28 bg-[#0D0C0B] relative overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 30% 50%, rgba(212,168,73,0.02), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="max-w-2xl mb-14">
@@ -244,9 +244,9 @@ function ExecutionTimeline({ study }: { study: CaseStudyItem }) {
     { label: "Month 6", desc: "Ongoing growth — client team trained and autonomous.", active: false },
   ];
   return (
-    <section className="py-20 lg:py-28 bg-ground">
+    <section className="py-12 sm:py-16 lg:py-20 bg-ground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-12">
           <FadeUp>
             <SectionLabel text="Execution Timeline" />
             <SectionTitle>How it <span className="text-accent">unfolded.</span></SectionTitle>
@@ -265,7 +265,7 @@ function ExecutionTimeline({ study }: { study: CaseStudyItem }) {
 
 function ResultsDashboard({ study }: { study: CaseStudyItem }) {
   return (
-    <section className="py-20 lg:py-28 bg-[#0D0C0B] relative overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 50%, rgba(212,168,73,0.015), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="max-w-2xl mb-14">
@@ -304,7 +304,7 @@ function ResultsDashboard({ study }: { study: CaseStudyItem }) {
 function TestimonialBlock({ study }: { study: CaseStudyItem }) {
   if (!study.testimonial) return null;
   return (
-    <section className="py-20 lg:py-28 bg-ground relative overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 bg-ground relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(600px circle at 30% 50%, rgba(212,168,73,0.03), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="max-w-4xl mx-auto text-center">
@@ -348,7 +348,7 @@ function TechnologyStack({ study }: { study: CaseStudyItem }) {
     { name: "WordPress", slug: "wordpress", count: 2 },
   ].filter((t) => study.description.toLowerCase().includes(t.name.toLowerCase()) || study.servicesUsed.some((s) => s.includes(t.slug))).slice(0, 8);
   return (
-    <section className="py-20 lg:py-28 bg-[#0D0C0B] border-t border-accent/5">
+    <section className="py-12 sm:py-16 lg:py-20 bg-[#0D0C0B] border-t border-accent/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="max-w-2xl mb-12">
           <SectionLabel text="Technology Stack" />
@@ -372,7 +372,7 @@ function TechnologyStack({ study }: { study: CaseStudyItem }) {
 function RelatedSolutions({ study }: { study: CaseStudyItem }) {
   if (study.servicesUsed.length === 0) return null;
   return (
-    <section className="py-20 lg:py-28 bg-ground">
+    <section className="py-12 sm:py-16 lg:py-20 bg-ground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="max-w-2xl mb-12">
           <SectionLabel text="Related Solutions" />
@@ -401,7 +401,7 @@ function MoreCaseStudies({ study }: { study: CaseStudyItem }) {
   if (related.length === 0) return null;
   const Icon = industryTheme[study.industry]?.icon ?? Globe;
   return (
-    <section className="py-20 lg:py-28 bg-[#0D0C0B]">
+    <section className="py-12 sm:py-16 lg:py-20 bg-[#0D0C0B]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="max-w-2xl mb-12">
           <SectionLabel text="Continue Exploring" />
@@ -440,7 +440,7 @@ function InsightsBlock() {
     { title: "The Future of AI in Business Growth: What Works Now", slug: "ai-business-growth", category: "AI & Automation", readTime: "12 min" },
   ];
   return (
-    <section className="py-20 lg:py-28 bg-ground">
+    <section className="py-12 sm:py-16 lg:py-20 bg-ground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <FadeUp className="max-w-2xl mb-12">
           <SectionLabel text="Related Insights" />
@@ -473,7 +473,7 @@ function InsightsBlock() {
 
 function CTASection() {
   return (
-    <section className="py-28 lg:py-32 bg-[#0D0C0B] relative overflow-hidden">
+    <section className="py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 0%, rgba(212,168,73,0.06), transparent)" }} />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -502,6 +502,611 @@ function CTASection() {
   );
 }
 
+/* ─── MOBILE COMPONENTS ─── */
+
+const mobileEase = [0.32, 0.72, 0, 1] as const;
+
+function MobileContainer({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return <div className={`px-4 ${className}`}>{children}</div>;
+}
+
+function MobileFadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  return (
+    <motion.div initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.5, delay, ease: mobileEase }}>
+      {children}
+    </motion.div>
+  );
+}
+
+function MobileHeroSection({ study }: { study: CaseStudyItem }) {
+  const theme = getTheme(study.industry);
+  const Icon = theme.icon;
+  return (
+    <section className="relative pt-28 pb-10 bg-ground overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.08]">
+          <ShapeGrid speed={0.1} squareSize={36} direction="diagonal" borderColor="#D4A849" hoverFillColor="#D4A849" shape="square" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ground/90 pointer-events-none" />
+        <div className="absolute top-8 right-[8%] text-[clamp(4rem,12vw,8rem)] font-mono font-semibold text-accent/[0.03] leading-none select-none pointer-events-none">12</div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-accent/10" />
+      </div>
+      <MobileContainer className="relative z-10">
+        <MobileFadeUp>
+          <Link href="/work" className="text-[10px] font-medium tracking-[0.15em] uppercase text-text-secondary/70 mb-4 block hover:text-accent transition-colors">← Case Studies</Link>
+          <div className="flex items-center gap-2.5 mb-3">
+            <Icon size={14} className="text-accent shrink-0" />
+            <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent">{study.industry}</span>
+            <span className="w-px h-3 bg-accent/20" />
+            <span className="text-[10px] text-text-secondary/70">{study.category}</span>
+          </div>
+          <h1 className="font-display font-semibold text-[clamp(2rem,9vw,2.75rem)] tracking-[-0.025em] leading-[1.02] text-text-primary mb-3">{study.client}</h1>
+          <p className="text-[15px] text-text-secondary/80 leading-relaxed mb-5">{study.project}</p>
+          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-accent/10 border border-accent/25">
+            <Lightning size={12} className="text-accent shrink-0" />
+            <span className="text-[13px] font-mono font-semibold text-accent leading-snug">{study.result}</span>
+          </div>
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileExecutiveSummary({ study }: { study: CaseStudyItem }) {
+  const items = [
+    { label: "Industry", value: study.industry },
+    { label: "Services", value: study.category },
+    { label: "Timeline", value: "4–6 months" },
+    { label: "Primary KPI", value: study.metrics[0]?.label ?? "N/A" },
+    { label: "Outcome", value: study.metrics[0]?.value ?? "N/A" },
+  ];
+  return (
+    <section className="py-5 bg-[#0D0C0B] border-y border-accent/5">
+      <MobileContainer>
+        <MobileFadeUp>
+          <div className="grid grid-cols-2 gap-2.5">
+            {items.map((item) => (
+              <div key={item.label} className={`p-3.5 rounded-xl bg-[#181818] border border-accent/10 ${items.length % 2 && items.indexOf(item) === items.length - 1 ? "col-span-2" : ""}`}>
+                <p className="text-[9px] font-medium tracking-[0.1em] uppercase text-text-secondary/40 mb-0.5">{item.label}</p>
+                <p className="text-sm font-medium text-text-primary leading-snug">{item.value}</p>
+              </div>
+            ))}
+          </div>
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileBusinessChallenge({ study }: { study: CaseStudyItem }) {
+  return (
+    <section className="py-14 bg-ground">
+      <MobileContainer>
+        <MobileFadeUp>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2.5 block">The Challenge</span>
+          <h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.9rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-4">
+            What they <span className="text-accent">faced.</span>
+          </h2>
+          <p className="text-[15px] text-text-secondary leading-relaxed mb-5">{study.challenge}</p>
+          <div className="p-4 rounded-xl bg-[#181818] border border-accent/10">
+            <span className="text-[10px] font-medium tracking-[0.1em] uppercase text-accent/80 mb-3 block">Key Pain Points</span>
+            <div className="space-y-3">
+              {study.challenge.split(". ").filter(Boolean).slice(0, 4).map((point, i) => (
+                <div key={i} className="flex gap-2.5 items-start">
+                  <div className="w-1.5 h-1.5 rounded-full bg-accent/40 mt-1.5 shrink-0" />
+                  <p className="text-[13px] text-text-secondary/80 leading-relaxed">{point.replace(/\.$/, "")}.</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileStrategyBlueprint() {
+  const steps = [
+    { step: "01", title: "Discovery", desc: "Deep research into the business, market, competition, and existing performance data to identify the highest-leverage opportunities." },
+    { step: "02", title: "Strategy", desc: "Building a tailored roadmap with prioritised initiatives, resource planning, and measurable KPI targets aligned to business goals." },
+    { step: "03", title: "Execute", desc: "Rapid, iterative implementation with continuous delivery, weekly stakeholder reviews, and data-informed course correction." },
+    { step: "04", title: "Optimise", desc: "Analysing results, refining tactics, scaling what works, and building repeatable systems for sustained growth beyond the engagement." },
+  ];
+  return (
+    <section className="py-14 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(600px circle at 30% 50%, rgba(212,168,73,0.02), transparent)" }} />
+      <MobileContainer className="relative z-10">
+        <MobileFadeUp>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2.5 block">Strategy Blueprint</span>
+          <h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.9rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-8">
+            How we <span className="text-accent">solved it.</span>
+          </h2>
+        </MobileFadeUp>
+        <div className="relative">
+          <div className="absolute left-[15px] top-0 bottom-0 w-px bg-accent/10" />
+          {steps.map((s, i) => (
+            <MobileFadeUp key={s.step} delay={i * 0.06}>
+              <div className="relative flex gap-4 pb-8 last:pb-0">
+                <div className="relative z-10 w-[30px] h-[30px] rounded-full bg-[#181818] border-2 border-accent/30 flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-2 h-2 rounded-full bg-accent" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-[10px] font-mono font-semibold text-accent mb-1 block">{s.step}</span>
+                  <h3 className="font-display text-base font-medium text-text-primary mb-1.5">{s.title}</h3>
+                  <p className="text-[13px] text-text-secondary/70 leading-relaxed">{s.desc}</p>
+                </div>
+              </div>
+            </MobileFadeUp>
+          ))}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileExecutionTimeline() {
+  const months = [
+    { label: "Month 1", desc: "Audit, research, and strategic planning. Baseline metrics established.", active: true },
+    { label: "Month 2", desc: "Initial implementation — quick wins deployed and measured.", active: true },
+    { label: "Month 3", desc: "Core execution — major initiatives underway with weekly reporting.", active: true },
+    { label: "Month 4", desc: "Optimisation and scaling — data-driven refinement of all channels.", active: true },
+    { label: "Month 5", desc: "Systems and playbooks — repeatable processes documented and handed over.", active: false },
+    { label: "Month 6", desc: "Ongoing growth — client team trained and autonomous.", active: false },
+  ];
+  return (
+    <section className="py-14 bg-ground">
+      <MobileContainer>
+        <MobileFadeUp>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2.5 block">Execution Timeline</span>
+          <h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.9rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-3">
+            How it <span className="text-accent">unfolded.</span>
+          </h2>
+          <p className="text-[13px] text-text-secondary/70 leading-relaxed mb-6">Every engagement follows a structured but flexible timeline. Here is how this project progressed from discovery to delivery.</p>
+        </MobileFadeUp>
+        <div className="p-4 rounded-xl bg-[#181818] border border-accent/10">
+          {months.map((m, i) => (
+            <div key={i} className="flex gap-3 pb-4 last:pb-0 relative">
+              <div className="flex flex-col items-center">
+                <div className={`w-2.5 h-2.5 rounded-full border-2 ${m.active ? "bg-accent border-accent" : "bg-transparent border-accent/20"} shrink-0 mt-0.5`} />
+                {i < months.length - 1 && <div className="w-px flex-1 bg-accent/5" />}
+              </div>
+              <div className="pb-2">
+                <p className="text-[11px] font-mono text-accent font-medium mb-0.5">{m.label}</p>
+                <p className="text-[12px] text-text-secondary/60">{m.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileResultsDashboard({ study }: { study: CaseStudyItem }) {
+  return (
+    <section className="py-14 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(600px circle at 50% 50%, rgba(212,168,73,0.015), transparent)" }} />
+      <MobileContainer className="relative z-10">
+        <MobileFadeUp>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2.5 block">Results Dashboard</span>
+          <h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.9rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-6">
+            The <span className="text-accent">numbers.</span>
+          </h2>
+        </MobileFadeUp>
+        <div className="space-y-3">
+          {study.metrics.map((m, i) => (
+            <MobileFadeUp key={m.label} delay={i * 0.05}>
+              <div className="p-4 rounded-xl bg-[#181818] border border-accent/10">
+                <p className="font-mono text-xl font-semibold text-accent mb-0.5">{m.value}</p>
+                <p className="text-[11px] text-text-secondary/60">{m.label}</p>
+              </div>
+            </MobileFadeUp>
+          ))}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileTestimonial({ study }: { study: CaseStudyItem }) {
+  if (!study.testimonial) return null;
+  return (
+    <section className="py-14 bg-ground relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(500px circle at 30% 50%, rgba(212,168,73,0.03), transparent)" }} />
+      <MobileContainer className="relative z-10">
+        <MobileFadeUp>
+          <div className="p-5 rounded-xl bg-[#181818] border border-accent/10 relative">
+            <Quotes size={18} className="text-accent/15 absolute top-4 left-4" />
+            <blockquote className="text-base font-display font-medium text-text-primary leading-relaxed mb-5 italic pl-3">
+              &ldquo;{study.testimonial.quote}&rdquo;
+            </blockquote>
+            <div className="w-8 h-px bg-accent/20 mb-4" />
+            <p className="text-sm font-medium text-text-primary">{study.testimonial.person}</p>
+            <p className="text-xs text-text-secondary/60">{study.testimonial.role}</p>
+            <div className="flex gap-1 mt-3">
+              {[1, 2, 3, 4, 5].map((s) => (
+                <Star key={s} size={10} weight="fill" className="text-accent/50" />
+              ))}
+            </div>
+          </div>
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileTechnologyStack({ study }: { study: CaseStudyItem }) {
+  const techs = [
+    { name: "Next.js", slug: "nextjs", count: 5 },
+    { name: "React", slug: "react", count: 6 },
+    { name: "Node.js", slug: "nodejs", count: 4 },
+    { name: "Python", slug: "python", count: 3 },
+    { name: "OpenAI", slug: "openai", count: 3 },
+    { name: "Stripe", slug: "stripe", count: 2 },
+    { name: "HubSpot", slug: "hubspot", count: 3 },
+    { name: "PostgreSQL", slug: "postgresql", count: 4 },
+    { name: "TypeScript", slug: "typescript", count: 5 },
+    { name: "Google Cloud", slug: "google-cloud", count: 2 },
+    { name: "Vercel", slug: "vercel", count: 4 },
+    { name: "Superset", slug: "superset", count: 1 },
+    { name: "dbt", slug: "dbt", count: 1 },
+    { name: "GA4", slug: "ga4", count: 3 },
+    { name: "Shopify", slug: "shopify", count: 1 },
+    { name: "WordPress", slug: "wordpress", count: 2 },
+  ].filter((t) => study.description.toLowerCase().includes(t.name.toLowerCase()) || study.servicesUsed.some((s) => s.includes(t.slug))).slice(0, 8);
+  if (techs.length === 0) return null;
+  return (
+    <section className="py-14 bg-[#0D0C0B] border-t border-accent/5">
+      <MobileContainer>
+        <MobileFadeUp>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2.5 block">Technology Stack</span>
+          <h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.9rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-6">
+            Tools we <span className="text-accent">used.</span>
+          </h2>
+        </MobileFadeUp>
+        <div className="flex flex-wrap gap-2.5">
+          {techs.map((t, i) => (
+            <MobileFadeUp key={t.slug} delay={i * 0.03}>
+              <div className="px-3.5 py-2 rounded-xl bg-[#181818] border border-accent/10">
+                <span className="text-[13px] text-text-secondary">{t.name}</span>
+                <span className="ml-1.5 text-[9px] font-mono text-text-secondary/30">{t.count}</span>
+              </div>
+            </MobileFadeUp>
+          ))}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileRelatedSolutions({ study }: { study: CaseStudyItem }) {
+  if (study.servicesUsed.length === 0) return null;
+  return (
+    <section className="py-14 bg-ground">
+      <MobileContainer>
+        <MobileFadeUp>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2.5 block">Related Solutions</span>
+          <h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.9rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-2">
+            Services that made <span className="text-accent">this possible.</span>
+          </h2>
+          <p className="text-[13px] text-text-secondary/60 mb-5">Each solution was selected and tailored specifically for {study.client}&apos;s unique business challenges and industry context.</p>
+        </MobileFadeUp>
+        <div className="space-y-2.5">
+          {study.servicesUsed.slice(0, 6).map((slug, i) => (
+            <MobileFadeUp key={slug} delay={i * 0.04}>
+              <Link href={`/${slug}`} className="block group">
+                <div className="p-3.5 rounded-xl bg-[#181818] border border-accent/10 flex items-center justify-between min-h-[48px]">
+                  <span className="text-sm text-text-primary group-hover:text-accent transition-colors capitalize">{slug.replace(/-/g, " ")}</span>
+                  <ArrowLineUpRight size={14} className="text-text-secondary/30 group-hover:text-accent transition-colors shrink-0" />
+                </div>
+              </Link>
+            </MobileFadeUp>
+          ))}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileInsightsBlock() {
+  return (
+    <section className="py-14 bg-[#0D0C0B]">
+      <MobileContainer>
+        <MobileFadeUp>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2.5 block">Related Insights</span>
+          <h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.9rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-6">
+            Resources to <span className="text-accent">go deeper.</span>
+          </h2>
+        </MobileFadeUp>
+        <div className="space-y-3">
+          {[
+            { title: "How to Measure the ROI of Digital Growth Initiatives", slug: "measure-digital-roi", category: "Analytics", readTime: "8 min" },
+            { title: "Why Industry-Specific SEO Outperforms Generic Strategies", slug: "industry-specific-seo", category: "SEO", readTime: "10 min" },
+            { title: "The Future of AI in Business Growth: What Works Now", slug: "ai-business-growth", category: "AI & Automation", readTime: "12 min" },
+          ].map((post, i) => (
+            <MobileFadeUp key={post.slug} delay={i * 0.04}>
+              <Link href={`/${post.slug}`} className="block group">
+                <div className="p-4 rounded-xl bg-[#181818] border border-accent/10">
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent">{post.category}</span>
+                    <span className="w-px h-2.5 bg-accent/10" />
+                    <span className="text-[9px] text-text-secondary/40">{post.readTime}</span>
+                  </div>
+                  <h3 className="text-sm font-medium text-text-primary group-hover:text-accent transition-colors leading-snug">{post.title}</h3>
+                  <div className="flex items-center gap-1 mt-3 text-[10px] text-accent/40 group-hover:text-accent transition-colors">
+                    <BookOpenText size={10} />
+                    <span>Read article</span>
+                  </div>
+                </div>
+              </Link>
+            </MobileFadeUp>
+          ))}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileMoreCaseStudies({ study }: { study: CaseStudyItem }) {
+  const related = caseStudies.filter((s) => s.slug !== study.slug && (s.industry === study.industry || s.category === study.category)).slice(0, 3);
+  if (related.length === 0) return null;
+  const Icon = industryTheme[study.industry]?.icon ?? Globe;
+  return (
+    <section className="py-14 bg-[#0D0C0B] border-t border-accent/5">
+      <MobileContainer>
+        <MobileFadeUp>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2.5 block">Continue Exploring</span>
+          <h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.9rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-6">
+            More <span className="text-accent">case studies.</span>
+          </h2>
+        </MobileFadeUp>
+        <div className="space-y-3">
+          {related.map((cs, i) => (
+            <MobileFadeUp key={cs.slug} delay={i * 0.06}>
+              <Link href={`/${cs.slug}`} className="block group">
+                <div className="p-4 rounded-xl bg-[#181818] border border-accent/10">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon size={10} className="text-accent shrink-0" />
+                    <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent">{cs.industry}</span>
+                  </div>
+                  <h3 className="font-display text-sm font-medium text-text-primary mb-1 group-hover:text-accent transition-colors">{cs.client}</h3>
+                  <p className="text-[12px] text-text-secondary/60 mb-2.5 line-clamp-2">{cs.project}</p>
+                  <p className="font-mono text-[13px] font-semibold text-accent mb-2.5">{cs.result}</p>
+                  <span className="inline-flex items-center gap-1 text-[10px] text-accent/40 group-hover:text-accent transition-colors">
+                    Read case study <ArrowRight size={9} />
+                  </span>
+                </div>
+              </Link>
+            </MobileFadeUp>
+          ))}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileCTASection() {
+  return (
+    <section className="py-16 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(600px circle at 50% 0%, rgba(212,168,73,0.06), transparent)" }} />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
+      <MobileContainer className="relative z-10 text-center">
+        <motion.span initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.5, ease: mobileEase }} className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">
+          Start Your Growth Story
+        </motion.span>
+        <motion.h2 initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.6, ease: mobileEase }} className="font-display font-semibold text-[clamp(1.8rem,7vw,2.5rem)] tracking-[-0.03em] leading-[1.02] text-text-primary text-balance mb-3">
+          Let&apos;s build your <span className="text-accent">success story.</span>
+        </motion.h2>
+        <motion.p initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.5, delay: 0.05, ease: mobileEase }} className="text-text-secondary text-[15px] max-w-[32ch] mx-auto mb-7">
+          Free audit. No commitment. First results within 60 days or we fix it.
+        </motion.p>
+        <motion.div initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.5, delay: 0.1, ease: mobileEase }} className="flex flex-col items-center gap-4">
+          <Link href="/seo-audit" className="inline-flex items-center gap-2 bg-accent text-ground pl-7 pr-3 py-3 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150 shadow-[0_0_30px_rgba(212,168,73,0.15)]">
+            Get Free Audit
+            <span className="w-7 h-7 rounded-full bg-ground/10 flex items-center justify-center">
+              <ArrowRight size={12} weight="bold" />
+            </span>
+          </Link>
+          <Link href="/contact" className="text-text-secondary/50 underline underline-offset-4 hover:text-text-primary text-sm transition-colors duration-200">
+            Talk to our team
+          </Link>
+        </motion.div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── CUSTOM SECTION CONFIG ─── */
+
+type MobileVisualType = "metrics-list" | "metrics-grid" | "progress-bars" | "single-metric" | "before-after" | "publications" | "text-only";
+
+const customSectionConfig: Record<string, {
+  label: string;
+  title: React.ReactNode;
+  descField: "approach" | "outcome";
+  visualType: MobileVisualType;
+}> = {
+  "pulse-health": { label: "Market Context", title: <>Healthcare <span className="text-accent">AI search.</span></>, descField: "approach", visualType: "metrics-list" },
+  "urban-spaces": { label: "Our Approach", title: <>Technical SEO <span className="text-accent">at scale.</span></>, descField: "approach", visualType: "metrics-grid" },
+  "al-shafar-investment": { label: "What We Delivered", title: <>Unified architecture, <span className="text-accent">unified growth.</span></>, descField: "outcome", visualType: "text-only" },
+  "novapay": { label: "What We Built", title: <>Custom CRM & <span className="text-accent">client portal.</span></>, descField: "approach", visualType: "progress-bars" },
+  "verdant-organics": { label: "The Campaign", title: <>Data-driven PR <span className="text-accent">at scale.</span></>, descField: "approach", visualType: "publications" },
+  "elevate-education": { label: "Full-Funnel Strategy", title: <>Paid media <span className="text-accent">reimagined.</span></>, descField: "approach", visualType: "before-after" },
+  "streamline-logistics": { label: "The Solution", title: <>AI agent for <span className="text-accent">lead qualification.</span></>, descField: "approach", visualType: "metrics-list" },
+  "medcore-analytics": { label: "What We Built", title: <>Enterprise analytics <span className="text-accent">dashboard.</span></>, descField: "approach", visualType: "single-metric" },
+  "buildright": { label: "The Build", title: <>SaaS platform <span className="text-accent">from scratch.</span></>, descField: "approach", visualType: "metrics-grid" },
+  "gulf-tech-solutions": { label: "Lead Qualification", title: <>AI-powered <span className="text-accent">demo routing.</span></>, descField: "approach", visualType: "progress-bars" },
+  "dubai-health-authority": { label: "The Challenge", title: <>28 facilities, <span className="text-accent">one strategy.</span></>, descField: "approach", visualType: "metrics-grid" },
+  "emerge-logistics": { label: "Analytics Rebuild", title: <>A foundation for <span className="text-accent">growth.</span></>, descField: "outcome", visualType: "before-after" },
+};
+
+function MobileCustomMetricsList({ metrics }: { metrics: CaseStudyItem["metrics"] }) {
+  return (
+    <div className="p-4 rounded-xl bg-[#181818] border border-accent/10 mt-5">
+      <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent/60 mb-3 block">Performance Metrics</span>
+      <div className="space-y-3">
+        {metrics.map((m) => (
+          <div key={m.label} className="flex items-center justify-between py-1.5 border-b border-accent/5 last:border-0">
+            <span className="text-[12px] text-text-secondary/70">{m.label}</span>
+            <span className="text-sm font-mono font-semibold text-accent">{m.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobileCustomMetricsGrid({ metrics }: { metrics: CaseStudyItem["metrics"] }) {
+  return (
+    <div className="p-4 rounded-xl bg-[#181818] border border-accent/10 mt-5">
+      <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent/60 mb-3 block">Key Metrics</span>
+      <div className="grid grid-cols-2 gap-3">
+        {metrics.map((m) => (
+          <div key={m.label} className="text-center p-3 rounded-lg bg-surface/50 border border-accent/5">
+            <p className="font-mono text-base font-semibold text-accent">{m.value}</p>
+            <p className="text-[10px] text-text-secondary/60 mt-0.5 leading-tight">{m.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobileCustomProgressBars({ metrics }: { metrics: CaseStudyItem["metrics"] }) {
+  return (
+    <div className="p-4 rounded-xl bg-[#181818] border border-accent/10 mt-5">
+      <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent/60 mb-3 block">System Impact</span>
+      <div className="space-y-4">
+        {metrics.map((m) => (
+          <div key={m.label}>
+            <div className="flex justify-between text-xs mb-1">
+              <span className="text-text-secondary/80">{m.label}</span>
+              <span className="font-mono text-accent font-semibold">{m.value}</span>
+            </div>
+            <div className="h-1.5 rounded-full bg-surface overflow-hidden">
+              <motion.div initial={{ width: 0 }} whileInView={{ width: `${Math.min(100, parseFloat(m.value.replace(/[^0-9.]/g, "")) * 1.5)}%` }} viewport={{ once: true }} transition={{ duration: 1, ease: mobileEase }} className="h-full rounded-full bg-accent/60" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobileCustomSingleMetric({ metrics }: { metrics: CaseStudyItem["metrics"] }) {
+  return (
+    <div className="p-5 rounded-xl bg-[#181818] border border-accent/10 mt-5 text-center">
+      <p className="font-mono text-3xl font-semibold text-accent">94%</p>
+      <p className="text-xs text-text-secondary/60 mt-1">Stakeholder adoption within 2 weeks</p>
+      <div className="mt-3 h-2 rounded-full bg-surface overflow-hidden">
+        <motion.div initial={{ width: 0 }} whileInView={{ width: "94%" }} viewport={{ once: true }} transition={{ duration: 1.2, ease: mobileEase }} className="h-full rounded-full bg-accent/60" />
+      </div>
+    </div>
+  );
+}
+
+function MobileCustomBeforeAfter({ metrics }: { metrics: CaseStudyItem["metrics"] }) {
+  const beforeValue = metrics[0]?.value?.split("→")[0]?.trim() || "$210";
+  const afterValue = metrics[0]?.value?.split("→")[1]?.trim() || "$101";
+  const afterLabel = metrics[0]?.label || "Cost per Acquisition";
+  const changeText = metrics[1]?.value || "52% reduction";
+  return (
+    <div className="p-4 rounded-xl bg-[#181818] border border-accent/10 mt-5">
+      <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent/60 mb-3 block">Before & After</span>
+      <div className="space-y-3">
+        <div className="p-3.5 rounded-xl bg-red-400/5 border border-red-400/10">
+          <p className="text-[9px] text-red-400/60 uppercase tracking-[0.1em] mb-0.5">Before</p>
+          <p className="text-lg font-mono font-semibold text-red-400/60">{beforeValue}</p>
+          <p className="text-[11px] text-text-secondary/40">{afterLabel}</p>
+        </div>
+        <div className="flex justify-center">
+          <ArrowRight size={14} className="text-accent/30" />
+        </div>
+        <div className="p-3.5 rounded-xl bg-accent/5 border border-accent/10">
+          <p className="text-[9px] text-accent/60 uppercase tracking-[0.1em] mb-0.5">After</p>
+          <p className="text-lg font-mono font-semibold text-accent">{afterValue}</p>
+          <p className="text-[11px] text-text-secondary/40">{changeText}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MobileCustomPublications() {
+  return (
+    <div className="p-4 rounded-xl bg-[#181818] border border-accent/10 mt-5">
+      <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent/60 mb-3 block">Publication Impact</span>
+      <div className="grid grid-cols-2 gap-2">
+        {[
+          { pub: "TechCrunch", impact: "Featured" },
+          { pub: "Forbes", impact: "Featured" },
+          { pub: "Bloomberg", impact: "Featured" },
+          { pub: "18+ Others", impact: "Coverage" },
+        ].map((p) => (
+          <div key={p.pub} className="p-2.5 rounded-lg bg-surface/50 border border-accent/5 text-center">
+            <p className="text-xs font-medium text-text-primary">{p.pub}</p>
+            <p className="text-[9px] text-text-secondary/40">{p.impact}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-3 flex items-center justify-center gap-1 text-[10px] text-accent/60">
+        <TrendUp size={11} />
+        <span>140+ unique domains at 92% avg DR</span>
+      </div>
+    </div>
+  );
+}
+
+function MobileCustomSection({ study }: { study: CaseStudyItem }) {
+  const config = customSectionConfig[study.slug];
+  if (!config) return null;
+  const desc = config.descField === "approach" ? study.approach : study.outcome;
+  const renderVisual = () => {
+    switch (config.visualType) {
+      case "metrics-list": return <MobileCustomMetricsList metrics={study.metrics} />;
+      case "metrics-grid": return <MobileCustomMetricsGrid metrics={study.metrics} />;
+      case "progress-bars": return <MobileCustomProgressBars metrics={study.metrics} />;
+      case "single-metric": return <MobileCustomSingleMetric metrics={study.metrics} />;
+      case "before-after": return <MobileCustomBeforeAfter metrics={study.metrics} />;
+      case "publications": return <MobileCustomPublications />;
+      case "text-only": return null;
+      default: return null;
+    }
+  };
+  return (
+    <section className="py-14 bg-ground">
+      <MobileContainer>
+        <MobileFadeUp>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2.5 block">{config.label}</span>
+          <h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.9rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-4">{config.title}</h2>
+          <p className="text-[15px] text-text-secondary leading-relaxed">{desc}</p>
+          {renderVisual()}
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+function MobileCaseStudyPage({ study }: { study: CaseStudyItem }) {
+  const withStrategy = ["pulse-health", "emerge-logistics"].includes(study.slug);
+  return (
+    <>
+      <MobileHeroSection study={study} />
+      <MobileExecutiveSummary study={study} />
+      <MobileBusinessChallenge study={study} />
+      {withStrategy && <MobileStrategyBlueprint />}
+      <MobileCustomSection study={study} />
+      <MobileResultsDashboard study={study} />
+      <MobileTestimonial study={study} />
+      <MobileTechnologyStack study={study} />
+      <MobileRelatedSolutions study={study} />
+      <MobileInsightsBlock />
+      <MobileMoreCaseStudies study={study} />
+      <MobileCTASection />
+    </>
+  );
+}
+
 /* ─── INDUSTRY-SPECIFIC PAGES ─── */
 
 function getTheme(industry: string) {
@@ -526,9 +1131,9 @@ function PulseHealthPage({ study }: { study: CaseStudyItem }) {
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
       <StrategyBlueprint study={study} />
-      <section className="py-20 lg:py-28 bg-ground">
+      <section className="py-12 sm:py-16 lg:py-20 bg-ground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-12">
             <FadeUp>
               <SectionLabel text="Market Context" />
               <SectionTitle>Healthcare <span className="text-accent">AI search.</span></SectionTitle>
@@ -569,9 +1174,9 @@ function UrbanSpacesPage({ study }: { study: CaseStudyItem }) {
     <>
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
-      <section className="py-20 lg:py-28 bg-ground">
+      <section className="py-12 sm:py-16 lg:py-20 bg-ground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             <FadeUp>
               <SectionLabel text="Our Approach" />
               <SectionTitle>Technical SEO <span className="text-accent">at scale.</span></SectionTitle>
@@ -612,7 +1217,7 @@ function AlShafarPage({ study }: { study: CaseStudyItem }) {
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
       <ResultsDashboard study={study} />
-      <section className="py-20 lg:py-28 bg-ground">
+      <section className="py-12 sm:py-16 lg:py-20 bg-ground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp>
             <SectionLabel text="What We Delivered" />
@@ -634,9 +1239,9 @@ function NovaPayPage({ study }: { study: CaseStudyItem }) {
     <>
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
-      <section className="py-20 lg:py-28 bg-[#0D0C0B]">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-12">
             <FadeUp>
               <SectionLabel text="What We Built" />
               <SectionTitle>Custom CRM & <span className="text-accent">client portal.</span></SectionTitle>
@@ -682,9 +1287,9 @@ function VerdantOrganicsPage({ study }: { study: CaseStudyItem }) {
     <>
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
-      <section className="py-20 lg:py-28 bg-ground">
+      <section className="py-12 sm:py-16 lg:py-20 bg-ground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             <FadeUp>
               <SectionLabel text="The Campaign" />
               <SectionTitle>Data-driven PR <span className="text-accent">at scale.</span></SectionTitle>
@@ -730,9 +1335,9 @@ function ElevateEducationPage({ study }: { study: CaseStudyItem }) {
     <>
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
-      <section className="py-20 lg:py-28 bg-[#0D0C0B]">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12">
             <FadeUp delay={0.1}>
               <div className="p-6 lg:p-8 rounded-[1.5rem] bg-[#181818] border border-accent/10">
                 <SectionLabel text="Before & After" />
@@ -777,9 +1382,9 @@ function StreamlineLogisticsPage({ study }: { study: CaseStudyItem }) {
     <>
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
-      <section className="py-20 lg:py-28 bg-[#0D0C0B]">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             <FadeUp>
               <SectionLabel text="The Solution" />
               <SectionTitle>AI agent for <span className="text-accent">lead qualification.</span></SectionTitle>
@@ -820,9 +1425,9 @@ function MedCoreAnalyticsPage({ study }: { study: CaseStudyItem }) {
     <>
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
-      <section className="py-20 lg:py-28 bg-ground">
+      <section className="py-12 sm:py-16 lg:py-20 bg-ground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-12">
             <FadeUp>
               <SectionLabel text="What We Built" />
               <SectionTitle>Enterprise analytics <span className="text-accent">dashboard.</span></SectionTitle>
@@ -859,9 +1464,9 @@ function BuildRightPage({ study }: { study: CaseStudyItem }) {
     <>
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
-      <section className="py-20 lg:py-28 bg-[#0D0C0B]">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             <FadeUp delay={0.1}>
               <div className="p-6 lg:p-8 rounded-[1.5rem] bg-[#181818] border border-accent/10">
                 <SectionLabel text="SaaS Growth Metrics" />
@@ -899,9 +1504,9 @@ function GulfTechSolutionsPage({ study }: { study: CaseStudyItem }) {
     <>
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
-      <section className="py-20 lg:py-28 bg-ground">
+      <section className="py-12 sm:py-16 lg:py-20 bg-ground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12">
             <FadeUp>
               <SectionLabel text="Lead Qualification" />
               <SectionTitle>AI-powered <span className="text-accent">demo routing.</span></SectionTitle>
@@ -943,9 +1548,9 @@ function DubaiHealthAuthorityPage({ study }: { study: CaseStudyItem }) {
     <>
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
-      <section className="py-20 lg:py-28 bg-[#0D0C0B]">
+      <section className="py-12 sm:py-16 lg:py-20 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-12">
             <FadeUp>
               <SectionLabel text="The Challenge" />
               <SectionTitle>28 facilities, <span className="text-accent">one strategy.</span></SectionTitle>
@@ -984,9 +1589,9 @@ function EmergeLogisticsPage({ study }: { study: CaseStudyItem }) {
       <ExecutiveSummary study={study} />
       <BusinessChallenge study={study} />
       <StrategyBlueprint study={study} />
-      <section className="py-20 lg:py-28 bg-ground">
+      <section className="py-12 sm:py-16 lg:py-20 bg-ground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-12">
             <FadeUp>
               <SectionLabel text="Analytics Rebuild" />
               <SectionTitle>A foundation for <span className="text-accent">growth.</span></SectionTitle>
@@ -1025,6 +1630,16 @@ function EmergeLogisticsPage({ study }: { study: CaseStudyItem }) {
 /* ─── DISPATCHER ─── */
 
 export function CaseStudyDetailContent({ study }: { study: CaseStudyItem }) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  if (isMobile) {
+    return <MobileCaseStudyPage study={study} />;
+  }
   switch (study.slug) {
     case "pulse-health":
       return <PulseHealthPage study={study} />;

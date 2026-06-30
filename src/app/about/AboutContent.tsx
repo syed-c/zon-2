@@ -1,17 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import RelatedSection from "@/components/RelatedSection";
-import { getBreadcrumbs } from "@/data/relations";
 import {
   ArrowRight, Buildings, ShoppingCart, TrendUp, ChartLineUp, Globe,
   Users, Lightning, CheckCircle, SealCheck,
   MagnifyingGlass, Gear, Code, Database, Robot, Graph,
   CurrencyCircleDollar, BookOpenText, Eye, Wrench,
-  Quotes, Compass, FlowArrow,
+  Quotes, Compass, FlowArrow, CaretDown,
   Lightbulb, ChartBar, MathOperations, PuzzlePiece,
   Rocket, Cube,
 } from "@phosphor-icons/react";
@@ -40,7 +37,7 @@ function SectionLabel({ text }: { text: string }) {
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary mb-6">
+    <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary mb-6">
       {children}
     </h2>
   );
@@ -214,7 +211,7 @@ function PhilosophySection() {
             <SectionLabel text="Why We Exist" />
           </FadeUp>
           <FadeUp delay={0.05}>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,4rem)] tracking-[-0.03em] leading-[1] text-text-primary mb-8 text-balance">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,4rem)] tracking-[-0.03em] leading-[1] text-text-primary mb-8 text-balance">
               Most agencies sell you tactics. <br />
               <span className="text-accent">We sell outcomes.</span>
             </h2>
@@ -261,7 +258,7 @@ function GrowthPhilosophySection() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.005]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.4), transparent 70%)" }} />
       </div>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="How Growth Happens" />
           <SectionTitle>Our <span className="text-accent">growth philosophy.</span></SectionTitle>
           <p className="text-text-secondary/60 text-sm">Growth is not a campaign. It&apos;s a continuous system of research, execution, learning, and iteration.</p>
@@ -305,7 +302,7 @@ function DifferentSection() {
     <section className="py-28 lg:py-36 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(900px circle at 70% 50%, rgba(212,168,73,0.02), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="The Difference" />
           <SectionTitle>Traditional Agencies <span className="text-accent">vs. ZON.</span></SectionTitle>
         </FadeUp>
@@ -353,7 +350,7 @@ function OperatingSystemSection() {
     <section className="py-28 lg:py-36 bg-ground relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 30% 60%, rgba(212,168,73,0.02), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="Our Operating System" />
           <SectionTitle>How everything <span className="text-accent">connects.</span></SectionTitle>
           <p className="text-text-secondary/60 text-sm">Every department feeds into the next. SEO informs content. Content trains AI. AI powers automation. Automation feeds analytics. Analytics optimises SEO.</p>
@@ -366,7 +363,7 @@ function OperatingSystemSection() {
                 <div
                   onMouseEnter={() => setHoveredOS(s.name)}
                   onMouseLeave={() => setHoveredOS(null)}
-                  className={`p-6 rounded-[1.25rem] border transition-all duration-300 ${hoveredOS === s.name ? "bg-[#181818] border-accent/40 shadow-[0_0_30px_rgba(212,168,73,0.05)]" : "bg-[#181818] border-accent/10"}`}
+                  className={`p-5 sm:p-6 rounded-[1.25rem] border transition-all duration-300 ${hoveredOS === s.name ? "bg-[#181818] border-accent/40 shadow-[0_0_30px_rgba(212,168,73,0.05)]" : "bg-[#181818] border-accent/10"}`}
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-9 h-9 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
@@ -394,7 +391,7 @@ function TimelineSection() {
     <section className="py-28 lg:py-36 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(900px circle at 30% 40%, rgba(212,168,73,0.02), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="Our Journey" />
           <SectionTitle>From idea to <span className="text-accent">impact.</span></SectionTitle>
         </FadeUp>
@@ -449,7 +446,7 @@ function PrinciplesSection() {
     <section className="py-28 lg:py-36 bg-ground relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 60% 40%, rgba(212,168,73,0.02), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="Our Principles" />
           <SectionTitle>What we <span className="text-accent">stand for.</span></SectionTitle>
         </FadeUp>
@@ -508,7 +505,7 @@ function NumbersSection() {
     <section className="py-28 lg:py-36 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 50%, rgba(212,168,73,0.025), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="By the Numbers" />
           <SectionTitle>Our track record, <span className="text-accent">in numbers.</span></SectionTitle>
         </FadeUp>
@@ -541,7 +538,7 @@ function TeamSection() {
     <section className="py-28 lg:py-36 bg-ground relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(900px circle at 40% 30%, rgba(212,168,73,0.02), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="The Team" />
           <SectionTitle>People behind <span className="text-accent">the systems.</span></SectionTitle>
           <p className="text-text-secondary/60 text-sm">Strategists, engineers, and creatives working across three continents to deliver measurable growth.</p>
@@ -551,7 +548,7 @@ function TeamSection() {
             <FadeUp key={member.name} delay={i * 0.04}>
               <div
                 onClick={() => setSelectedMember(selectedMember === i ? null : i)}
-                className={`cursor-pointer p-6 rounded-[1.25rem] bg-[#181818] border transition-all duration-300 ${selectedMember === i ? "border-accent/40 -translate-y-0.5" : "border-accent/10"}`}
+                className={`cursor-pointer p-5 sm:p-6 rounded-[1.25rem] bg-[#181818] border transition-all duration-300 ${selectedMember === i ? "border-accent/40 -translate-y-0.5" : "border-accent/10"}`}
               >
                 <div className={`w-14 h-14 rounded-full bg-gradient-to-br ${member.color} border border-accent/20 flex items-center justify-center mb-4`}>
                   <span className="text-lg font-mono font-semibold text-accent">{member.name.split(" ").map((n) => n[0]).join("")}</span>
@@ -611,7 +608,7 @@ function BehindScenesSection() {
     <section className="py-28 lg:py-36 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(900px circle at 30% 60%, rgba(212,168,73,0.02), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="Behind the Scenes" />
           <SectionTitle>How we <span className="text-accent">actually work.</span></SectionTitle>
         </FadeUp>
@@ -664,7 +661,7 @@ function HowWeWorkSection() {
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.005]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.4), transparent 70%)" }} />
       </div>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="How We Work" />
           <SectionTitle>From discovery to <span className="text-accent">scale.</span></SectionTitle>
         </FadeUp>
@@ -702,7 +699,7 @@ function TechEcosystemSection() {
     <section className="py-28 lg:py-36 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(900px circle at 70% 40%, rgba(212,168,73,0.025), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="Technology Ecosystem" />
           <SectionTitle>Tools we <span className="text-accent">trust.</span></SectionTitle>
           <p className="text-text-secondary/60 text-sm">Hover a technology to learn more about how we use it.</p>
@@ -743,7 +740,7 @@ function CultureSection() {
     <section className="py-28 lg:py-36 bg-ground relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 30%, rgba(212,168,73,0.02), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="Company Culture" />
           <SectionTitle>How we <span className="text-accent">operate.</span></SectionTitle>
           <p className="text-text-secondary/60 text-sm">The principles and practices that define how we work, make decisions, and deliver quality.</p>
@@ -753,7 +750,7 @@ function CultureSection() {
             const Icon = card.icon;
             return (
               <FadeUp key={card.title} delay={i * 0.05}>
-                <div className="p-6 rounded-[1.25rem] bg-[#181818] border border-accent/10 hover:border-accent/25 transition-all duration-300">
+                <div className="p-5 sm:p-6 rounded-[1.25rem] bg-[#181818] border border-accent/10 hover:border-accent/25 transition-all duration-300">
                   <div className="w-9 h-9 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center mb-3">
                     <Icon size={18} className="text-accent" />
                   </div>
@@ -776,14 +773,14 @@ function GlobalSection() {
     <section className="py-28 lg:py-36 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 30% 50%, rgba(212,168,73,0.02), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="Global Presence" />
           <SectionTitle>Where we <span className="text-accent">operate.</span></SectionTitle>
         </FadeUp>
         <div className="grid sm:grid-cols-3 gap-4">
           {globalLocations.map((loc, i) => (
             <FadeUp key={loc.city} delay={i * 0.05}>
-              <div className="p-6 rounded-[1.25rem] bg-[#181818] border border-accent/10 text-center hover:border-accent/25 transition-all duration-300">
+              <div className="p-5 sm:p-6 rounded-[1.25rem] bg-[#181818] border border-accent/10 text-center hover:border-accent/25 transition-all duration-300">
                 <span className="text-3xl mb-3 block">{loc.flag}</span>
                 <h3 className="font-display text-base font-medium text-text-primary mb-1">{loc.city}</h3>
                 <p className="text-xs text-text-secondary/60 mb-3">{loc.region}</p>
@@ -796,7 +793,7 @@ function GlobalSection() {
           ))}
         </div>
         <FadeUp delay={0.2}>
-          <div className="mt-8 p-6 rounded-[1.25rem] bg-[#181818] border border-accent/10">
+          <div className="mt-8 p-5 sm:p-6 rounded-[1.25rem] bg-[#181818] border border-accent/10">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               <div>
                 <p className="text-lg font-mono font-semibold text-accent">12</p>
@@ -829,7 +826,7 @@ function InsightsSection() {
     <section className="py-28 lg:py-36 bg-ground relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 70% 30%, rgba(212,168,73,0.02), transparent)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <FadeUp className="max-w-2xl mb-16">
+        <FadeUp className="max-w-2xl mb-10 sm:mb-16">
           <SectionLabel text="Insights & Learning" />
           <SectionTitle>What we&apos;re <span className="text-accent">thinking about.</span></SectionTitle>
         </FadeUp>
@@ -860,7 +857,7 @@ function InsightsSection() {
 
 function CTASection() {
   return (
-    <section className="py-28 lg:py-32 bg-[#0D0C0B] relative overflow-hidden">
+    <section className="py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 0%, rgba(212,168,73,0.06), transparent)" }} />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -889,9 +886,755 @@ function CTASection() {
   );
 }
 
+/* ─── MOBILE COMPONENTS ─── */
+
+const mobileEase = [0.32, 0.72, 0, 1] as const;
+
+function MobileContainer({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return <div className={`px-4 ${className}`}>{children}</div>;
+}
+
+function MobileFadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  return (
+    <motion.div initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.5, delay, ease: mobileEase }}>
+      {children}
+    </motion.div>
+  );
+}
+
+function MobileSectionLabel({ text }: { text: string }) {
+  return <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-text-secondary/80 mb-2.5 block">{text}</span>;
+}
+
+function MobileSectionTitle({ children }: { children: React.ReactNode }) {
+  return <h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.9rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-4">{children}</h2>;
+}
+
+/* ─── Hero ─── */
+
+function MobileHero() {
+  return (
+    <section className="relative pt-28 pb-14 bg-ground overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.08]">
+          <ShapeGrid speed={0.1} squareSize={36} direction="diagonal" borderColor="#D4A849" hoverFillColor="#D4A849" shape="square" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ground/90 pointer-events-none" />
+        <div className="absolute top-8 right-[8%] text-[clamp(4rem,12vw,8rem)] font-mono font-semibold text-accent/[0.02] leading-none select-none pointer-events-none">08</div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-accent/10" />
+      </div>
+      <MobileContainer className="relative z-10">
+        <MobileFadeUp>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">About</span>
+          <h1 className="font-display font-semibold text-[clamp(2rem,9vw,2.75rem)] tracking-[-0.025em] leading-[1.04] text-text-primary mb-4">
+            We believe growth <span className="text-accent">is engineered, not hoped for.</span>
+          </h1>
+          <p className="text-[15px] text-text-secondary/85 leading-relaxed">
+            ZON is a digital growth platform combining technical search, AI content systems, and custom software to turn traffic into revenue. We don&apos;t do campaigns. We build growth systems.
+          </p>
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Why We Exist ─── */
+
+function MobileWhyWeExist() {
+  return (
+    <section className="py-14 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(600px circle at 50% 20%, rgba(212,168,73,0.02), transparent)" }} />
+      <MobileContainer className="relative z-10 text-center">
+        <MobileFadeUp>
+          <MobileSectionLabel text="Why We Exist" />
+        </MobileFadeUp>
+        <MobileFadeUp delay={0.04}>
+          <h2 className="font-display font-semibold text-[clamp(1.4rem,5.5vw,1.8rem)] tracking-[-0.025em] leading-[1.08] text-text-primary mb-4 text-balance">
+            Most agencies sell you tactics. <span className="text-accent">We sell outcomes.</span>
+          </h2>
+        </MobileFadeUp>
+        <MobileFadeUp delay={0.08}>
+          <p className="text-[14px] text-text-secondary/80 leading-relaxed mb-6">
+            We started ZON because we saw the same pattern repeating: agencies optimising for rankings while clients went out of business. Impressions don&apos;t pay bills. Revenue does.
+          </p>
+        </MobileFadeUp>
+        <MobileFadeUp delay={0.12}>
+          <div className="grid grid-cols-3 gap-2.5">
+            {[
+              { label: "Strategy", desc: "Engineered for ROI" },
+              { label: "Systems", desc: "Built to scale" },
+              { label: "Results", desc: "Measured in revenue" },
+            ].map((item) => (
+              <div key={item.label} className="p-3 rounded-xl bg-[#181818] border border-accent/10">
+                <p className="text-xs font-medium text-text-primary mb-0.5">{item.label}</p>
+                <p className="text-[10px] text-text-secondary/60">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Growth Philosophy ─── */
+
+function MobileGrowthPhilosophy() {
+  const steps = [
+    { label: "Research", icon: MagnifyingGlass, desc: "Market intelligence and opportunity mapping" },
+    { label: "Systems", icon: PuzzlePiece, desc: "Repeatable processes and scalable architecture" },
+    { label: "Execution", icon: Rocket, desc: "Rapid, iterative delivery with quality gates" },
+    { label: "Learning", icon: Lightbulb, desc: "Data analysis and knowledge capture" },
+    { label: "Iteration", icon: FlowArrow, desc: "Refinement and compounding improvements" },
+    { label: "Growth", icon: TrendUp, desc: "Sustainable, scalable business impact" },
+  ];
+  return (
+    <section className="py-14 bg-ground">
+      <MobileContainer>
+        <MobileFadeUp>
+          <MobileSectionLabel text="How Growth Happens" />
+          <MobileSectionTitle>Our <span className="text-accent">growth philosophy.</span></MobileSectionTitle>
+          <p className="text-[13px] text-text-secondary/60 mb-6">Growth is not a campaign. It&apos;s a continuous system of research, execution, learning, and iteration.</p>
+        </MobileFadeUp>
+        <div className="grid grid-cols-2 gap-2.5">
+          {steps.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <MobileFadeUp key={s.label} delay={i * 0.04}>
+                <div className="p-3.5 rounded-xl bg-[#181818] border border-accent/10">
+                  <div className="w-8 h-8 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mb-2.5">
+                    <Icon size={14} className="text-accent" />
+                  </div>
+                  <p className="text-sm font-medium text-text-primary mb-0.5">{s.label}</p>
+                  <p className="text-[11px] text-text-secondary/60 leading-snug">{s.desc}</p>
+                </div>
+              </MobileFadeUp>
+            );
+          })}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Traditional Agencies vs ZON ─── */
+
+function MobileComparison() {
+  const comparisons = [
+    { traditional: "Vanity metrics (impressions, clicks)", us: "Business outcomes (revenue, leads, ROI)" },
+    { traditional: "One-size-fits-all templates", us: "Custom systems engineered for your business" },
+    { traditional: "One-off campaigns with finite impact", us: "Continuous growth with compounding returns" },
+    { traditional: "Static PDF reports", us: "Real-time dashboards with actionable insights" },
+    { traditional: "Black-box methodology", us: "Full transparency — you see everything we see" },
+    { traditional: "Agency retains all IP", us: "You own the systems, the data, and the playbook" },
+  ];
+  return (
+    <section className="py-14 bg-[#0D0C0B]">
+      <MobileContainer>
+        <MobileFadeUp>
+          <MobileSectionLabel text="The Difference" />
+          <MobileSectionTitle>Traditional Agencies <span className="text-accent">vs. ZON.</span></MobileSectionTitle>
+        </MobileFadeUp>
+        <div className="space-y-3">
+          {comparisons.map((c, i) => (
+            <MobileFadeUp key={i} delay={i * 0.03}>
+              <div className="p-3.5 rounded-xl bg-[#181818] border border-accent/5">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <div className="w-4 h-4 rounded-full bg-red-400/10 flex items-center justify-center">
+                    <span className="text-[7px] text-red-400/60 font-mono">×</span>
+                  </div>
+                  <span className="text-[11px] text-text-secondary/50">Typical agency</span>
+                </div>
+                <p className="text-[13px] text-red-400/50 mb-2.5 pl-5">{c.traditional}</p>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="h-px flex-1 bg-accent/10" />
+                  <ArrowRight size={10} className="text-accent/40 shrink-0" />
+                  <div className="h-px flex-1 bg-accent/10" />
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-4 h-4 rounded-full bg-accent/10 flex items-center justify-center">
+                    <CheckCircle size={8} className="text-accent" />
+                  </div>
+                  <span className="text-[11px] font-medium text-accent/80">ZON</span>
+                </div>
+                <p className="text-[13px] text-text-primary/90 font-medium pl-5">{c.us}</p>
+              </div>
+            </MobileFadeUp>
+          ))}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── How Everything Connects ─── */
+
+function MobileOperatingSystem() {
+  const systems = [
+    { name: "SEO", icon: MagnifyingGlass, desc: "Technical audits and content clusters that dominate search." },
+    { name: "Content", icon: BookOpenText, desc: "AI-powered content systems at scale." },
+    { name: "AI", icon: Robot, desc: "Custom AI agents for lead qualification and automation." },
+    { name: "Automation", icon: Gear, desc: "Workflow automation connecting CRM and operations." },
+    { name: "Software", icon: Code, desc: "Custom CRMs, portals, and dashboards." },
+    { name: "Analytics", icon: ChartLineUp, desc: "Real-time dashboards and multi-touch attribution." },
+  ];
+  return (
+    <section className="py-14 bg-ground">
+      <MobileContainer>
+        <MobileFadeUp>
+          <MobileSectionLabel text="Our Operating System" />
+          <MobileSectionTitle>How everything <span className="text-accent">connects.</span></MobileSectionTitle>
+          <p className="text-[13px] text-text-secondary/60 mb-6">Every department feeds into the next. SEO informs content. Content trains AI. AI powers automation. Automation feeds analytics. Analytics optimises SEO.</p>
+        </MobileFadeUp>
+        <div className="grid grid-cols-2 gap-2.5">
+          {systems.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <MobileFadeUp key={s.name} delay={i * 0.04}>
+                <div className="p-3.5 rounded-xl bg-[#181818] border border-accent/10">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
+                      <Icon size={14} className="text-accent" />
+                    </div>
+                    <span className="text-sm font-medium text-text-primary">{s.name}</span>
+                  </div>
+                  <p className="text-[11px] text-text-secondary/60 leading-snug">{s.desc}</p>
+                </div>
+              </MobileFadeUp>
+            );
+          })}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Timeline ─── */
+
+function MobileTimeline() {
+  const [activeYear, setActiveYear] = useState(timelineData[timelineData.length - 1].year);
+  const active = timelineData.find((t) => t.year === activeYear) ?? timelineData[timelineData.length - 1];
+  const scrollRef = useRef<HTMLDivElement>(null);
+  return (
+    <section className="py-14 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(600px circle at 30% 40%, rgba(212,168,73,0.02), transparent)" }} />
+      <MobileContainer className="relative z-10">
+        <MobileFadeUp>
+          <MobileSectionLabel text="Our Journey" />
+          <MobileSectionTitle>From idea to <span className="text-accent">impact.</span></MobileSectionTitle>
+        </MobileFadeUp>
+        <div ref={scrollRef} className="flex gap-2 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-2 mb-5">
+          {timelineData.map((t) => (
+            <button
+              key={t.year}
+              onClick={() => setActiveYear(t.year)}
+              className={`snap-start shrink-0 px-4 py-2.5 rounded-xl text-left transition-all duration-200 min-h-[44px] flex items-center gap-2 ${
+                activeYear === t.year
+                  ? "bg-accent/15 border border-accent/30"
+                  : "bg-[#181818] border border-accent/5"
+              }`}
+              aria-pressed={activeYear === t.year}
+            >
+              <span className={`font-mono text-sm font-semibold ${activeYear === t.year ? "text-accent" : "text-text-secondary/50"}`}>{t.year}</span>
+              <span className={`text-[11px] whitespace-nowrap ${activeYear === t.year ? "text-accent" : "text-text-secondary/60"}`}>{t.title}</span>
+            </button>
+          ))}
+        </div>
+        <MobileFadeUp key={active.year}>
+          <div className="p-4 rounded-xl bg-[#181818] border border-accent/10">
+            <div className="flex items-center gap-2.5 mb-3">
+              <span className="font-mono text-xl font-semibold text-accent">{active.year}</span>
+              <span className="w-px h-6 bg-accent/20" />
+              <span className="font-display text-base font-medium text-text-primary">{active.title}</span>
+            </div>
+            <p className="text-[13px] text-text-secondary/80 leading-relaxed mb-3">{active.desc}</p>
+            <div className="p-3 rounded-lg bg-surface/50 border border-accent/5">
+              <p className="text-[9px] font-medium tracking-[0.1em] uppercase text-text-secondary/40 mb-1">In detail</p>
+              <p className="text-[12px] text-text-secondary/70">{active.detail}</p>
+            </div>
+          </div>
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Principles ─── */
+
+function MobilePrinciples() {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const p = principles[activeIdx];
+  const Icon = p.icon;
+  return (
+    <section className="py-14 bg-ground">
+      <MobileContainer>
+        <MobileFadeUp>
+          <MobileSectionLabel text="Our Principles" />
+          <MobileSectionTitle>What we <span className="text-accent">stand for.</span></MobileSectionTitle>
+        </MobileFadeUp>
+        <div className="flex gap-2 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-2 mb-5">
+          {principles.map((pr, i) => (
+            <button
+              key={pr.title}
+              onClick={() => setActiveIdx(i)}
+              className={`snap-start shrink-0 px-3.5 py-2.5 rounded-xl text-left transition-all duration-200 min-h-[44px] flex items-center gap-2 ${
+                activeIdx === i
+                  ? "bg-accent/15 border border-accent/30"
+                  : "bg-[#181818] border border-accent/5"
+              }`}
+              aria-pressed={activeIdx === i}
+            >
+              <pr.icon size={14} className={activeIdx === i ? "text-accent" : "text-text-secondary/50"} />
+              <span className={`text-xs whitespace-nowrap font-medium ${activeIdx === i ? "text-accent" : "text-text-secondary/70"}`}>{pr.title}</span>
+            </button>
+          ))}
+        </div>
+        <MobileFadeUp key={p.title}>
+          <div className="p-4 rounded-xl bg-[#181818] border border-accent/10">
+            <div className="flex items-center gap-2.5 mb-3">
+              <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
+                <Icon size={16} className="text-accent" />
+              </div>
+              <h3 className="font-display text-base font-medium text-text-primary">{p.title}</h3>
+            </div>
+            <p className="text-[13px] text-text-secondary/80 leading-relaxed mb-3">{p.desc}</p>
+            <div className="p-3 rounded-lg bg-accent/5 border border-accent/10 mb-3">
+              <div className="flex gap-2">
+                <Quotes size={12} className="text-accent/30 shrink-0 mt-0.5" />
+                <p className="text-xs text-text-primary/80 italic">&ldquo;{p.quote}&rdquo;</p>
+              </div>
+            </div>
+            <div className="p-3 rounded-lg bg-surface/50 border border-accent/5">
+              <p className="text-[9px] font-medium tracking-[0.1em] uppercase text-text-secondary/40 mb-1">Real example</p>
+              <p className="text-xs text-text-secondary/70">{p.example}</p>
+            </div>
+          </div>
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Numbers ─── */
+
+function MobileNumbers() {
+  return (
+    <section className="py-14 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(600px circle at 50% 50%, rgba(212,168,73,0.02), transparent)" }} />
+      <MobileContainer className="relative z-10">
+        <MobileFadeUp>
+          <MobileSectionLabel text="By the Numbers" />
+          <MobileSectionTitle>Our track record, <span className="text-accent">in numbers.</span></MobileSectionTitle>
+        </MobileFadeUp>
+        <div className="grid grid-cols-2 gap-2.5">
+          {[
+            { count: "200+", label: "Projects Delivered" },
+            { count: "12", label: "Countries Served" },
+            { count: "10", label: "Industries" },
+            { count: "4.2x", label: "Avg Client ROI" },
+            { count: "2,400+", label: "Leads Generated" },
+            { count: "1,200+", label: "Hours Automated" },
+            { count: "980+", label: "Keywords Ranked" },
+            { count: "96%", label: "Client Satisfaction" },
+          ].map((stat, i) => (
+            <MobileFadeUp key={stat.label} delay={i * 0.04}>
+              <div className="p-3.5 rounded-xl bg-[#181818] border border-accent/15 text-center">
+                <p className="font-mono text-lg font-semibold text-accent mb-0.5">{stat.count}</p>
+                <p className="text-[10px] text-text-secondary/60 leading-tight">{stat.label}</p>
+              </div>
+            </MobileFadeUp>
+          ))}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Team ─── */
+
+function MobileTeam() {
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  return (
+    <section className="py-14 bg-ground">
+      <MobileContainer>
+        <MobileFadeUp>
+          <MobileSectionLabel text="The Team" />
+          <MobileSectionTitle>People behind <span className="text-accent">the systems.</span></MobileSectionTitle>
+          <p className="text-[13px] text-text-secondary/60 mb-6">Strategists, engineers, and creatives working across three continents to deliver measurable growth.</p>
+        </MobileFadeUp>
+      </MobileContainer>
+      <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none px-4 pb-2">
+        {teamMembers.map((member, i) => (
+          <MobileFadeUp key={member.name} delay={i * 0.04}>
+            <button
+              onClick={() => setSelectedIdx(selectedIdx === i ? null : i)}
+              className={`snap-start shrink-0 w-[78vw] max-w-[300px] p-4 rounded-xl bg-[#181818] border text-left transition-all duration-200 ${
+                selectedIdx === i ? "border-accent/30" : "border-accent/10"
+              }`}
+            >
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-accent/20 to-transparent border border-accent/20 flex items-center justify-center mb-3">
+                <span className="text-base font-mono font-semibold text-accent">{member.name.split(" ").map((n) => n[0]).join("")}</span>
+              </div>
+              <h3 className="font-display text-sm font-medium text-text-primary mb-0.5">{member.name}</h3>
+              <p className="text-[11px] text-accent/80 mb-2.5">{member.role}</p>
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] text-text-secondary/40 uppercase">Specialty</span>
+                  <span className="text-[10px] text-text-secondary/70">{member.specialty}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] text-text-secondary/40 uppercase">Experience</span>
+                  <span className="text-[10px] text-text-secondary/70">{member.years} years</span>
+                </div>
+              </div>
+              {selectedIdx === i && (
+                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} transition={{ duration: 0.25 }} className="mt-3 pt-3 border-t border-accent/10 overflow-hidden">
+                  <p className="text-[9px] text-text-secondary/40 uppercase mb-0.5">Tools</p>
+                  <p className="text-[10px] text-text-secondary/70 mb-1.5">{member.tools}</p>
+                  <p className="text-[9px] text-text-secondary/40 uppercase mb-0.5">Did You Know?</p>
+                  <p className="text-[10px] text-text-secondary/70 italic">{member.fact}</p>
+                </motion.div>
+              )}
+            </button>
+          </MobileFadeUp>
+        ))}
+      </div>
+      <MobileContainer>
+        <MobileFadeUp delay={0.15}>
+          <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
+            <Link href="/team" className="group inline-flex items-center gap-2 bg-accent text-ground pl-5 pr-2 py-2.5 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150">
+              View Full Team
+              <span className="w-6 h-6 rounded-full bg-ground/10 flex items-center justify-center">
+                <ArrowRight size={12} weight="bold" />
+              </span>
+            </Link>
+            <Link href="/careers" className="text-text-secondary/60 underline underline-offset-4 hover:text-text-primary text-xs transition-colors">
+              Join the team
+            </Link>
+          </div>
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Workflow Accordion (merged Behind Scenes + How We Work) ─── */
+
+function MobileWorkflow() {
+  const [openPhase, setOpenPhase] = useState<number>(0);
+  const phases = [
+    { step: "01", title: "Discovery", desc: "Understand your business, market, customers, and existing infrastructure to identify highest-impact opportunities.", icon: MagnifyingGlass, items: ["Market intelligence reports", "Competitor gap analysis", "Technical SEO audits", "Customer journey mapping"] },
+    { step: "02", title: "Research", desc: "Deep dive into data — search landscapes, competitor analysis, customer behaviour, and technical audit findings.", icon: ChartLineUp, items: ["Search landscape analysis", "Competitor performance data", "Customer behaviour insights"] },
+    { step: "03", title: "Architecture", desc: "Design the system. Information architecture, tech stack, content framework, and measurement plan before building begins.", icon: Code, items: ["System design documents", "API contracts & schemas", "Wireframes & prototypes"] },
+    { step: "04", title: "Execution", desc: "Rapid, iterative delivery with weekly stakeholder reviews, automated quality gates, and continuous deployment.", icon: Gear, items: ["Automated test suites", "Code review process", "Performance benchmarking", "Security & compliance checks"] },
+    { step: "05", title: "Measurement", desc: "Real-time dashboards track every KPI from day one. No waiting for monthly reports to know if it's working.", icon: ChartLineUp, items: ["Real-time dashboards", "Automated alerts", "Weekly optimisation cycles"] },
+    { step: "06", title: "Iteration", desc: "Data feeds back into the system. Every week brings optimisation, refinement, and compounding improvements.", icon: FlowArrow, items: ["A/B testing cycles", "Performance reviews", "Continuous refinement"] },
+    { step: "07", title: "Scale", desc: "What works gets systematised. Playbooks, automation, and training ensure growth continues without us in the room.", icon: Rocket, items: ["Playbook documentation", "Automation handover", "Team training & enablement"] },
+  ];
+  return (
+    <section className="py-14 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(600px circle at 30% 60%, rgba(212,168,73,0.02), transparent)" }} />
+      <MobileContainer className="relative z-10">
+        <MobileFadeUp>
+          <MobileSectionLabel text="How We Work" />
+          <MobileSectionTitle>From discovery to <span className="text-accent">scale.</span></MobileSectionTitle>
+          <p className="text-[13px] text-text-secondary/60 mb-6">We move from research to implementation to optimisation through a structured, iterative process.</p>
+        </MobileFadeUp>
+        <div className="space-y-2.5">
+          {phases.map((phase, i) => {
+            const Icon = phase.icon;
+            const isOpen = openPhase === i;
+            return (
+              <MobileFadeUp key={phase.step} delay={i * 0.03}>
+                <div className="rounded-xl bg-[#181818] border border-accent/10 overflow-hidden">
+                  <button
+                    onClick={() => setOpenPhase(isOpen ? -1 : i)}
+                    className="flex items-center gap-3 w-full p-3.5 text-left min-h-[52px]"
+                    aria-expanded={isOpen}
+                  >
+                    <div className="w-7 h-7 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
+                      <span className="text-[9px] font-mono font-semibold text-accent">{phase.step}</span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-sm font-medium text-text-primary">{phase.title}</span>
+                      {!isOpen && <p className="text-[11px] text-text-secondary/50 mt-0.5 line-clamp-1">{phase.desc}</p>}
+                    </div>
+                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                      <CaretDown size={14} className="text-text-secondary/40 shrink-0" />
+                    </motion.div>
+                  </button>
+                  <motion.div
+                    initial={false}
+                    animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                    transition={{ duration: 0.25, ease: mobileEase }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-3.5 pb-4 pt-0">
+                      <p className="text-[12px] text-text-secondary/70 leading-relaxed mb-3">{phase.desc}</p>
+                      <div className="space-y-1.5">
+                        {phase.items.map((item) => (
+                          <div key={item} className="flex items-center gap-2 text-[11px] text-text-secondary/50">
+                            <CheckCircle size={7} className="text-accent/40 shrink-0" />
+                            {item}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+              </MobileFadeUp>
+            );
+          })}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Tools We Trust ─── */
+
+function MobileTools() {
+  const [selectedTool, setSelectedTool] = useState<string | null>(null);
+  return (
+    <section className="py-14 bg-ground">
+      <MobileContainer>
+        <MobileFadeUp>
+          <MobileSectionLabel text="Technology Ecosystem" />
+          <MobileSectionTitle>Tools we <span className="text-accent">trust.</span></MobileSectionTitle>
+          <p className="text-[13px] text-text-secondary/60 mb-6">Tap a technology to learn more about how we use it.</p>
+        </MobileFadeUp>
+        <div className="flex flex-wrap gap-2.5">
+          {techStack.map((t, i) => {
+            const Icon = t.icon;
+            const isSelected = selectedTool === t.name;
+            return (
+              <MobileFadeUp key={t.name} delay={i * 0.02}>
+                <button
+                  onClick={() => setSelectedTool(isSelected ? null : t.name)}
+                  className={`px-3.5 py-2.5 rounded-xl border transition-all duration-200 min-h-[44px] ${
+                    isSelected
+                      ? "bg-accent/15 border-accent/40"
+                      : "bg-[#181818] border-accent/10"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Icon size={14} className={isSelected ? "text-accent" : "text-text-secondary/60"} />
+                    <span className={`text-xs font-medium ${isSelected ? "text-accent" : "text-text-secondary"}`}>{t.name}</span>
+                  </div>
+                </button>
+              </MobileFadeUp>
+            );
+          })}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── How We Operate ─── */
+
+function MobileCulture() {
+  const [openIdx, setOpenIdx] = useState<number>(0);
+  return (
+    <section className="py-14 bg-[#0D0C0B]">
+      <MobileContainer>
+        <MobileFadeUp>
+          <MobileSectionLabel text="Company Culture" />
+          <MobileSectionTitle>How we <span className="text-accent">operate.</span></MobileSectionTitle>
+          <p className="text-[13px] text-text-secondary/60 mb-6">The principles and practices that define how we work, make decisions, and deliver quality.</p>
+        </MobileFadeUp>
+        <div className="space-y-2.5">
+          {cultureCards.map((card, i) => {
+            const Icon = card.icon;
+            const isOpen = openIdx === i;
+            return (
+              <MobileFadeUp key={card.title} delay={i * 0.04}>
+                <div className="rounded-xl bg-[#181818] border border-accent/10 overflow-hidden">
+                  <button
+                    onClick={() => setOpenIdx(isOpen ? -1 : i)}
+                    className="flex items-center gap-3 w-full p-3.5 text-left min-h-[52px]"
+                    aria-expanded={isOpen}
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
+                      <Icon size={14} className="text-accent" />
+                    </div>
+                    <span className="text-sm font-medium text-text-primary flex-1">{card.title}</span>
+                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                      <CaretDown size={14} className="text-text-secondary/40 shrink-0" />
+                    </motion.div>
+                  </button>
+                  <motion.div
+                    initial={false}
+                    animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                    transition={{ duration: 0.25, ease: mobileEase }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-3.5 pb-4 pt-0">
+                      <p className="text-[12px] text-text-secondary/70 leading-relaxed">{card.desc}</p>
+                    </div>
+                  </motion.div>
+                </div>
+              </MobileFadeUp>
+            );
+          })}
+        </div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Where We Operate ─── */
+
+function MobileGlobal() {
+  return (
+    <section className="py-14 bg-ground">
+      <MobileContainer>
+        <MobileFadeUp>
+          <MobileSectionLabel text="Global Presence" />
+          <MobileSectionTitle>Where we <span className="text-accent">operate.</span></MobileSectionTitle>
+        </MobileFadeUp>
+      </MobileContainer>
+      <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none px-4 pb-2">
+        {globalLocations.map((loc, i) => (
+          <MobileFadeUp key={loc.city} delay={i * 0.05}>
+            <div className="snap-start shrink-0 w-[82vw] max-w-[320px] p-4 rounded-xl bg-[#181818] border border-accent/10 text-center">
+              <span className="text-2xl mb-2.5 block">{loc.flag}</span>
+              <h3 className="font-display text-base font-medium text-text-primary mb-0.5">{loc.city}</h3>
+              <p className="text-xs text-text-secondary/60 mb-3">{loc.region}</p>
+              <div className="flex items-center justify-center gap-1 text-[10px] text-text-secondary/40">
+                <Globe size={10} />
+                <span>{loc.projects}+ projects delivered</span>
+              </div>
+            </div>
+          </MobileFadeUp>
+        ))}
+      </div>
+      <MobileContainer>
+        <MobileFadeUp delay={0.15}>
+          <div className="grid grid-cols-2 gap-2.5 mt-5">
+            {[
+              { count: "12", label: "Countries Served" },
+              { count: "10", label: "Industries" },
+              { count: "4", label: "Languages" },
+              { count: "3", label: "Continents" },
+            ].map((stat, i) => (
+              <MobileFadeUp key={stat.label} delay={0.1 + i * 0.03}>
+                <div className="p-3 rounded-xl bg-[#181818] border border-accent/10 text-center">
+                  <p className="font-mono text-base font-semibold text-accent">{stat.count}</p>
+                  <p className="text-[10px] text-text-secondary/60">{stat.label}</p>
+                </div>
+              </MobileFadeUp>
+            ))}
+          </div>
+        </MobileFadeUp>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── Insights ─── */
+
+function MobileInsights() {
+  return (
+    <section className="py-14 bg-[#0D0C0B]">
+      <MobileContainer>
+        <MobileFadeUp>
+          <MobileSectionLabel text="Insights & Learning" />
+          <MobileSectionTitle>What we&apos;re <span className="text-accent">thinking about.</span></MobileSectionTitle>
+        </MobileFadeUp>
+      </MobileContainer>
+      <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none px-4 pb-2">
+        {insights.map((post, i) => (
+          <MobileFadeUp key={post.title} delay={i * 0.04}>
+            <div className="snap-start shrink-0 w-[82vw] max-w-[320px] p-4 rounded-xl bg-[#181818] border border-accent/10">
+              <div className="flex items-center gap-2 mb-2.5">
+                <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent">{post.tag}</span>
+                <span className="w-px h-2.5 bg-accent/10" />
+                <span className="text-[9px] text-text-secondary/40">{post.time}</span>
+              </div>
+              <h3 className="text-sm font-medium text-text-primary mb-3 leading-snug">{post.title}</h3>
+              <span className="inline-flex items-center gap-1 text-[10px] text-accent/50">
+                <BookOpenText size={10} />
+                <span>Read article</span>
+              </span>
+            </div>
+          </MobileFadeUp>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─── CTA ─── */
+
+function MobileCTA() {
+  return (
+    <section className="py-16 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(500px circle at 50% 0%, rgba(212,168,73,0.06), transparent)" }} />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
+      <MobileContainer className="relative z-10 text-center">
+        <motion.span initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.5, ease: mobileEase }} className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">
+          Start Building
+        </motion.span>
+        <motion.h2 initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.6, ease: mobileEase }} className="font-display font-semibold text-[clamp(1.8rem,7vw,2.5rem)] tracking-[-0.03em] leading-[1.02] text-text-primary text-balance mb-3">
+          Let&apos;s build something <span className="text-accent">remarkable.</span>
+        </motion.h2>
+        <motion.p initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.5, delay: 0.05, ease: mobileEase }} className="text-text-secondary text-[15px] max-w-[32ch] mx-auto mb-7">
+          Free audit. No commitment. First results within 60 days or we fix it.
+        </motion.p>
+        <motion.div initial={{ y: 16, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.5, delay: 0.1, ease: mobileEase }} className="flex flex-col items-center gap-4">
+          <Link href="/seo-audit" className="inline-flex items-center gap-2 bg-accent text-ground pl-7 pr-3 py-3 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150 shadow-[0_0_30px_rgba(212,168,73,0.15)]">
+            Get Free Audit
+            <span className="w-7 h-7 rounded-full bg-ground/10 flex items-center justify-center">
+              <ArrowRight size={12} weight="bold" />
+            </span>
+          </Link>
+          <Link href="/contact" className="text-text-secondary/50 underline underline-offset-4 hover:text-text-primary text-sm transition-colors duration-200">
+            Talk to our team
+          </Link>
+        </motion.div>
+      </MobileContainer>
+    </section>
+  );
+}
+
+/* ─── MOBILE PAGE ─── */
+
+function MobileAboutPage() {
+  return (
+    <>
+      <MobileHero />
+      <MobileWhyWeExist />
+      <MobileGrowthPhilosophy />
+      <MobileComparison />
+      <MobileOperatingSystem />
+      <MobileTimeline />
+      <MobilePrinciples />
+      <MobileNumbers />
+      <MobileTeam />
+      <MobileWorkflow />
+      <MobileTools />
+      <MobileCulture />
+      <MobileGlobal />
+      <MobileInsights />
+      <MobileCTA />
+    </>
+  );
+}
+
 /* ─── MAIN EXPORT ─── */
 
 export function AboutContent() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  if (isMobile) {
+    return <MobileAboutPage />;
+  }
   return (
     <>
       <HeroSection />
@@ -910,57 +1653,6 @@ export function AboutContent() {
       <GlobalSection />
       <InsightsSection />
       <CTASection />
-        {/* Hub interlinking */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <Breadcrumbs crumbs={getBreadcrumbs("about", "hub")} />
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Discover What We Do</h2>
-            <p className="text-text-secondary text-sm mt-3 max-w-[50ch] mx-auto">
-              From services and tools to solutions and proven results.
-            </p>
-          </div>
-          <RelatedSection
-            groups={[
-              {
-                title: "Services",
-                links: [
-                  { label: "SEO Strategy", href: "/seo-strategy" },
-                  { label: "Generative Engine Optimisation", href: "/generative-engine-optimisation" },
-                  { label: "Web Development", href: "/nextjs-development" },
-                  { label: "All Services", href: "/services" },
-                ],
-              },
-              {
-                title: "Solutions",
-                links: [
-                  { label: "Improve Search Visibility", href: "/improve-search-visibility" },
-                  { label: "Become Visible in AI Search", href: "/become-visible-in-ai-search" },
-                  { label: "Build a Custom CRM", href: "/build-custom-crm" },
-                  { label: "All Solutions", href: "/solutions" },
-                ],
-              },
-              {
-                title: "Tools",
-                links: [
-                  { label: "Website SEO Audit", href: "/seo-audit" },
-                  { label: "GEO Readiness Audit", href: "/geo-readiness" },
-                  { label: "Schema Generator", href: "/schema-generator" },
-                  { label: "All Tools", href: "/tools" },
-                ],
-              },
-              {
-                title: "More",
-                links: [
-                  { label: "Our Team", href: "/team" },
-                  { label: "Our Work", href: "/work" },
-                  { label: "Careers", href: "/careers" },
-                  { label: "Contact", href: "/contact" },
-                ],
-              },
-            ]}
-          />
-        </section>
     </>
   );
 }

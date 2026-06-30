@@ -2,10 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import RelatedSection from "@/components/RelatedSection";
-import { getBreadcrumbs } from "@/data/relations";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Target, Binoculars, Robot, Gear, Code, Rocket, Globe, MapPin,
   ChartLineUp, Lightning, ChartBar, FolderOpen, Handshake,
@@ -361,11 +358,11 @@ function Section1Intro() {
   const filtered = activeFilter === 0 ? solutionData : solutionData.filter(s => categoryMap[activeFilter].filter.includes(s.slug));
 
   return (
-    <section className="relative py-28 lg:py-36 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-36 bg-ground overflow-hidden">
       <BgGrid id="intro" />
       <BgRadials position="center" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-7">
             <FadeIn>
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent/80 mb-5 block">Discover</span>
@@ -441,7 +438,7 @@ function Section2Explorer() {
     : solutionData.filter(s => categoryMap[activeCategory].filter.includes(s.slug));
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="explorer" />
         <BgRadials position="tl" />
@@ -449,7 +446,7 @@ function Section2Explorer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Explore</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-12">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-12">
             Find the right <span className="text-accent">solution.</span>
           </h2>
         </FadeIn>
@@ -496,7 +493,6 @@ function Section2Explorer() {
 
           {/* Right cards */}
           <div className="lg:col-span-9">
-            <AnimatePresence mode="wait">
               <motion.div layout={false} className="grid sm:grid-cols-2 xl:grid-cols-3 gap-3">
                 {filteredSolutions.map((sol, i) => {
                   const Icon = (iconMap[sol.icon] || Target) as React.ComponentType<any>;
@@ -507,7 +503,6 @@ function Section2Explorer() {
                       layout={false}
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.35, delay: i * 0.03, ease }}
                       onMouseEnter={() => setHoveredCard(sol.slug)}
                       onMouseLeave={() => setHoveredCard(null)}
@@ -539,7 +534,6 @@ function Section2Explorer() {
                   );
                 })}
               </motion.div>
-            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -552,15 +546,15 @@ function Section3Featured() {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <BgRadials position="br" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Featured</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             High-impact <span className="text-accent">solutions.</span>
           </h2>
-          <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-16 lg:mb-20">Every solution is a connected system — not a standalone tactic. Each one integrates multiple services, tools, and expertise.</p>
+          <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-10 sm:mb-16 lg:mb-20">Every solution is a connected system — not a standalone tactic. Each one integrates multiple services, tools, and expertise.</p>
         </FadeIn>
 
         <div className="space-y-16 lg:space-y-28">
@@ -598,12 +592,10 @@ function Section3Featured() {
                     </div>
                     <p className="text-sm text-text-secondary leading-relaxed max-w-[52ch] mb-6">{sol.description}</p>
 
-                    <AnimatePresence mode="wait">
                       {isExpanded && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.35, ease }}
                           className="overflow-hidden"
                         >
@@ -632,7 +624,6 @@ function Section3Featured() {
                           </Link>
                         </motion.div>
                       )}
-                    </AnimatePresence>
 
                     {!isExpanded && (
                       <div className="flex items-center gap-2 text-[11px] text-text-secondary/50 font-mono">
@@ -650,7 +641,7 @@ function Section3Featured() {
                     transition={{ duration: 0.3 }}
                   >
                     <div className={`absolute -top-4 -${isReversed ? "right" : "left"}-4 w-20 h-20 bg-accent/[0.03] rounded-2xl border border-accent/15`} />
-                    <PanelCard className="p-5 lg:p-6">
+                    <PanelCard className="p-5 sm:p-6 lg:p-8">
                       <span className="text-[9px] font-mono text-[rgba(255,255,255,0.60)] tracking-wider uppercase block mb-4">Expected ROI</span>
                       <div className="space-y-3.5">
                         <div className="flex items-center justify-between">
@@ -689,7 +680,7 @@ function Section4Problems() {
   };
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="problems" />
         <BgRadials position="tr" />
@@ -697,7 +688,7 @@ function Section4Problems() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">What do you need?</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             What are you trying to <span className="text-accent">achieve?</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Select a goal and discover the precise system of services, tools, and expertise engineered to solve it.</p>
@@ -780,7 +771,7 @@ function Section5Architecture() {
   ];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="arch" />
         <BgRadials position="center" />
@@ -788,10 +779,10 @@ function Section5Architecture() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Architecture</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Everything is <span className="text-accent">connected.</span>
           </h2>
-          <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-16">Each solution is part of a connected ecosystem. Hover any node to see how every pillar feeds into every other pillar. Nothing operates in isolation.</p>
+          <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-10 sm:mb-16">Each solution is part of a connected ecosystem. Hover any node to see how every pillar feeds into every other pillar. Nothing operates in isolation.</p>
         </FadeIn>
 
         {/* Desktop: Animated architecture */}
@@ -805,19 +796,16 @@ function Section5Architecture() {
           >
             <ArchitectureIllo activeNode={activeNode} onNodeHover={setActiveNode} />
           </motion.div>
-          <AnimatePresence mode="wait">
             {activeNode !== null && (
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
                 className="text-center mt-6"
               >
                 <span className="text-[11px] font-mono text-accent/70">{pillarDescriptions[activeNode]?.label}</span>
                 <p className="text-xs text-text-secondary mt-1 max-w-[40ch] mx-auto">{pillarDescriptions[activeNode]?.desc}</p>
               </motion.div>
             )}
-          </AnimatePresence>
         </div>
 
         {/* Mobile: Accordion */}
@@ -831,12 +819,10 @@ function Section5Architecture() {
                 <span className="text-sm font-medium text-white">{item.label}</span>
                 {mobileAccordion === i ? <CaretDown size={14} className="text-accent/60" /> : <CaretRight size={14} className="text-text-secondary/40" />}
               </button>
-              <AnimatePresence mode="wait">
                 {mobileAccordion === i && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
@@ -846,7 +832,6 @@ function Section5Architecture() {
                     </div>
                   </motion.div>
                 )}
-              </AnimatePresence>
             </div>
           ))}
         </div>
@@ -861,13 +846,13 @@ function Section6Industries() {
   const [mobileIndustry, setMobileIndustry] = useState<number | null>(null);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <BgGrid id="industries" />
       <BgRadials position="bl" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Industries</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Solutions by <span className="text-accent">industry.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Every industry has unique challenges. We tailor our connected growth system to fit your market, regulations, and competition.</p>
@@ -899,12 +884,10 @@ function Section6Industries() {
                     <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <Icon size={28} className={`mx-auto mb-3 transition-all duration-500 ${isHovered ? "text-accent scale-110" : "text-text-secondary/50"}`} />
                     <span className={`text-sm font-medium transition-colors duration-300 ${isHovered ? "text-accent" : "text-white"}`}>{ind.name}</span>
-                    <AnimatePresence mode="wait">
                       {isHovered && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
@@ -921,7 +904,6 @@ function Section6Industries() {
                           </div>
                         </motion.div>
                       )}
-                    </AnimatePresence>
                     {!isHovered && (
                       <span className="text-[9px] font-mono text-text-secondary/30 mt-2 block">Hover to explore</span>
                     )}
@@ -946,12 +928,10 @@ function Section6Industries() {
                   <Icon size={22} className={`mx-auto mb-2 transition-colors duration-300 ${isExpanded ? "text-accent" : "text-text-secondary/50"}`} />
                   <span className={`text-xs font-medium ${isExpanded ? "text-accent" : "text-white"}`}>{ind.name}</span>
                 </button>
-                <AnimatePresence mode="wait">
                   {isExpanded && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
@@ -961,7 +941,6 @@ function Section6Industries() {
                       </div>
                     </motion.div>
                   )}
-                </AnimatePresence>
               </div>
             );
           })}
@@ -982,7 +961,7 @@ function Section7Results() {
   ];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="results" />
         <BgRadials position="tr" />
@@ -991,7 +970,7 @@ function Section7Results() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Results</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Outcomes that <span className="text-accent">compound.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Connected solutions produce connected results — every channel feeds the next, every gain multiplies.</p>
@@ -1011,7 +990,7 @@ function Section7Results() {
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <PanelCard className={`p-6 transition-all duration-500 ${isActive ? "border-accent/60" : ""}`}>
+                  <PanelCard className={`p-5 sm:p-6 lg:p-8 transition-all duration-500 ${isActive ? "border-accent/60" : ""}`}>
                     <Icon size={16} className="text-accent mb-3" />
                     <span className="text-[10px] font-mono text-[rgba(255,255,255,0.60)] tracking-wider uppercase block mb-1">{m.label}</span>
                     <span className="font-display text-[clamp(1.8rem,3vw,2.4rem)] font-semibold text-accent leading-none block">
@@ -1028,7 +1007,7 @@ function Section7Results() {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <PanelCard className="p-6">
+            <PanelCard className="p-5 sm:p-6 lg:p-8">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-[10px] font-mono text-[rgba(255,255,255,0.60)] tracking-wider uppercase">Growth Trajectory</span>
                 <span className="text-[11px] text-accent font-mono">+312%</span>
@@ -1037,7 +1016,7 @@ function Section7Results() {
                 <ResultsChart />
               </div>
             </PanelCard>
-            <PanelCard className="p-6">
+            <PanelCard className="p-5 sm:p-6 lg:p-8">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-[10px] font-mono text-[rgba(255,255,255,0.60)] tracking-wider uppercase">Channel Distribution</span>
                 <span className="text-[11px] text-accent font-mono">Optimised</span>
@@ -1112,7 +1091,7 @@ function Section8Process() {
   const [activeStep, setActiveStep] = useState<number | null>(null);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="process" />
         <BgRadials position="center" />
@@ -1120,10 +1099,10 @@ function Section8Process() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Process</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             How we <span className="text-accent">build.</span>
           </h2>
-          <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-16">A proven five-phase system that takes your growth from discovery to scale — with continuous optimisation at every stage.</p>
+          <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-10 sm:mb-16">A proven five-phase system that takes your growth from discovery to scale — with continuous optimisation at every stage.</p>
         </FadeIn>
 
         {/* Desktop: Floating cards */}
@@ -1147,7 +1126,7 @@ function Section8Process() {
                 >
                   <div className={`flex-1 ${isLeft ? "text-right" : "text-left"}`}>
                     <motion.div
-                      className={`inline-block bg-[#181818] border rounded-[1.5rem] p-6 transition-all duration-500 max-w-[380px] ${
+                      className={`inline-block bg-[#181818] border rounded-[1.5rem] p-5 sm:p-6 lg:p-8 transition-all duration-500 max-w-[380px] ${
                         isActive ? "border-accent/60 shadow-lg" : "border-accent/25"
                       }`}
                       animate={{ y: isActive ? -6 : 0, scale: isActive ? 1.02 : 1 }}
@@ -1226,13 +1205,13 @@ function Section9Comparison() {
   const [activeColumn, setActiveColumn] = useState<"traditional" | "connected" | null>(null);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <BgGrid id="comparison" />
       <BgRadials position="tl" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Comparison</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Traditional agencies vs. <span className="text-accent">connected growth.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">The difference between point solutions and a system that works together — every channel, every tool, every team.</p>
@@ -1245,7 +1224,7 @@ function Section9Comparison() {
             animate={{ y: activeColumn === "traditional" ? -4 : 0, opacity: activeColumn === "connected" ? 0.5 : 1 }}
             transition={{ duration: 0.3 }}
           >
-            <PanelCard className="p-6 lg:p-8">
+            <PanelCard className="p-5 sm:p-6 lg:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-[#222] border border-white/10 flex items-center justify-center">
                   <span className="text-sm text-text-secondary/60">×</span>
@@ -1277,7 +1256,7 @@ function Section9Comparison() {
             animate={{ y: activeColumn === "connected" ? -4 : 0, opacity: activeColumn === "traditional" ? 0.5 : 1 }}
             transition={{ duration: 0.3 }}
           >
-            <PanelCard className="p-6 lg:p-8 border-accent/50" style={{ boxShadow: "0 0 30px rgba(212,168,73,0.06)" }}>
+            <PanelCard className="p-5 sm:p-6 lg:p-8 border-accent/50" style={{ boxShadow: "0 0 30px rgba(212,168,73,0.06)" }}>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-accent/15 border border-accent/40 flex items-center justify-center">
                   <SealCheck size={18} className="text-accent" />
@@ -1311,7 +1290,7 @@ function Section9Comparison() {
 /* ─── SECTION 10: INSIGHTS ─── */
 function Section10Insights() {
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="insights" />
         <BgRadials position="br" />
@@ -1319,7 +1298,7 @@ function Section10Insights() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Insights</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Thinking that <span className="text-accent">informs.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Strategy, analysis, and perspectives from the team building connected growth systems every day.</p>
@@ -1334,7 +1313,7 @@ function Section10Insights() {
             transition={{ duration: 0.6, ease }}
           >
             <Link href="/" className="group block h-full">
-              <PanelCard className="p-6 lg:p-8 h-full flex flex-col relative overflow-hidden">
+              <PanelCard className="p-5 sm:p-6 lg:p-8 h-full flex flex-col relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-accent/[0.02] rounded-full -translate-y-1/2 translate-x-1/2" />
                 <div className="flex-1 relative z-10">
                   <div className="flex items-center gap-3 mb-4">
@@ -1390,7 +1369,7 @@ function Section10Insights() {
 /* ─── SECTION 11: CTA ─── */
 function Section11CTA() {
   return (
-    <section className="relative py-28 lg:py-36 overflow-hidden bg-[#0A0A0A]">
+    <section className="relative py-16 sm:py-20 lg:py-36 overflow-hidden bg-[#0A0A0A]">
       <div className="absolute inset-0 pointer-events-none">
         <BgDiagonal id="cta" />
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 100%, rgba(212,168,73,0.03), transparent)" }} />
@@ -1431,74 +1410,273 @@ export function SolutionsContent() {
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
-  return (
-    <>
-      {/* ─── HERO / BANNER (Matching /services style) ─── */}
-      <motion.section ref={heroRef} className="relative pt-36 pb-20 lg:pb-28 bg-ground overflow-hidden" style={{ opacity: heroOpacity }}>
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  /* ─── MOBILE SECTION 1: HERO ─── */
+  function MobileHero() {
+    return (
+      <section className="relative pt-28 pb-16 bg-ground overflow-hidden">
         <div className="absolute inset-0">
           <ShapeGrid speed={0.15} squareSize={36} direction="diagonal" borderColor="#D4A849" hoverFillColor="#D4A849" shape="square" hoverTrailAmount={3} />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ground/90 pointer-events-none" />
         </div>
-
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-12 right-[10%] text-[clamp(8rem,18vw,16rem)] font-mono font-semibold text-text-primary/[0.015] leading-none select-none">13</div>
-          <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-[0.015]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.3), transparent 70%)" }} />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-accent/15" />
-        </div>
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-end">
-            <div className="lg:col-span-8">
-              <motion.span className="text-[11px] font-medium tracking-[0.15em] uppercase text-[rgba(255,255,255,0.70)] mb-5 block"
-                initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}
-              >
-                Solutions
-              </motion.span>
-              <motion.h1 className="font-display font-semibold text-[clamp(2.8rem,5.5vw,5rem)] tracking-[-0.035em] leading-[0.92] text-white"
-                initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1, ease }}
-              >
-                Engineered solutions,<br /><span className="text-accent relative">not tactics.<span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-accent/30 rounded-full" /></span>
-              </motion.h1>
-              <motion.p className="text-[rgba(255,255,255,0.72)] leading-relaxed max-w-[52ch] mt-5 text-sm lg:text-base"
-                initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2, ease }}
-              >
-                Thirteen connected solutions spanning lead generation, visibility, automation, software, and
-                reputation — every single one engineered to work with every other.
-              </motion.p>
+          <motion.span className="text-[11px] font-medium tracking-[0.15em] uppercase text-[rgba(255,255,255,0.70)] mb-4 block"
+            initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+          >
+            Solutions
+          </motion.span>
+          <motion.h1 className="font-display font-semibold text-[clamp(2.4rem,8vw,2.8rem)] tracking-[-0.035em] leading-[0.95] text-white"
+            initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            Engineered solutions,<br /><span className="text-accent relative">not tactics.<span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-accent/30 rounded-full" /></span>
+          </motion.h1>
+          <motion.p className="text-text-secondary leading-relaxed mt-4 text-[15px]"
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            Thirteen connected solutions spanning lead generation, visibility, automation, software, and reputation — every single one engineered to work with every other.
+          </motion.p>
+          <motion.div className="flex items-center gap-3 mt-6"
+            initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <div className="flex -space-x-2">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="w-7 h-7 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center">
+                  <span className="text-[8px] font-mono text-accent/70">{i}</span>
+                </div>
+              ))}
             </div>
+            <span className="text-[11px] font-mono text-text-secondary"><span className="text-accent/80">{solutionData.length}</span> solutions · <span className="text-accent/80">9</span> categories</span>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
-            <motion.div className="lg:col-span-4 flex justify-end"
-              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35, ease }}
-            >
-              <div className="hidden lg:flex flex-col items-end gap-3">
-                <div className="flex items-center gap-3">
-                  <span className="w-10 h-px bg-accent/40" />
-                  <span className="font-mono text-xs text-accent/80">{solutionData.length} solutions</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="w-10 h-px bg-accent/40" />
-                  <span className="font-mono text-xs text-accent/80">9 categories</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="w-10 h-px bg-accent/40" />
-                  <span className="font-mono text-xs text-accent/80">1 growth system</span>
-                </div>
-              </div>
-            </motion.div>
+  /* ─── MOBILE EDITORIAL OPENER ─── */
+  function MobileEditorial() {
+    return (
+      <section className="relative bg-[#0D0C0B] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="py-10 border-b border-accent/10">
+            <p className="text-[15px] text-text-secondary leading-relaxed">
+              Most agencies treat your growth channels like separate departments. SEO sends reports to one inbox. Paid media to another. Nobody connects them. 
+            </p>
+            <p className="text-[15px] text-text-secondary leading-relaxed mt-4">
+              <span className="text-accent font-medium">We don&rsquo;t work that way.</span> Every solution here is designed to feed every other solution — because connected systems outperform siloed tactics every time.
+            </p>
           </div>
         </div>
-      </motion.section>
+      </section>
+    );
+  }
+
+  /* ─── MOBILE FEATURED (tap-to-expand, no hover) ─── */
+  function MobileFeatured() {
+    const [expanded, setExpanded] = useState<string | null>(null);
+
+    return (
+      <section className="relative py-12 bg-ground overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h2 className="font-display font-semibold text-[clamp(1.6rem,6vw,1.75rem)] tracking-[-0.02em] leading-[1.05] text-white mb-2">
+            High-impact <span className="text-accent">solutions.</span>
+          </h2>
+          <p className="text-[13px] text-text-secondary leading-relaxed mb-8">
+            Every solution is a connected system — not a standalone tactic.
+          </p>
+          <div className="space-y-3">
+            {featuredSolutions.slice(0, 4).map((sol, i) => {
+              const Icon = (iconMap[sol.icon] || Target) as React.ComponentType<any>;
+              const isOpen = expanded === sol.slug;
+              return (
+                <div key={sol.slug} className="bg-[#181818] border border-accent/25 rounded-xl overflow-hidden">
+                  <button
+                    onClick={() => setExpanded(isOpen ? null : sol.slug)}
+                    className="w-full flex items-center gap-3 p-4 text-left"
+                    style={{ minHeight: 56 }}
+                  >
+                    <div className="w-9 h-9 rounded-lg bg-accent/[0.15] border border-accent/30 flex items-center justify-center shrink-0">
+                      <Icon size={16} className="text-accent" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="font-mono text-[8px] text-accent/50 tracking-wider uppercase block">Solution 0{i + 1}</span>
+                      <span className="font-display text-sm font-medium text-white block truncate">{sol.name}</span>
+                    </div>
+                    <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }} className="text-accent/50 shrink-0 text-sm">&#709;</motion.span>
+                  </button>
+                  <motion.div
+                    initial={false}
+                    animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                    transition={{ duration: 0.25, ease }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-4 pb-5 space-y-4">
+                      <p className="text-[13px] text-text-secondary leading-relaxed">{sol.description}</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {sol.relevantServices.slice(0, 4).map(s => (
+                          <Link key={s} href={`/${s}`}
+                            className="text-[10px] font-mono text-text-secondary/50 px-2.5 py-1.5 rounded-full border border-accent/20"
+                          >
+                            {s.split("-").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")}
+                          </Link>
+                        ))}
+                      </div>
+                      <Link href={`/${sol.slug}`}
+                        className="group inline-flex items-center gap-1.5 text-xs text-accent/70 hover:text-accent transition-colors"
+                      >
+                        View full solution <ArrowRight size={11} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                      </Link>
+                    </div>
+                  </motion.div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ─── MOBILE COMPARISON (tap-to-select) ─── */
+  function MobileComparison() {
+    const [selected, setSelected] = useState<"traditional" | "connected">("connected");
+
+    return (
+      <section className="relative py-12 bg-[#0A0A0A] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h2 className="font-display font-semibold text-[clamp(1.6rem,6vw,1.75rem)] tracking-[-0.02em] leading-[1.05] text-white mb-2">
+            Traditional vs. <span className="text-accent">connected.</span>
+          </h2>
+          <p className="text-[13px] text-text-secondary leading-relaxed mb-8">
+            The difference between point solutions and a system that works together.
+          </p>
+
+          <div className="flex gap-2 mb-6">
+            {(["connected", "traditional"] as const).map((type) => (
+              <button
+                key={type}
+                onClick={() => setSelected(type)}
+                className={`flex-1 text-[11px] font-mono tracking-wider py-2.5 rounded-full border transition-all duration-300 ${
+                  selected === type
+                    ? "bg-accent/15 border-accent/50 text-accent"
+                    : "border-accent/20 text-text-secondary/60"
+                }`}
+                style={{ minHeight: 44 }}
+              >
+                {type === "connected" ? "Connected Growth" : "Traditional"}
+              </button>
+            ))}
+          </div>
+
+          <div className={`bg-[#181818] border rounded-xl p-4 space-y-3 transition-all duration-300 ${
+            selected === "connected" ? "border-accent/50" : "border-white/10"
+          }`}>
+            {selected === "traditional" ? (
+              <>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#222] border border-white/10 flex items-center justify-center">
+                    <span className="text-xs text-text-secondary/60">×</span>
+                  </div>
+                  <span className="text-sm font-medium text-white">Traditional Agencies</span>
+                </div>
+                {["Siloed service departments", "Monthly reporting with spreadsheets", "Generic strategies applied to everyone", "No integration between channels", "Manual processes and overhead", "Hard to measure true ROI"].map((item) => (
+                  <div key={item} className="flex items-start gap-2.5">
+                    <span className="w-4 h-4 rounded-full bg-red-900/30 border border-red-800/40 flex items-center justify-center shrink-0 mt-0.5">
+                      <span className="text-[8px] text-red-400">×</span>
+                    </span>
+                    <span className="text-[13px] text-text-secondary">{item}</span>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-8 h-8 rounded-lg bg-accent/15 border border-accent/40 flex items-center justify-center">
+                    <SealCheck size={14} className="text-accent" />
+                  </div>
+                  <span className="text-sm font-medium text-white">Connected Growth System</span>
+                </div>
+                {["Unified strategy across every channel", "Real-time unified dashboards", "Custom solutions tailored to your business", "Every channel feeds every other channel", "AI-powered automation at every layer", "Clear attribution from spend to revenue"].map((item) => (
+                  <div key={item} className="flex items-start gap-2.5">
+                    <span className="w-4 h-4 rounded-full bg-accent/15 border border-accent/40 flex items-center justify-center shrink-0 mt-0.5">
+                      <SealCheck size={8} className="text-accent" />
+                    </span>
+                    <span className="text-[13px] text-white">{item}</span>
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <>
+      {/* ─── HERO ─── */}
+      {isMobile ? <MobileHero /> : (
+        <motion.section ref={heroRef} className="relative pt-36 pb-20 lg:pb-28 bg-ground overflow-hidden" style={{ opacity: heroOpacity }}>
+          <div className="absolute inset-0">
+            <ShapeGrid speed={0.15} squareSize={36} direction="diagonal" borderColor="#D4A849" hoverFillColor="#D4A849" shape="square" hoverTrailAmount={3} />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ground/90 pointer-events-none" />
+          </div>
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-12 right-[10%] text-[clamp(8rem,18vw,16rem)] font-mono font-semibold text-text-primary/[0.015] leading-none select-none">13</div>
+            <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-[0.015]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.3), transparent 70%)" }} />
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-accent/15" />
+          </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-end">
+              <div className="lg:col-span-8">
+                <motion.span className="text-[11px] font-medium tracking-[0.15em] uppercase text-[rgba(255,255,255,0.70)] mb-5 block"
+                  initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}
+                >
+                  Solutions
+                </motion.span>
+                <motion.h1 className="font-display font-semibold text-[clamp(2.8rem,5.5vw,5rem)] tracking-[-0.035em] leading-[0.92] text-white"
+                  initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1, ease }}
+                >
+                  Engineered solutions,<br /><span className="text-accent relative">not tactics.<span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-accent/30 rounded-full" /></span>
+                </motion.h1>
+                <motion.p className="text-[rgba(255,255,255,0.72)] leading-relaxed max-w-[52ch] mt-5 text-sm lg:text-base"
+                  initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2, ease }}
+                >
+                  Thirteen connected solutions spanning lead generation, visibility, automation, software, and
+                  reputation — every single one engineered to work with every other.
+                </motion.p>
+              </div>
+              <motion.div className="lg:col-span-4 flex justify-end"
+                initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.35, ease }}
+              >
+                <div className="hidden lg:flex flex-col items-end gap-3">
+                  <div className="flex items-center gap-3"><span className="w-10 h-px bg-accent/40" /><span className="font-mono text-xs text-accent/80">{solutionData.length} solutions</span></div>
+                  <div className="flex items-center gap-3"><span className="w-10 h-px bg-accent/40" /><span className="font-mono text-xs text-accent/80">9 categories</span></div>
+                  <div className="flex items-center gap-3"><span className="w-10 h-px bg-accent/40" /><span className="font-mono text-xs text-accent/80">1 growth system</span></div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+      )}
 
       <div className="h-px w-full bg-accent/15" />
 
-      {/* Section 1: Editorial Intro */}
-      <Section1Intro />
+      {/* Mobile: Editorial opener */}
+      {isMobile ? <MobileEditorial /> : <Section1Intro />}
 
       {/* Section 2: Interactive Solution Explorer */}
       <Section2Explorer />
 
-      {/* Section 3: Featured Solutions */}
-      <Section3Featured />
+      {/* Mobile: Featured solutions as accordion (tap to expand) */}
+      {isMobile ? <MobileFeatured /> : <Section3Featured />}
 
       {/* Section 4: Business Problems */}
       <Section4Problems />
@@ -1515,69 +1693,14 @@ export function SolutionsContent() {
       {/* Section 8: Process */}
       <Section8Process />
 
-      {/* Section 9: Comparison */}
-      <Section9Comparison />
+      {/* Mobile: Comparison as toggle (tap to select column) */}
+      {isMobile ? <MobileComparison /> : <Section9Comparison />}
 
       {/* Section 10: Insights */}
       <Section10Insights />
 
       {/* Section 11: Premium CTA */}
       <Section11CTA />
-
-        {/* Hub interlinking */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <Breadcrumbs crumbs={getBreadcrumbs("solutions", "hub")} />
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Connected Ecosystem</h2>
-            <p className="text-text-secondary text-sm mt-3 max-w-[50ch] mx-auto">
-              Every solution is backed by services, tools, and proven results.
-            </p>
-          </div>
-          <RelatedSection
-            groups={[
-              {
-                title: "Services",
-                links: [
-                  { label: "SEO Strategy", href: "/seo-strategy" },
-                  { label: "Generative Engine Optimisation", href: "/generative-engine-optimisation" },
-                  { label: "Google Ads", href: "/google-ads" },
-                  { label: "AI Agents & Automation", href: "/ai-agents" },
-                  { label: "All Services", href: "/services" },
-                ],
-              },
-              {
-                title: "Tools",
-                links: [
-                  { label: "Website SEO Audit", href: "/seo-audit" },
-                  { label: "GEO Readiness Audit", href: "/geo-readiness" },
-                  { label: "AI Visibility Checker", href: "/ai-visibility" },
-                  { label: "Ads Cost Calculator", href: "/ads-calculator" },
-                  { label: "All Tools", href: "/tools" },
-                ],
-              },
-              {
-                title: "Industries We Serve",
-                links: [
-                  { label: "Dental & Healthcare", href: "/dental-healthcare" },
-                  { label: "E-commerce", href: "/ecommerce" },
-                  { label: "SaaS & Technology", href: "/saas-technology" },
-                  { label: "Real Estate", href: "/real-estate" },
-                  { label: "All Industries", href: "/industries" },
-                ],
-              },
-              {
-                title: "Case Studies",
-                links: [
-                  { label: "Pulse Health — GEO for HealthTech", href: "/pulse-health" },
-                  { label: "Urban Spaces — Real Estate SEO", href: "/urban-spaces" },
-                  { label: "FitSync — SaaS Growth", href: "/fitsync" },
-                  { label: "All Case Studies", href: "/work" },
-                ],
-              },
-            ]}
-          />
-        </section>
     </>
   );
 }

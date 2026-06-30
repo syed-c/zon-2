@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -70,6 +70,36 @@ function HeroSection({ tool }: { tool: ToolItem }) {
             {tool.description}
           </p>
         </FadeUp>
+      </div>
+    </section>
+  );
+}
+
+function MobileHero({ tool }: { tool: ToolItem }) {
+  return (
+    <section className="relative pt-32 pb-20 min-h-[550px] bg-ground overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.12]">
+          <ShapeGrid speed={0.1} squareSize={36} direction="diagonal" borderColor="#D4A849" hoverFillColor="#D4A849" shape="square" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ground/90 pointer-events-none" />
+        <div className="absolute top-10 right-[10%] text-[clamp(6rem,14vw,12rem)] font-mono font-semibold text-accent/[0.04] leading-none select-none pointer-events-none">01</div>
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-[0.008]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.3), transparent 70%)" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-accent/10" />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
+        <motion.div initial={{ y: 32, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.7, ease }}>
+          <Link href="/tools" className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.15em] uppercase text-accent/80 mb-4 hover:text-accent transition-colors">
+            <ArrowRight size={10} className="rotate-180" />
+            {tool.category}
+          </Link>
+          <h1 className="font-display font-semibold text-[clamp(2.75rem,8vw,3.25rem)] tracking-[-0.025em] leading-[0.92] text-text-primary mb-5">
+            {tool.name}
+          </h1>
+          <p className="text-[clamp(0.9375rem,2.5vw,1.0625rem)] text-text-secondary/80 leading-relaxed max-w-[55ch]">
+            {tool.description}
+          </p>
+        </motion.div>
       </div>
     </section>
   );
@@ -175,6 +205,134 @@ function WorkspaceSection({ tool }: { tool: ToolItem }) {
               <ToolPreview tool={tool} ran={ran} />
             </div>
           </FadeUp>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileWorkspaceSection({ tool }: { tool: ToolItem }) {
+  const [input, setInput] = useState("");
+  const [ran, setRan] = useState(false);
+  const cfg = getToolDetailConfig(tool.slug, tool.category);
+
+  if (!tool.isMvp) {
+    return (
+      <section className="py-28 bg-[#0D0C0B] relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 20%, rgba(212,168,73,0.02), transparent)" }} />
+        <div className="relative z-10 px-6">
+          <div className="max-w-xl mx-auto text-center">
+            <motion.div initial={{ y: 24, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.7, ease }}>
+              <div className="w-16 h-16 rounded-full bg-accent/10 border border-accent/25 flex items-center justify-center mx-auto mb-6">
+                <Star size={28} className="text-accent" />
+              </div>
+              <h2 className="font-display text-[clamp(1.5rem,5vw,2rem)] font-semibold text-text-primary mb-3">Coming Soon</h2>
+              <p className="text-text-secondary/60 max-w-md mx-auto mb-8 text-[clamp(0.9375rem,2.5vw,1rem)]">
+                We&apos;re building this tool right now. It will be available for free once it passes our quality and accuracy benchmarks.
+              </p>
+              <div className="inline-flex items-center gap-2 text-xs text-text-secondary/40 bg-surface px-4 py-2 rounded-full border border-accent/10">
+                <Clock size={14} className="text-accent" />
+                <span>Estimated launch: Q3 2026</span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="py-28 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(900px circle at 50% 30%, rgba(212,168,73,0.02), transparent)" }} />
+      <div className="relative z-10 px-6">
+        <motion.div
+          initial={{ y: 24, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease }}
+          className="max-w-xl mb-10"
+        >
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Interactive Tool</span>
+          <h2 className="font-display font-semibold text-[clamp(1.875rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-text-primary">
+            Try it <span className="text-accent">now.</span>
+          </h2>
+        </motion.div>
+
+        <div className="space-y-6">
+          <motion.div
+            initial={{ y: 24, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, delay: 0.05, ease }}
+          >
+            <div className="p-6 rounded-[1.5rem] bg-[#181818] border border-accent/10">
+              <label className="text-[10px] tracking-[0.1em] uppercase text-text-secondary/60 mb-3 block">{cfg.inputLabel}</label>
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder={cfg.inputPlaceholder}
+                  className="w-full bg-surface border border-white/5 rounded-xl px-4 text-base text-text-primary placeholder-text-secondary/50 focus:outline-none focus:border-accent/40 transition-all h-14"
+                  style={{ minHeight: "56px" }}
+                />
+                <button
+                  onClick={() => setRan(true)}
+                  className="w-full inline-flex items-center justify-center gap-2 bg-accent text-ground rounded-xl font-medium text-sm active:scale-[0.98] transition-all duration-150"
+                  style={{ minHeight: "56px", padding: "0 24px" }}
+                >
+                  {cfg.buttonLabel}
+                  <ArrowRight size={16} weight="bold" />
+                </button>
+              </div>
+              <p className="text-[10px] text-text-secondary/40 mt-3 leading-relaxed">{cfg.runDescription}</p>
+            </div>
+
+            {ran && (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease }}
+                className="mt-5 p-6 rounded-[1.5rem] bg-[#181818] border border-accent/10"
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
+                      <CheckCircle size={20} className="text-accent" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-text-primary">Analysis Complete</p>
+                      <p className="text-[10px] text-text-secondary/40">Based on your input</p>
+                    </div>
+                  </div>
+                  <button onClick={() => setRan(false)} className="text-[9px] text-text-secondary/30 hover:text-text-secondary/60 transition-colors">Reset</button>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  {cfg.stats.slice(0, 3).map((stat) => (
+                    <div key={stat.label} className="text-center p-3 rounded-xl bg-surface/50 border border-accent/5">
+                      <p className="font-mono text-lg font-semibold text-accent">{stat.stat}</p>
+                      <p className="text-[8px] text-text-secondary/40 uppercase tracking-[0.05em] mt-1">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
+
+          <motion.div
+            initial={{ y: 24, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, delay: 0.1, ease }}
+          >
+            <div className="p-6 rounded-[1.5rem] bg-[#181818] border border-accent/10">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="w-2 h-2 rounded-full bg-accent/60" />
+                <span className="text-[9px] text-text-secondary/40 uppercase tracking-[0.1em]">Preview</span>
+              </div>
+              <MobileToolPreview tool={tool} ran={ran} />
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -328,6 +486,153 @@ function ToolPreview({ tool, ran }: { tool: ToolItem; ran: boolean }) {
   );
 }
 
+function MobileToolPreview({ tool, ran }: { tool: ToolItem; ran: boolean }) {
+  const CatIcon = categoryIcons[tool.category] || MagnifyingGlass;
+
+  if (!ran) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[200px] text-center py-8">
+        <div className="w-14 h-14 rounded-full bg-accent/5 border border-accent/10 flex items-center justify-center mb-4">
+          <CatIcon size={26} className="text-accent/40" />
+        </div>
+        <p className="text-sm text-text-secondary/40">Enter your details and tap</p>
+        <p className="text-sm text-text-secondary/40">&quot;Run&quot; to see results here</p>
+      </div>
+    );
+  }
+
+  const isSeo = tool.category === "SEO Tools";
+  const isGeo = tool.category === "GEO & AI Search Tools";
+  const isAd = tool.category === "Advertising Tools";
+  const isContent = tool.category === "Content Tools";
+
+  return (
+    <div className="space-y-5">
+      <div className="flex items-center justify-between">
+        <span className="text-[10px] text-text-secondary/40 uppercase tracking-[0.1em]">Results Overview</span>
+        <span className="flex items-center gap-1 text-[10px] text-accent/60">
+          <Lightning size={12} weight="fill" />
+          Live
+        </span>
+      </div>
+
+      {isSeo && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-4 p-4 rounded-xl bg-surface/50 border border-accent/5">
+            <div className="relative w-16 h-16 shrink-0">
+              <svg viewBox="0 0 36 36" className="w-16 h-16 -rotate-90">
+                <circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(212,168,73,0.1)" strokeWidth="3" />
+                <circle cx="18" cy="18" r="15.5" fill="none" stroke="#D4A849" strokeWidth="3" strokeDasharray="97.4" strokeDashoffset="19.5" strokeLinecap="round" />
+              </svg>
+              <span className="absolute inset-0 flex items-center justify-center font-mono text-sm font-semibold text-accent">82</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-text-primary">Health Score</p>
+              <p className="text-[11px] text-text-secondary/40 mt-1">Good — 18 issues found</p>
+            </div>
+          </div>
+          <div className="space-y-2">
+            {[{ label: "Technical", score: 88 }, { label: "Content", score: 76 }, { label: "Performance", score: 71 }, { label: "Links", score: 85 }].map((item) => (
+              <div key={item.label} className="flex items-center gap-3">
+                <span className="text-[10px] text-text-secondary/30 w-[68px] shrink-0">{item.label}</span>
+                <div className="flex-1 h-2 rounded-full bg-surface overflow-hidden">
+                  <div className="h-full rounded-full bg-accent" style={{ width: `${item.score}%`, background: item.score > 80 ? "#D4A849" : item.score > 70 ? "rgba(212,168,73,0.8)" : "rgba(212,168,73,0.6)" }} />
+                </div>
+                <span className="text-[11px] font-mono text-text-secondary/60 w-7 text-right">{item.score}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {isGeo && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-3 gap-3">
+            {["ChatGPT", "Perplexity", "AI Overviews"].map((platform) => (
+              <div key={platform} className="p-4 rounded-xl bg-surface/50 border border-accent/5 text-center">
+                <div className="w-2.5 h-2.5 rounded-full bg-accent mx-auto mb-2" />
+                <p className="text-xs font-medium text-text-primary">{platform}</p>
+                <p className="text-[10px] text-text-secondary/40 mt-1">{platform === "ChatGPT" ? "Cited" : platform === "Perplexity" ? "Referenced" : "Visible"}</p>
+              </div>
+            ))}
+          </div>
+          <div className="p-4 rounded-xl bg-surface/50 border border-accent/5">
+            <p className="text-[11px] text-text-secondary/40 mb-3">Entity Signals</p>
+            <div className="flex flex-wrap gap-2">
+              {["Schema", "Citations", "Mentions", "Reviews", "Social"].map((s) => (
+                <span key={s} className="text-[10px] text-accent/70 bg-accent/5 px-3 py-1 rounded-full border border-accent/10">{s}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isAd && (
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { label: "Est. Clicks", value: "2,847" },
+              { label: "Est. CPC", value: "$3.42" },
+              { label: "Est. Conv.", value: "142" },
+              { label: "ROAS", value: "4.2x" },
+            ].map((m) => (
+              <div key={m.label} className="p-4 rounded-xl bg-surface/50 border border-accent/5 text-center">
+                <p className="font-mono text-base lg:text-lg font-semibold text-accent">{m.value}</p>
+                <p className="text-[10px] text-text-secondary/40 uppercase tracking-[0.05em] mt-1">{m.label}</p>
+              </div>
+            ))}
+          </div>
+          <div className="h-20 rounded-xl bg-surface/50 border border-accent/5 flex items-end gap-1.5 px-3 py-2">
+            {[35, 60, 45, 80, 55, 90, 70].map((h, i) => (
+              <div key={i} className="flex-1 rounded-t-sm bg-accent/40" style={{ height: `${h}%` }} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {isContent && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-4 p-4 rounded-xl bg-surface/50 border border-accent/5">
+            <div className="text-center shrink-0">
+              <p className="font-mono text-2xl font-semibold text-accent">74</p>
+              <p className="text-[9px] text-text-secondary/40 uppercase tracking-[0.05em]">Score</p>
+            </div>
+            <div className="flex-1 space-y-2">
+              {[
+                { label: "Readability", score: 82 },
+                { label: "SEO Optimisation", score: 68 },
+                { label: "Structure", score: 71 },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center gap-2">
+                  <span className="text-[9px] text-text-secondary/30 w-[68px]">{item.label}</span>
+                  <div className="flex-1 h-1.5 rounded-full bg-surface overflow-hidden">
+                    <div className="h-full rounded-full bg-accent/70" style={{ width: `${item.score}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-text-secondary/40">
+            <CheckCircle size={12} className="text-accent/60" />
+            <span>Keywords found: 12 of 15 target terms</span>
+          </div>
+        </div>
+      )}
+
+      {!isSeo && !isGeo && !isAd && !isContent && (
+        <div className="grid grid-cols-2 gap-3">
+          {["Analysis", "Quality", "Coverage", "Authority"].map((metric) => (
+            <div key={metric} className="p-4 rounded-xl bg-surface/50 border border-accent/5 text-center">
+              <p className="font-mono text-xl font-semibold text-accent">{Math.floor(Math.random() * 40 + 60)}</p>
+              <p className="text-[10px] text-text-secondary/40 uppercase tracking-[0.05em] mt-1">{metric}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ─── HOW IT WORKS ─── */
 
 function StepsSection({ tool }: { tool: ToolItem }) {
@@ -367,6 +672,57 @@ function StepsSection({ tool }: { tool: ToolItem }) {
   );
 }
 
+function MobileStepsSection({ tool }: { tool: ToolItem }) {
+  const cfg = getToolDetailConfig(tool.slug, tool.category);
+
+  return (
+    <section className="py-28 bg-ground relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.005]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.4), transparent 70%)" }} />
+      </div>
+      <div className="relative z-10 px-6 max-w-xl">
+        <motion.div
+          initial={{ y: 24, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease }}
+          className="mb-12"
+        >
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">How It Works</span>
+          <h2 className="font-display font-semibold text-[clamp(1.875rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-text-primary">
+            From input to <span className="text-accent">insight.</span>
+          </h2>
+        </motion.div>
+
+        <div className="relative">
+          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-accent/30 via-accent/15 to-transparent" />
+
+          <div className="space-y-0">
+            {cfg.steps.map((step, i) => (
+              <motion.div
+                key={step.title}
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: i * 0.1, ease }}
+                className="relative flex gap-5 pb-10 last:pb-0"
+              >
+                <div className="relative z-10 w-[38px] h-[38px] rounded-full bg-[#181818] border border-accent/25 flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="font-mono text-xs font-semibold text-accent">{String(i + 1).padStart(2, "0")}</span>
+                </div>
+                <div className="flex-1 min-w-0 pt-1.5">
+                  <h3 className="font-display text-[clamp(1.125rem,3vw,1.25rem)] font-medium text-text-primary mb-1.5">{step.title}</h3>
+                  <p className="text-[clamp(0.875rem,2.5vw,1rem)] text-text-secondary/60 leading-relaxed">{step.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── WHY IT MATTERS ─── */
 
 function WhySection({ tool }: { tool: ToolItem }) {
@@ -389,6 +745,46 @@ function WhySection({ tool }: { tool: ToolItem }) {
                 <p className="text-[11px] text-text-secondary/60 uppercase tracking-[0.05em]">{stat.label}</p>
               </div>
             </FadeUp>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileWhySection({ tool }: { tool: ToolItem }) {
+  const cfg = getToolDetailConfig(tool.slug, tool.category);
+
+  return (
+    <section className="py-28 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 50%, rgba(212,168,73,0.02), transparent)" }} />
+      <div className="relative z-10 px-6 max-w-xl">
+        <motion.div
+          initial={{ y: 24, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease }}
+          className="mb-10"
+        >
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Why It Matters</span>
+          <h2 className="font-display font-semibold text-[clamp(1.875rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-text-primary">
+            Small changes, <span className="text-accent">big impact.</span>
+          </h2>
+        </motion.div>
+
+        <div className="grid grid-cols-2 gap-4">
+          {cfg.stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ y: 24, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease }}
+              className="p-6 rounded-[1.5rem] bg-[#181818] border border-accent/10 text-center hover:border-accent/25 transition-all duration-300"
+            >
+              <p className="font-mono text-[clamp(2rem,7vw,2.5rem)] font-semibold text-accent mb-2 leading-none">{stat.stat}</p>
+              <p className="text-[clamp(0.6875rem,2vw,0.75rem)] text-text-secondary/60 uppercase tracking-[0.05em]">{stat.label}</p>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -434,6 +830,77 @@ function RecommendationsSection({ tool }: { tool: ToolItem }) {
                   <p className="text-[10px] text-text-secondary/50 leading-relaxed">{rec.desc}</p>
                 </div>
               </FadeUp>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileRecommendationsSection({ tool }: { tool: ToolItem }) {
+  const cfg = getToolDetailConfig(tool.slug, tool.category);
+
+  const sorted = [...cfg.recommendations].sort((a, b) => {
+    const order = { high: 0, medium: 1, low: 2 };
+    return order[a.impact] - order[b.impact];
+  });
+
+  return (
+    <section className="py-28 bg-ground relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full opacity-[0.005]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.4), transparent 70%)" }} />
+      </div>
+      <div className="relative z-10 px-6 max-w-xl">
+        <motion.div
+          initial={{ y: 24, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease }}
+          className="mb-10"
+        >
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Recommendations</span>
+          <h2 className="font-display font-semibold text-[clamp(1.875rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-text-primary">
+            What to do <span className="text-accent">next.</span>
+          </h2>
+        </motion.div>
+
+        <div className="space-y-4">
+          {sorted.map((rec, i) => {
+            const isHigh = rec.impact === "high";
+            const isLow = rec.impact === "low";
+
+            return (
+              <motion.div
+                key={rec.title}
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: i * 0.08, ease }}
+              >
+                <div
+                  className={
+                    isHigh
+                      ? "p-6 rounded-[1.5rem] bg-accent/10 border-2 border-accent/30 transition-all duration-300"
+                      : isLow
+                        ? "p-4 rounded-[1.25rem] bg-surface border border-accent/5 transition-all duration-300"
+                        : "p-5 rounded-[1.25rem] bg-accent/5 border border-accent/15 transition-all duration-300"
+                  }
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className={`w-2 h-2 rounded-full ${isHigh ? "bg-accent" : isLow ? "bg-text-secondary/30" : "bg-accent/60"}`} />
+                    <span className={`text-[9px] font-medium uppercase tracking-[0.1em] ${isHigh ? "text-accent" : isLow ? "text-text-secondary/40" : "text-accent/60"}`}>
+                      {isHigh ? "High Impact" : isLow ? "Low Impact" : "Medium Impact"}
+                    </span>
+                  </div>
+                  <h3 className={`font-display font-medium text-text-primary mb-1 ${isHigh ? "text-[clamp(1.125rem,3vw,1.25rem)]" : "text-sm"}`}>
+                    {rec.title}
+                  </h3>
+                  <p className={`text-text-secondary/50 leading-relaxed ${isHigh ? "text-[clamp(0.875rem,2.5vw,0.9375rem)]" : "text-[10px]"}`}>
+                    {rec.desc}
+                  </p>
+                </div>
+              </motion.div>
             );
           })}
         </div>
@@ -504,11 +971,100 @@ function RelatedSection({ tool }: { tool: ToolItem }) {
   );
 }
 
+function MobileRelatedSection({ tool }: { tool: ToolItem }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const related = toolCategories
+    .filter((c) => c.name === tool.category)
+    .flatMap((c) => c.tools)
+    .filter((t) => t.slug !== tool.slug)
+    .slice(0, 6);
+
+  if (related.length === 0) return null;
+
+  return (
+    <section className="py-28 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 50%, rgba(212,168,73,0.02), transparent)" }} />
+      <div className="relative z-10">
+        <div className="px-6 max-w-xl mb-10">
+          <motion.div
+            initial={{ y: 24, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease }}
+          >
+            <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Complete the Workflow</span>
+            <h2 className="font-display font-semibold text-[clamp(1.875rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-text-primary">
+              More tools for <span className="text-accent">{tool.category.replace(" Tools", "").toLowerCase()}.</span>
+            </h2>
+          </motion.div>
+        </div>
+
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 pl-6"
+        >
+          {related.map((t, i) => {
+            const RelIcon = categoryIcons[t.category] || MagnifyingGlass;
+            return (
+              <motion.div
+                key={t.slug}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.05, ease }}
+                className="snap-start shrink-0"
+                style={{ width: "calc(75vw - 12px)", maxWidth: "320px" }}
+              >
+                <Link
+                  href={`/${t.slug}`}
+                  className="group block p-6 rounded-[1.5rem] bg-[#181818] border border-accent/10 hover:border-accent/30 transition-all duration-300 h-full"
+                >
+                  <div className="flex items-start gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-all">
+                      <RelIcon size={18} className="text-accent" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-[clamp(0.9375rem,2.5vw,1.0625rem)] font-medium text-text-primary group-hover:text-accent transition-colors truncate">{t.name}</h3>
+                      <p className="text-xs text-text-secondary/40 mt-1">{t.isMvp ? "Available Now" : "Coming Soon"}</p>
+                    </div>
+                  </div>
+                  <p className="text-sm text-text-secondary/50 leading-relaxed line-clamp-2">{t.shortDesc}</p>
+                  <div className="mt-4 flex items-center gap-1 text-xs text-accent/70 group-hover:text-accent transition-colors">
+                    <span>Open tool</span>
+                    <ArrowRight size={12} weight="bold" />
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <div className="px-6 mt-8">
+          <motion.div
+            initial={{ y: 16, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, ease }}
+          >
+            <Link
+              href="/tools"
+              className="group inline-flex items-center gap-2 bg-accent text-ground px-6 py-3 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150"
+            >
+              View All Tools
+              <ArrowRight size={14} weight="bold" className="transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── CTA ─── */
 
 function CTASection() {
   return (
-    <section className="py-28 lg:py-32 bg-[#0D0C0B] relative overflow-hidden">
+    <section className="py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 0%, rgba(212,168,73,0.04), transparent)" }} />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -549,14 +1105,23 @@ function CTASection() {
 /* ─── MAIN EXPORT ─── */
 
 export function ToolDetailContent({ tool }: { tool: ToolItem }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <>
-      <HeroSection tool={tool} />
-      <WorkspaceSection tool={tool} />
-      <StepsSection tool={tool} />
-      <WhySection tool={tool} />
-      <RecommendationsSection tool={tool} />
-      <RelatedSection tool={tool} />
+      {isMobile ? <MobileHero tool={tool} /> : <HeroSection tool={tool} />}
+      {isMobile ? <MobileWorkspaceSection tool={tool} /> : <WorkspaceSection tool={tool} />}
+      {isMobile ? <MobileStepsSection tool={tool} /> : <StepsSection tool={tool} />}
+      {isMobile ? <MobileWhySection tool={tool} /> : <WhySection tool={tool} />}
+      {isMobile ? <MobileRecommendationsSection tool={tool} /> : <RecommendationsSection tool={tool} />}
+      {isMobile ? <MobileRelatedSection tool={tool} /> : <RelatedSection tool={tool} />}
       <CTASection />
     </>
   );

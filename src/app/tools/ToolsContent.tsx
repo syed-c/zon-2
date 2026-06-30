@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import RelatedSection from "@/components/RelatedSection";
-import { getBreadcrumbs } from "@/data/relations";
 import {
   MagnifyingGlass,
   Robot,
@@ -375,12 +372,10 @@ function ExplorerSection() {
             </div>
           </FadeUp>
           <div className="min-h-[400px]">
-            <AnimatePresence mode="wait">
               <motion.div
                 key={activeCat}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
                 transition={{ duration: 0.35, ease }}
               >
                 <div className="flex items-center justify-between mb-6">
@@ -427,7 +422,6 @@ function ExplorerSection() {
                   })}
                 </div>
               </motion.div>
-            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -495,67 +489,278 @@ function FeaturedSection() {
   );
 }
 
+/* ─── MOBILE HERO ─── */
+
+function MobileHero() {
+  return (
+    <section className="relative pt-28 pb-12 bg-ground overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.12]">
+          <ShapeGrid speed={0.1} squareSize={36} direction="diagonal" borderColor="#D4A849" hoverFillColor="#D4A849" shape="square" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ground/90 pointer-events-none" />
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-[0.008]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.3), transparent 70%)" }} />
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-accent/10" />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block"
+          initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+        >
+          Free Tools
+        </motion.span>
+        <motion.h1 className="font-display font-semibold text-[clamp(2.2rem,8vw,2.8rem)] tracking-[-0.025em] leading-[0.95] text-text-primary mb-4"
+          initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          Audit, analyse,<br /><span className="text-accent">improve.</span>
+        </motion.h1>
+        <motion.p className="text-sm text-text-secondary/80 leading-relaxed"
+          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.18 }}
+        >
+          {getToolCount()} free tools to audit your SEO health, GEO readiness, technical performance, content quality, and more.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
+/* ─── MOBILE EXPLORER ─── */
+
+function MobileExplorer() {
+  const [activeCat, setActiveCat] = useState(0);
+  const [showAll, setShowAll] = useState(false);
+
+  const cat = toolCategories[activeCat];
+  const visibleTools = showAll ? cat.tools : cat.tools.slice(0, 6);
+  const remaining = cat.tools.length - 6;
+
+  return (
+    <section className="py-8 bg-[#0D0C0B] relative overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Category chips */}
+        <div className="flex gap-2 overflow-x-auto pb-3 scrollbar-none -mx-4 px-4">
+          {categoryMeta.map((meta, i) => {
+            const Icon = meta.icon;
+            const isActive = activeCat === i;
+            return (
+              <button
+                key={meta.name}
+                onClick={() => { setActiveCat(i); setShowAll(false); }}
+                className={`shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all duration-300 ${
+                  isActive
+                    ? "bg-accent/15 border-accent/50 text-accent"
+                    : "border-accent/20 text-text-secondary/60 hover:border-accent/40"
+                }`}
+                style={{ minHeight: 44 }}
+              >
+                <Icon size={14} className={isActive ? "text-accent" : "text-accent/60"} />
+                <span className="text-[11px] font-mono tracking-wider">{meta.name}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Category header */}
+        <motion.div
+          key={activeCat}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25, ease }}
+          className="mb-4"
+        >
+          <h2 className="font-display font-semibold text-xl text-text-primary">{categoryMeta[activeCat].name}</h2>
+          <p className="text-xs text-text-secondary/60 mt-0.5">{categoryMeta[activeCat].desc}</p>
+          <span className="text-[10px] font-mono text-accent/70 mt-1 block">{cat.tools.length} tools</span>
+        </motion.div>
+
+        {/* Tools grid */}
+        <motion.div
+          key={activeCat + (showAll ? "-all" : "-partial")}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease }}
+        >
+          <div className="grid grid-cols-2 gap-2.5">
+            {visibleTools.map((tool) => {
+              const Icon = getToolIcon(tool.name);
+              return (
+                <Link
+                  key={tool.slug}
+                  href={`/${tool.slug}`}
+                  className="group flex flex-col bg-[#181818] border border-accent/10 hover:border-accent/30 rounded-xl p-3.5 transition-all duration-300 active:scale-[0.98]"
+                >
+                  <div className="flex items-start gap-2.5 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-all duration-300">
+                      <Icon size={15} className="text-accent" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-[13px] font-medium text-text-primary group-hover:text-accent transition-colors leading-tight line-clamp-2">{tool.name}</h4>
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-text-secondary/50 leading-relaxed line-clamp-2 mb-auto">{tool.shortDesc}</p>
+                  <div className="flex items-center gap-2 mt-2 flex-wrap">
+                    <span className="text-[9px] text-text-secondary/40">{getTime(tool.slug)}</span>
+                    <span className="w-px h-2.5 bg-accent/10" />
+                    <span className="text-[9px] text-text-secondary/40">{getDifficulty(tool.name)}</span>
+                    {tool.isMvp && (
+                      <>
+                        <span className="w-px h-2.5 bg-accent/10" />
+                        <span className="text-[9px] text-accent/80 flex items-center gap-0.5">
+                          <Lightning size={7} weight="fill" />
+                          Live
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {remaining > 0 && !showAll && (
+            <button
+              onClick={() => setShowAll(true)}
+              className="w-full mt-3 py-3 rounded-xl border border-accent/20 text-[11px] font-mono text-accent/70 hover:bg-accent/5 transition-all duration-300"
+              style={{ minHeight: 48 }}
+            >
+              Show all {cat.tools.length} tools
+            </button>
+          )}
+
+          {showAll && remaining > 0 && (
+            <button
+              onClick={() => setShowAll(false)}
+              className="w-full mt-3 py-3 rounded-xl border border-accent/20 text-[11px] font-mono text-accent/50 hover:bg-accent/5 transition-all duration-300"
+              style={{ minHeight: 48 }}
+            >
+              Show less
+            </button>
+          )}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── MOBILE FEATURED ─── */
+
+function MobileFeatured() {
+  return (
+    <section className="py-12 bg-ground relative overflow-hidden">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.h2 className="font-display font-semibold text-[clamp(1.5rem,6vw,1.8rem)] tracking-[-0.02em] leading-[1.05] text-text-primary mb-1"
+          initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}
+        >
+          Start with our <span className="text-accent">most popular tools.</span>
+        </motion.h2>
+        <motion.p className="text-xs text-text-secondary/60 mb-6"
+          initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.05 }}
+        >
+          The tools our clients use most.
+        </motion.p>
+
+        {/* Hero card: first featured tool */}
+        {featuredTools[0] && (
+          (() => {
+            const HeroIcon = getToolIcon(featuredTools[0].name);
+            return (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <Link
+                  href={`/${featuredTools[0].slug}`}
+                  className="group block bg-[#181818] border border-accent/20 hover:border-accent/40 rounded-2xl p-5 mb-4 transition-all duration-300 active:scale-[0.99]"
+                >
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center group-hover:bg-accent/25 transition-all duration-300">
+                      <HeroIcon size={19} className="text-accent" />
+                    </div>
+                    <div className="flex items-center gap-1.5 ml-auto mt-1">
+                      <span className="text-[9px] text-accent/70 bg-accent/5 px-2 py-0.5 rounded-full flex items-center gap-1">
+                        <Star size={7} weight="fill" />
+                        Popular
+                      </span>
+                      {featuredTools[0].isMvp && (
+                        <span className="text-[9px] text-accent/70 bg-accent/5 px-2 py-0.5 rounded-full flex items-center gap-1">
+                          <Lightning size={7} weight="fill" />
+                          Live
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <h3 className="font-display text-base font-medium text-text-primary group-hover:text-accent transition-colors mb-1">{featuredTools[0].name}</h3>
+                  <p className="text-xs text-text-secondary/50 leading-relaxed mb-3 line-clamp-2">{featuredTools[0].shortDesc}</p>
+                  <div className="flex items-center gap-3 text-[9px] text-text-secondary/40">
+                    <span className="flex items-center gap-1"><Clock size={8} />{getTime(featuredTools[0].slug)}</span>
+                    <span className="w-px h-2.5 bg-accent/10" />
+                    <span>{getDifficulty(featuredTools[0].name)}</span>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })()
+        )}
+
+        {/* Remaining tools in 2-col grid */}
+        <div className="grid grid-cols-2 gap-3">
+          {featuredTools.slice(1).map((tool, i) => {
+            const Icon = getToolIcon(tool.name);
+            return (
+              <motion.div
+                key={tool.slug}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.04, ease }}
+              >
+                <Link
+                  href={`/${tool.slug}`}
+                  className="group block bg-[#181818] border border-accent/10 hover:border-accent/30 rounded-xl p-3.5 h-full transition-all duration-300 active:scale-[0.98]"
+                >
+                  <div className="flex items-start gap-2.5 mb-2">
+                    <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 group-hover:bg-accent/20 transition-all duration-300">
+                      <Icon size={15} className="text-accent" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h4 className="text-[12px] font-medium text-text-primary group-hover:text-accent transition-colors leading-tight line-clamp-2">{tool.name}</h4>
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-text-secondary/50 leading-relaxed line-clamp-2 mb-2">{tool.shortDesc}</p>
+                  <div className="flex items-center gap-2 text-[8px] text-text-secondary/40">
+                    <span>{getTime(tool.slug)}</span>
+                    <span className="w-px h-2 bg-accent/10" />
+                    <span>{getDifficulty(tool.name)}</span>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── MAIN EXPORT ─── */
 
 export function ToolsContent() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <>
-      <HeroSection />
-      <ExplorerSection />
-      <FeaturedSection />
+      {isMobile ? <MobileHero /> : <HeroSection />}
+      {isMobile ? <MobileExplorer /> : <ExplorerSection />}
+      {isMobile ? <MobileFeatured /> : <FeaturedSection />}
       <CTA />
-        {/* Hub interlinking */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-10">
-          <Breadcrumbs crumbs={getBreadcrumbs("tools", "hub")} />
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">From Tools to Results</h2>
-            <p className="text-text-secondary text-sm mt-3 max-w-[50ch] mx-auto">
-              Our tools work alongside services, solutions, and proven strategies.
-            </p>
-          </div>
-          <RelatedSection
-            groups={[
-              {
-                title: "Services",
-                links: [
-                  { label: "SEO Strategy", href: "/seo-strategy" },
-                  { label: "Technical SEO", href: "/technical-seo" },
-                  { label: "Generative Engine Optimisation", href: "/generative-engine-optimisation" },
-                  { label: "Google Ads", href: "/google-ads" },
-                  { label: "All Services", href: "/services" },
-                ],
-              },
-              {
-                title: "Solutions",
-                links: [
-                  { label: "Improve Search Visibility", href: "/improve-search-visibility" },
-                  { label: "Become Visible in AI Search", href: "/become-visible-in-ai-search" },
-                  { label: "Improve Conversion Rates", href: "/improve-conversion-rates" },
-                  { label: "All Solutions", href: "/solutions" },
-                ],
-              },
-              {
-                title: "Industries We Serve",
-                links: [
-                  { label: "Dental & Healthcare", href: "/dental-healthcare" },
-                  { label: "E-commerce", href: "/ecommerce" },
-                  { label: "SaaS & Technology", href: "/saas-technology" },
-                  { label: "All Industries", href: "/industries" },
-                ],
-              },
-              {
-                title: "Case Studies",
-                links: [
-                  { label: "Pulse Health — GEO for HealthTech", href: "/pulse-health" },
-                  { label: "Urban Spaces — Real Estate SEO", href: "/urban-spaces" },
-                  { label: "FitSync — SaaS Growth", href: "/fitsync" },
-                  { label: "All Case Studies", href: "/work" },
-                ],
-              },
-            ]}
-          />
-        </section>
     </>
   );
 }

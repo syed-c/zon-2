@@ -64,13 +64,13 @@
  * Conventions:
  *   - Tailwind v4 @theme tokens and arbitrary values
  *   - CSS transitions for hover, Framer Motion for mount/unmount
- *   - transform-gpu for performance, AnimatePresence mode="wait"
+ *   - transform-gpu for performance
  *   - Per-page functions guarantee unique section ordering
  *   - Shared section components accept industry prop for data injection
  */
 
 import { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import ShapeGrid from "@/components/ShapeGrid";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RelatedSection from "@/components/RelatedSection";
@@ -95,29 +95,7 @@ import CTA from "@/components/CTA";
 
 const ease = [0.32, 0.72, 0, 1] as const;
 
-const animStyles = `
-  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeInCard { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes fadeInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes progressPulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
-  @keyframes borderGlow { 0%, 100% { border-color: rgba(212,168,73,0.25); } 50% { border-color: rgba(212,168,73,0.55); } }
-  @keyframes countIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes revealDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 4px rgba(212,168,73,0.05); } 50% { box-shadow: 0 0 20px rgba(212,168,73,0.1); } }
-  @keyframes slideExpand { from { max-width: 0; opacity: 0; } to { max-width: 100%; opacity: 1; } }
-  .animate-fadeIn { animation: fadeInCard 0.5s both ease-out; }
-  .animate-fadeInLeft { animation: fadeInLeft 0.4s both ease-out; }
-  .animate-fadeInRight { animation: fadeInRight 0.4s both ease-out; }
-  .animate-scaleIn { animation: scaleIn 0.4s both ease-out; }
-  .animate-slideUp { animation: slideUp 0.6s both ease-out; }
-  .animate-count-in { animation: countIn 0.3s both ease-out; }
-  .animate-reveal-down { animation: revealDown 0.3s both ease-out; }
-  .animate-glow-pulse { animation: glowPulse 2s ease-in-out infinite; }
-  .animate-slide-expand { animation: slideExpand 0.5s both ease-out; }
-`;
+
 
 const iconMap: Record<string, React.ElementType> = {
   Heartbeat, Briefcase, CalendarBlank, Target, Scales, Broom, House,
@@ -889,7 +867,7 @@ function SnapshotSection({ industry }: { industry: IndustryItem }) {
   ];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`snapshot-${industry.slug}`} />
         <BgRadials position="tl" />
@@ -897,7 +875,7 @@ function SnapshotSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Industry Snapshot</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             <span className="text-accent">{industry.name}</span> at a glance.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Key metrics that define the digital landscape for this industry.</p>
@@ -947,7 +925,7 @@ function BuyingJourneySection({ industry }: { industry: IndustryItem }) {
   const pctDigital = Math.round((digitalCount / journey.length) * 100);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`journey-${industry.slug}`} />
         <BgRadials position="br" />
@@ -956,7 +934,7 @@ function BuyingJourneySection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Customer Journey</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             How <span className="text-accent">customers actually buy.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-4">{pctDigital}% of this journey happens digitally. Every offline touchpoint is an opportunity for digital enablement.</p>
@@ -1039,7 +1017,7 @@ function ChallengesSection({ industry }: { industry: IndustryItem }) {
   const challengeIcons = [Wrench, Shield, Gear, PuzzlePiece, Flag];
   const impactLabels = ["Revenue Impact", "Customer Experience", "Operational Cost", "Compliance Risk", "Competitive Gap"];
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`challenges-${industry.slug}`} />
         <BgRadials position="bl" />
@@ -1047,7 +1025,7 @@ function ChallengesSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Challenges</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             The <span className="text-accent">hurdles</span> you face.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-4">Specific challenges that {industry.name} businesses encounter in their digital growth journey.</p>
@@ -1095,7 +1073,7 @@ function GrowthOpportunitiesSection({ industry }: { industry: IndustryItem }) {
   }, 0);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`opportunities-${industry.slug}`} />
         <BgRadials position="tr" />
@@ -1104,7 +1082,7 @@ function GrowthOpportunitiesSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Growth Opportunities</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Where <span className="text-accent">money is being left</span> on the table.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-4">Quantified opportunities for {industry.name} businesses to capture lost revenue and improve efficiency.</p>
@@ -1146,7 +1124,7 @@ function GrowthSystemSection({ industry }: { industry: IndustryItem }) {
   const steps = industryGrowthSystems[industry.slug] || industryGrowthSystems["dental-healthcare"];
   const outcomes = ["Early visibility improvements and baseline measurements", "First rankings appearing and lead flow beginning", "Systems operational and generating consistent results", "Scaling winning channels and expanding coverage", "Market leadership position with automated acquisition"];
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`system-${industry.slug}`} />
         <BgRadials position="center" />
@@ -1154,7 +1132,7 @@ function GrowthSystemSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Growth System</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             The <span className="text-accent">{industry.name.split(" ")[0]}</span> growth system.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-4">Our proven 5-step framework tailored specifically to {industry.name}.</p>
@@ -1248,7 +1226,7 @@ function SolutionsEcosystemSection({ industry }: { industry: IndustryItem }) {
   };
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`solutions-${industry.slug}`} />
         <BgRadials position="bl" />
@@ -1257,7 +1235,7 @@ function SolutionsEcosystemSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Solutions</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Solutions for <span className="text-accent">{industry.name}.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Our proven approaches tailored to your industry&rsquo;s unique challenges.</p>
@@ -1302,7 +1280,7 @@ function ToolsShowcaseSection({ industry }: { industry: IndustryItem }) {
   const relevant = allTools.filter((t: any) => industry.relevantTools.includes(t.slug));
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`tools-${industry.slug}`} />
         <BgRadials position="tr" />
@@ -1310,7 +1288,7 @@ function ToolsShowcaseSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Tools</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Recommended <span className="text-accent">tools.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Free tools we recommend for {industry.name} businesses.</p>
@@ -1346,7 +1324,7 @@ function CaseStudiesSection({ industry }: { industry: IndustryItem }) {
   const totalMetrics = displayStudies.reduce((acc, cs) => acc + cs.metrics.length, 0);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`case-${industry.slug}`} />
         <BgRadials position="br" />
@@ -1354,7 +1332,7 @@ function CaseStudiesSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Case Studies</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Results in <span className="text-accent">{industry.name}.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-4">Real results from real businesses in your industry. Every case study includes verified metrics.</p>
@@ -1434,7 +1412,7 @@ function StatisticsSection({ industry }: { industry: IndustryItem }) {
   ];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`stats-${industry.slug}`} />
         <BgRadials position="center" />
@@ -1443,7 +1421,7 @@ function StatisticsSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Statistics</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             <span className="text-accent">{industry.name}</span> data dashboard.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-4">Key market statistics that define the digital opportunity for {industry.name}.</p>
@@ -1496,7 +1474,7 @@ function CommonMistakesSection({ industry }: { industry: IndustryItem }) {
   const mistakes = industryMistakes[industry.slug] || industryMistakes["dental-healthcare"];
   const severityLevels = ["Critical", "High", "Medium", "High", "Critical"];
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`mistakes-${industry.slug}`} />
         <BgRadials position="tl" />
@@ -1505,7 +1483,7 @@ function CommonMistakesSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Common Mistakes</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Where most <span className="text-accent">{industry.name.split(" ")[0]}</span> businesses go wrong.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-4">And how we fix it differently. These are the five most damaging mistakes we see {industry.name} businesses make.</p>
@@ -1571,7 +1549,7 @@ function TimelineSection({ industry }: { industry: IndustryItem }) {
   ];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`timeline-${industry.slug}`} />
         <BgRadials position="br" />
@@ -1579,7 +1557,7 @@ function TimelineSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Growth Timeline</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Your <span className="text-accent">roadmap</span> to results.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">A phased timeline for {industry.name} businesses.</p>
@@ -1658,7 +1636,7 @@ function FAQSection({ industry }: { industry: IndustryItem }) {
   const displayFAQs = showAll ? allFAQs : allFAQs.slice(0, 6);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`faq-${industry.slug}`} />
         <BgRadials position="bl" />
@@ -1666,7 +1644,7 @@ function FAQSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">FAQs</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             <span className="text-accent">{industry.name}</span> FAQ.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Answers to the most common questions we hear from {industry.name} businesses.</p>
@@ -1720,7 +1698,7 @@ function FAQSection({ industry }: { industry: IndustryItem }) {
 function ResourcesSection({ industry }: { industry: IndustryItem }) {
   const resources = industryResources[industry.slug] || industryResources["dental-healthcare"];
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`resources-${industry.slug}`} />
         <BgRadials position="br" />
@@ -1728,7 +1706,7 @@ function ResourcesSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Resources</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             <span className="text-accent">{industry.name}</span> insights.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-4">Perspectives, analysis, and strategies from our team specific to {industry.name}.</p>
@@ -1745,7 +1723,7 @@ function ResourcesSection({ industry }: { industry: IndustryItem }) {
             transition={{ duration: 0.6, ease }}
           >
             <div className="block h-full">
-              <PanelCard className="p-6 lg:p-8 h-full flex flex-col relative overflow-hidden">
+              <PanelCard className="p-5 sm:p-6 lg:p-8 h-full flex flex-col relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-accent/[0.02] rounded-full -translate-y-1/2 translate-x-1/2" />
                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent/[0.01] rounded-full translate-y-1/2 -translate-x-1/2" />
                 <div className="flex-1 relative z-10">
@@ -1854,7 +1832,6 @@ function ExploreOtherIndustriesSection({ industry }: { industry: IndustryItem })
             </button>
           ))}
         </div>
-        <AnimatePresence mode="wait">
           <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {filtered.map((ind, i) => {
               const IndIcon = (iconMap[ind.icon] || Target) as React.ComponentType<any>;
@@ -1864,7 +1841,6 @@ function ExploreOtherIndustriesSection({ industry }: { industry: IndustryItem })
                   key={ind.slug}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.3, ease, delay: i * 0.02 }}
                 >
                   <Link href={`/${ind.slug}`}
@@ -1891,7 +1867,6 @@ function ExploreOtherIndustriesSection({ industry }: { industry: IndustryItem })
               );
             })}
           </motion.div>
-        </AnimatePresence>
         <div className="mt-14 text-center">
           <div className="inline-flex items-center gap-6 p-4 rounded-full bg-[#181818] border border-accent/20">
             <span className="text-[11px] font-mono text-text-secondary/60">{otherIndustries.length} industries available</span>
@@ -2063,7 +2038,7 @@ function HeroBg() {
 function DentalHealthcarePage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-ground overflow-hidden">
           <ToothIcon />
@@ -2141,7 +2116,7 @@ function DentalHealthcarePage({ industry }: { industry: IndustryItem }) {
 function CorporateServicesPage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-[#0D0C0B] overflow-hidden">
           <BriefIcnSvg />
@@ -2219,7 +2194,7 @@ function CorporateServicesPage({ industry }: { industry: IndustryItem }) {
 function EventsPage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-ground overflow-hidden">
           <CalIconSvg />
@@ -2297,7 +2272,7 @@ function EventsPage({ industry }: { industry: IndustryItem }) {
 function ProfessionalServicesPage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-[#0A0A0A] overflow-hidden">
           <BuildingIconSvg />
@@ -2375,7 +2350,7 @@ function ProfessionalServicesPage({ industry }: { industry: IndustryItem }) {
 function LegalServicesPage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-ground overflow-hidden">
           <GavelIcon />
@@ -2453,7 +2428,7 @@ function LegalServicesPage({ industry }: { industry: IndustryItem }) {
 function CleaningPage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-[#0D0C0B] overflow-hidden">
           <StarBurstIcon />
@@ -2531,7 +2506,7 @@ function CleaningPage({ industry }: { industry: IndustryItem }) {
 function RealEstatePage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-ground overflow-hidden">
           <MapHomeIcon />
@@ -2609,7 +2584,7 @@ function RealEstatePage({ industry }: { industry: IndustryItem }) {
 function EcommercePage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-[#0A0A0A] overflow-hidden">
           <CartIconSvg />
@@ -2687,7 +2662,7 @@ function EcommercePage({ industry }: { industry: IndustryItem }) {
 function HospitalityPage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-ground overflow-hidden">
           <StarDotsIcon />
@@ -2765,7 +2740,7 @@ function HospitalityPage({ industry }: { industry: IndustryItem }) {
 function EducationPage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-[#0D0C0B] overflow-hidden">
           <CapIconSvg />
@@ -2843,7 +2818,7 @@ function EducationPage({ industry }: { industry: IndustryItem }) {
 function LocalServicePage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-ground overflow-hidden">
           <PinMapIcon />
@@ -2921,7 +2896,7 @@ function LocalServicePage({ industry }: { industry: IndustryItem }) {
 function SaaSAndTechPage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-[#0A0A0A] overflow-hidden">
           <CodeBracketsIcon />
@@ -2999,7 +2974,7 @@ function SaaSAndTechPage({ industry }: { industry: IndustryItem }) {
 function DisabilityCarePage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-ground overflow-hidden">
           <HeartIconSvg />
@@ -3077,7 +3052,7 @@ function DisabilityCarePage({ industry }: { industry: IndustryItem }) {
 function DefaultPage({ industry }: { industry: IndustryItem }) {
   return (
     <>
-      <style>{animStyles}{processAnimStyles}{extendedAnimStyles}</style>
+
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
         <section className="relative py-24 lg:py-28 bg-ground overflow-hidden">
           <HeroBg />
@@ -3125,6 +3100,19 @@ function DefaultPage({ industry }: { industry: IndustryItem }) {
 /* ─── MAIN EXPORT ─── */
 
 export function IndustryDetailContent({ industry }: { industry: IndustryItem }) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  if (isMobile) {
+    return <MobileIndustryPage industry={industry} />;
+  }
+
   const pages: Record<string, ({ industry }: { industry: IndustryItem }) => React.ReactNode> = {
     "dental-healthcare": DentalHealthcarePage,
     "business-setup-corporate-services": CorporateServicesPage,
@@ -3416,20 +3404,18 @@ function TestimonialsSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Client Results</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-12">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-12">
             Real results from <span className="text-accent">real {industry.name} clients.</span>
           </h2>
         </FadeIn>
         <div className="grid lg:grid-cols-12 gap-6 lg:gap-8">
           <div className="lg:col-span-7">
-            <AnimatePresence mode="wait">
               {testimonials.map((t, i) => (
                 activeIdx === i && (
                   <motion.div
                     key={t.author}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.4, ease }}
                     className="relative bg-[#181818] border border-accent/30 rounded-[1.5rem] p-8 lg:p-10"
                   >
@@ -3449,7 +3435,6 @@ function TestimonialsSection({ industry }: { industry: IndustryItem }) {
                   </motion.div>
                 )
               ))}
-            </AnimatePresence>
             <div className="flex items-center gap-2 mt-6">
               {testimonials.map((_, i) => (
                 <button
@@ -3522,7 +3507,7 @@ function ApproachComparisonSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Our Approach</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Traditional vs. <span className="text-accent">the ZON way.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">How our approach to {industry.name.toLowerCase()} marketing differs from what most agencies deliver.</p>
@@ -3585,7 +3570,7 @@ function CompetitorInsightsSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Competitor Landscape</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Know your <span className="text-accent">competition.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Direct, indirect, and emerging competitors in the {industry.name} space and how to outmanoeuvre them.</p>
@@ -3603,7 +3588,7 @@ function CompetitorInsightsSection({ industry }: { industry: IndustryItem }) {
                 className="animate-fadeIn"
                 style={{ animationDelay: `${i * 0.1}s` }}
               >
-                <div className="relative bg-[#181818] border border-accent/25 rounded-[1.25rem] p-6 transition-all duration-500 hover:border-accent/55 hover:-translate-y-1 transform-gpu h-full flex flex-col">
+                <div className="relative bg-[#181818] border border-accent/25 rounded-[1.25rem] p-5 sm:p-6 transition-all duration-500 hover:border-accent/55 hover:-translate-y-1 transform-gpu h-full flex flex-col">
                   <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/25 to-transparent" />
                   <div className="flex items-center gap-2 mb-4">
                     <span className={`text-[8px] font-mono px-2 py-0.5 rounded-full border ${typeColor}`}>{comp.type}</span>
@@ -3702,7 +3687,7 @@ function StrategicInsightsSection({ industry }: { industry: IndustryItem }) {
   const [openInsight, setOpenInsight] = useState<number | null>(null);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`trends-${industry.slug}`} />
         <BgRadials position="tr" />
@@ -3711,7 +3696,7 @@ function StrategicInsightsSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Strategic Insights</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             What&rsquo;s shaping <span className="text-accent">{industry.name}</span> right now.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Market trends, shifts, and dynamics that should inform your digital strategy.</p>
@@ -3775,7 +3760,7 @@ function ProcessOverviewSection({ industry }: { industry: IndustryItem }) {
   ];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`process-${industry.slug}`} />
         <BgRadials position="center" />
@@ -3783,7 +3768,7 @@ function ProcessOverviewSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Our Process</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             How we deliver <span className="text-accent">results.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">A proven 5-phase process that has delivered measurable results for {industry.name} businesses.</p>
@@ -3843,23 +3828,13 @@ function ProcessOverviewSection({ industry }: { industry: IndustryItem }) {
   );
 }
 
-const processAnimStyles = `
-  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-  @keyframes breathe { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
-  @keyframes rotateGradient { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-  @keyframes floatUp { 0% { transform: translateY(0px); } 50% { transform: translateY(-4px); } 100% { transform: translateY(0px); } }
-  @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 4px rgba(212,168,73,0.1); } 50% { box-shadow: 0 0 16px rgba(212,168,73,0.2); } }
-  .animate-shimmer { background: linear-gradient(90deg, transparent 0%, rgba(212,168,73,0.05) 50%, transparent 100%); background-size: 200% 100%; animation: shimmer 3s infinite; }
-  .animate-breathe { animation: breathe 3s ease-in-out infinite; }
-  .animate-float { animation: floatUp 3s ease-in-out infinite; }
-  .animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
-`;
+
 
 function IndustryAboutSection({ industry }: { industry: IndustryItem }) {
   const snapshot = industrySnapshotData[industry.slug] || industrySnapshotData["dental-healthcare"];
   const stats = industryStats[industry.slug] || industryStats["dental-healthcare"];
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id={`about-${industry.slug}`} />
         <BgRadials position="bl" />
@@ -3867,7 +3842,7 @@ function IndustryAboutSection({ industry }: { industry: IndustryItem }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">About This Industry</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Why <span className="text-accent">{industry.name}</span> matters.
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-8">Understanding the unique characteristics of this sector helps us build strategies that deliver measurable results.</p>
@@ -3929,91 +3904,674 @@ function IndustryAboutSection({ industry }: { industry: IndustryItem }) {
   );
 }
 
-const extendedAnimStyles = `
-  @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes expandWidth { from { width: 0; } to { width: 100%; } }
-  @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-  @keyframes gradientFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-  @keyframes shimmerCard { 0% { background-position: -100% 0; } 100% { background-position: 200% 0; } }
-  @keyframes pulseDot { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 0.8; transform: scale(1.2); } }
-  @keyframes rotateIn { from { opacity: 0; transform: rotate(-10deg) scale(0.9); } to { opacity: 1; transform: rotate(0deg) scale(1); } }
-  @keyframes bounceIn { 0% { opacity: 0; transform: scale(0.3); } 50% { transform: scale(1.05); } 70% { transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
-  @keyframes flipIn { from { opacity: 0; transform: perspective(400px) rotateX(90deg); } to { opacity: 1; transform: perspective(400px) rotateX(0deg); } }
-  @keyframes drawLine { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
-  @keyframes fillUp { from { height: 0; } to { height: 100%; } }
-  @keyframes ripple { 0% { box-shadow: 0 0 0 0 rgba(212,168,73,0.3); } 100% { box-shadow: 0 0 0 20px rgba(212,168,73,0); } }
-  @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  @keyframes wiggle { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
-  @keyframes dropIn { from { opacity: 0; transform: translateY(-20px) scaleY(0.8); } to { opacity: 1; transform: translateY(0) scaleY(1); } }
-  @keyframes blurIn { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
-  @keyframes slideUpFade { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes cardEnter { from { opacity: 0; transform: translateY(24px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-  @keyframes statReveal { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes borderTrace { 0% { stroke-dashoffset: 400; } 100% { stroke-dashoffset: 0; } }
-  @keyframes numberCount { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes progressFill { from { width: 0; } to { width: var(--progress-width); } }
-  @keyframes accordionOpen { from { opacity: 0; max-height: 0; transform: translateY(-8px); } to { opacity: 1; max-height: 500px; transform: translateY(0); } }
-  @keyframes accordionClose { from { opacity: 1; max-height: 500px; transform: translateY(0); } to { opacity: 0; max-height: 0; transform: translateY(-8px); } }
-  @keyframes shimmerGradient { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-  @keyframes floatHorizontal { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
-  @keyframes scalePulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
-  @keyframes badgePop { 0% { opacity: 0; transform: scale(0.5); } 70% { transform: scale(1.1); } 100% { opacity: 1; transform: scale(1); } }
-  @keyframes slideInRightStagger { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes slideInLeftStagger { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes growFromCenter { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
-  .animate-slide-left { animation: slideInLeft 0.5s both ease-out; }
-  .animate-slide-right { animation: slideInRight 0.5s both ease-out; }
-  .animate-expand-width { animation: expandWidth 0.8s both ease-out; }
-  .animate-fade-scale { animation: fadeInScale 0.4s both ease-out; }
-  .animate-gradient { background-size: 200% 200%; animation: gradientFlow 4s ease infinite; }
-  .animate-shimmer-card { background: linear-gradient(90deg, transparent 0%, rgba(212,168,73,0.03) 50%, transparent 100%); background-size: 200% 100%; animation: shimmerCard 2.5s infinite; }
-  .animate-pulse-dot { animation: pulseDot 2s ease-in-out infinite; }
-  .animate-rotate-in { animation: rotateIn 0.5s both ease-out; }
-  .animate-bounce-in { animation: bounceIn 0.6s both cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-  .animate-flip-in { animation: flipIn 0.6s both ease-out; }
-  .animate-ripple { animation: ripple 1s ease-out infinite; }
-  .animate-wiggle { animation: wiggle 0.4s ease-in-out; }
-  .animate-drop-in { animation: dropIn 0.4s both ease-out; }
-  .animate-blur-in { animation: blurIn 0.5s both ease-out; }
-  .animate-slide-up-fade { animation: slideUpFade 0.6s both ease-out; }
-  .animate-card-enter { animation: cardEnter 0.5s both ease-out; }
-  .animate-stat-reveal { animation: statReveal 0.4s both ease-out; }
-  .animate-number-count { animation: numberCount 0.3s both ease-out; }
-  .animate-float-horizontal { animation: floatHorizontal 3s ease-in-out infinite; }
-  .animate-scale-pulse { animation: scalePulse 2s ease-in-out infinite; }
-  .animate-badge-pop { animation: badgePop 0.4s both ease-out; }
-  .animate-grow-center { animation: growFromCenter 0.6s both ease-out; }
-  .animate-fade-in-up { animation: slideUpFade 0.5s both ease-out; }
-  .animate-scale-fade { animation: fadeInScale 0.4s both ease-out; }
-  .animate-blur-fade { animation: blurIn 0.6s both ease-out; }
-  .animate-rotate-scale { animation: rotateIn 0.5s both ease-out; }
-  .animate-bounce-scale { animation: bounceIn 0.6s both cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-  .scrollbar-none::-webkit-scrollbar { display: none; }
-  .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; } }
-  @media (max-width: 640px) { .mobile-full { width: 100% !important; max-width: 100% !important; } }
-  @media (min-width: 641px) and (max-width: 1024px) { .tablet-half { width: 50% !important; } }
-  .glass-effect { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-  .text-balance { text-wrap: balance; }
-  .text-pretty { text-wrap: pretty; }
-  .line-clamp-1 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; }
-  .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
-  .line-clamp-3 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
-  .line-clamp-4 { overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; }
-  .bg-grid-pattern { background-image: linear-gradient(rgba(212,168,73,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(212,168,73,0.03) 1px, transparent 1px); background-size: 32px 32px; }
-  .bg-dot-pattern { background-image: radial-gradient(rgba(212,168,73,0.1) 1px, transparent 1px); background-size: 24px 24px; }
-  .bg-accent-gradient { background: linear-gradient(135deg, rgba(212,168,73,0.12) 0%, transparent 50%, rgba(212,168,73,0.04) 100%); }
-  .text-gradient-accent { background: linear-gradient(135deg, #D4A849 0%, #F2EDE6 50%, #D4A849 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .border-gradient-accent { border-image: linear-gradient(135deg, rgba(212,168,73,0.4), transparent, rgba(212,168,73,0.4)) 1; }
-  .shadow-accent-sm { box-shadow: 0 1px 3px rgba(212,168,73,0.08), 0 1px 2px rgba(212,168,73,0.04); }
-  .shadow-accent-md { box-shadow: 0 4px 6px rgba(212,168,73,0.06), 0 2px 4px rgba(212,168,73,0.04); }
-  .shadow-accent-lg { box-shadow: 0 10px 25px rgba(212,168,73,0.08), 0 4px 10px rgba(212,168,73,0.04); }
-  .shadow-accent-xl { box-shadow: 0 20px 50px rgba(212,168,73,0.1), 0 8px 20px rgba(212,168,73,0.05); }
-  .ring-accent { ring: 1px solid rgba(212,168,73,0.3); }
-  .ring-accent-sm { ring: 0.5px solid rgba(212,168,73,0.15); }
-  .ring-accent-md { ring: 1.5px solid rgba(212,168,73,0.4); }
-  .truncate-2 { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-  .truncate-3 { overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
-  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-`;
+/* ─── MOBILE SECTIONS ─── */
+
+const industrySvgMap: Record<string, React.ComponentType> = {
+  "dental-healthcare": ToothIcon,
+  "legal-services": GavelIcon,
+  "saas-technology": CodeBracketsIcon,
+  "professional-services": BuildingIconSvg,
+  "cleaning-facilities": StarBurstIcon,
+  "real-estate": MapHomeIcon,
+  "ecommerce": CartIconSvg,
+  "hospitality": StarDotsIcon,
+  "education": CapIconSvg,
+  "local-service-businesses": PinMapIcon,
+  "disability-care-services": HeartIconSvg,
+  "exhibitions-events": CalIconSvg,
+  "business-setup-corporate-services": BriefIcnSvg,
+};
+
+const industryTaglines: Record<string, { tag: string; title: string; subtitle: string }> = {
+  "dental-healthcare": { tag: "Patient Acquisition", title: "Dominate dental local search.", subtitle: "12,400+ UK practices · £8.40 avg CPC · 2.4M searches/month" },
+  "legal-services": { tag: "Practice Area SEO", title: "Dominate practice-area search.", subtitle: "180,000+ UK firms · £12.50 avg CPC · 4.1M searches/month" },
+  "saas-technology": { tag: "Product-Led SEO", title: "Scale your SaaS through product-led SEO.", subtitle: "8,200+ UK SaaS companies · 15.2M searches/month" },
+  "professional-services": { tag: "Authority Building", title: "Win better clients through authority.", subtitle: "450,000+ UK firms · £22.80 avg CPC · 3.8M searches/month" },
+  "cleaning-facilities": { tag: "Local Dominance", title: "Scale your cleaning business with local SEO.", subtitle: "25,000+ UK cleaners · 1.8M searches/month" },
+  "real-estate": { tag: "Property Search", title: "Own your local property market.", subtitle: "25,000+ UK agencies · 8.6M searches/month" },
+  "ecommerce": { tag: "Product Discovery", title: "Drive product discovery through search.", subtitle: "500,000+ UK stores · 22.5M searches/month" },
+  "hospitality": { tag: "Direct Bookings", title: "Drive direct bookings and dominate local search.", subtitle: "60,000+ UK venues · 11.3M searches/month" },
+  "education": { tag: "Programme SEO", title: "Attract students through programme SEO.", subtitle: "30,000+ UK programmes · 5.1M searches/month" },
+  "local-service-businesses": { tag: "Service SEO", title: "Get found, booked, and paid — automatically.", subtitle: "200,000+ UK service businesses · 9.7M searches/month" },
+  "disability-care-services": { tag: "Compassionate SEO", title: "Connect families with compassionate care.", subtitle: "13,000+ UK care providers · 1.2M searches/month" },
+  "exhibitions-events": { tag: "Event SEO", title: "Fill seats with search-driven acquisition.", subtitle: "1,200+ UK exhibitions · 3.4M searches/month" },
+  "business-setup-corporate-services": { tag: "B2B Lead Gen", title: "Attract corporate clients through search.", subtitle: "8,000+ UK providers · £35.50 avg CPC · 2.1M searches/month" },
+};
+
+function MobileHero({ industry, slug }: { industry: IndustryItem; slug: string }) {
+  const info = industryTaglines[slug] || industryTaglines["dental-healthcare"];
+  const SvgIcon = industrySvgMap[slug];
+  const snap = industrySnapshotData[slug] || industrySnapshotData["dental-healthcare"];
+  return (
+    <section className="relative pt-28 pb-12 min-h-[480px] bg-ground overflow-hidden">
+      <div className="absolute inset-0">
+        <ShapeGrid speed={0.15} squareSize={36} direction="diagonal" borderColor="#D4A849" hoverFillColor="#D4A849" shape="square" hoverTrailAmount={3} />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ground/90 pointer-events-none" />
+      </div>
+      <div className="absolute inset-0 pointer-events-none">
+        {SvgIcon && <SvgIcon />}
+      </div>
+      <div className="relative z-10 px-6">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent/70 mb-3 block">{info.tag}</span>
+          <h1 className="font-display font-semibold text-[clamp(2.625rem,11vw,2.875rem)] tracking-[-0.03em] leading-[0.95] text-white mb-4">
+            {info.title}
+          </h1>
+          <p className="text-text-secondary/80 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed mb-6">{industry.description}</p>
+          <div className="flex flex-wrap gap-2 mb-6">
+            <span className="text-[10px] font-mono text-accent/60 px-2.5 py-1 rounded-full border border-accent/25 bg-[#181818]">Growth Opp: {snap.growthOpportunity}%</span>
+            <span className="text-[10px] font-mono text-accent/60 px-2.5 py-1 rounded-full border border-accent/25 bg-[#181818]">Maturity: {snap.digitalMaturity}%</span>
+            <span className="text-[10px] font-mono text-accent/60 px-2.5 py-1 rounded-full border border-accent/25 bg-[#181818]">AI Ready: {snap.aiReadiness}%</span>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function MobileSnapshot({ industry }: { industry: IndustryItem }) {
+  const slug = industry.slug;
+  const snap = industrySnapshotData[slug] || industrySnapshotData["dental-healthcare"];
+  const stats = industryStats[slug] || industryStats["dental-healthcare"];
+  const metrics = [
+    { label: "Search Demand", value: `${snap.searchDemand}/100` },
+    { label: "Traffic Potential", value: stats.searchVolume },
+    { label: "Avg CPC", value: stats.cpc },
+    { label: "Lead Value", value: `£${snap.avgLeadValue.toLocaleString()}` },
+  ];
+  return (
+    <section className="py-[72px] bg-[#0A0A0A]">
+      <div className="px-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Industry snapshot</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed mb-6">{industry.description.slice(0, 140)}.</p>
+        <div className="grid grid-cols-2 gap-3">
+          {metrics.map((m) => (
+            <div key={m.label} className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4">
+              <span className="text-[10px] font-mono text-text-secondary/60 tracking-wider uppercase block mb-1">{m.label}</span>
+              <span className="font-display text-[clamp(1.375rem,5vw,1.75rem)] font-semibold text-accent leading-none block">{m.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileBuyingJourney({ industry }: { industry: IndustryItem }) {
+  const journey = industryBuyingJourneys[industry.slug] || industryBuyingJourneys["dental-healthcare"];
+  return (
+    <section className="py-[72px] bg-ground">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Customer journey</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">How {industry.name} customers find and choose you.</p>
+      </div>
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-6 pb-4">
+        {journey.map((stage, i) => (
+          <motion.div
+            key={stage.stage}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: i * 0.04 }}
+            className="snap-start shrink-0"
+            style={{ width: "calc(85vw - 12px)", maxWidth: "320px" }}
+          >
+            <div className="bg-[#181818] border border-accent/25 rounded-[1.25rem] p-5 h-full">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-[9px] font-mono text-accent/60">Stage {String(i + 1).padStart(2, "0")}</span>
+                {stage.digital && <span className="text-[8px] font-mono text-accent/40 px-1.5 py-0.5 rounded-full border border-accent/20">Digital</span>}
+              </div>
+              <h3 className="font-display text-[clamp(1rem,3.5vw,1.125rem)] font-semibold text-white mb-2">{stage.stage}</h3>
+              <p className="text-xs text-text-secondary/70 leading-relaxed">{stage.desc}</p>
+              <div className="flex gap-1 mt-3">
+                {journey.map((_, j) => (
+                  <div key={j} className={`w-1.5 h-1.5 rounded-full transition-colors ${j === i ? "bg-accent/60" : "bg-accent/15"}`} />
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileChallenges({ industry }: { industry: IndustryItem }) {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  return (
+    <section className="py-[72px] bg-[#0D0C0B]">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Challenges</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">Key hurdles {industry.name} businesses face.</p>
+      </div>
+      <div className="px-6 space-y-2">
+        {industry.challenges.map((c, i) => {
+          const isOpen = openIdx === i;
+          return (
+            <div key={c} className="bg-[#181818] border border-accent/20 rounded-[1.25rem] overflow-hidden">
+              <button
+                onClick={() => setOpenIdx(isOpen ? null : i)}
+                className="w-full flex items-center justify-between px-4 py-3 text-left"
+                style={{ minHeight: "44px" }}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] font-mono text-accent/50">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="text-sm font-medium text-white">{c.length > 60 ? c.slice(0, 60) + "..." : c}</span>
+                </div>
+                {isOpen ? <CaretDown size={14} className="text-accent/60 shrink-0" /> : <CaretRight size={14} className="text-text-secondary/40 shrink-0" />}
+              </button>
+              {isOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
+                  transition={{ duration: 0.25, ease }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-4 pb-4 pl-11">
+                    <p className="text-xs text-text-secondary/70 leading-relaxed">{c}</p>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function MobileOpportunities({ industry }: { industry: IndustryItem }) {
+  const opps = industryOpportunities[industry.slug] || industryOpportunities["dental-healthcare"];
+  const mistakes = industryMistakes[industry.slug] || industryMistakes["dental-healthcare"];
+  const [mistakeOpen, setMistakeOpen] = useState(false);
+  return (
+    <section className="py-[72px] bg-ground">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Growth opportunities</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">Untapped potential waiting for you.</p>
+      </div>
+      <div className="px-6 space-y-3 mb-8">
+        {opps.map((opp, i) => (
+          <motion.div key={opp.label} initial={{ y: 12, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.05 }}>
+            <div className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[10px] font-mono text-text-secondary/60 tracking-wider uppercase">{opp.label}</span>
+                <span className="font-display text-lg font-semibold text-accent">{opp.value}{opp.suffix}</span>
+              </div>
+              <p className="text-xs text-text-secondary/70 leading-relaxed">{opp.desc}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+      <div className="px-6">
+        <button
+          onClick={() => setMistakeOpen(!mistakeOpen)}
+          className="w-full flex items-center justify-between bg-[#181818] border border-accent/20 rounded-[1.25rem] px-4 py-3.5"
+          style={{ minHeight: "44px" }}
+        >
+          <span className="text-sm font-medium text-white">Common mistakes</span>
+          {mistakeOpen ? <CaretDown size={14} className="text-accent/60" /> : <CaretRight size={14} className="text-text-secondary/40" />}
+        </button>
+        {mistakeOpen && (
+          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} transition={{ duration: 0.3, ease }} className="overflow-hidden">
+            <div className="pt-2 space-y-2">
+              {mistakes.map((m, i) => (
+                <details key={m.title} className="group bg-[#181818] border border-accent/15 rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between px-4 py-3 text-sm text-text-secondary cursor-pointer" style={{ minHeight: "44px" }}>
+                    <span>{m.title}</span>
+                    <CaretRight size={12} className="text-accent/40 group-open:rotate-90 transition-transform duration-200 shrink-0" />
+                  </summary>
+                  <div className="px-4 pb-3 space-y-1">
+                    <p className="text-xs text-text-secondary/60 leading-relaxed">{m.desc}</p>
+                    <p className="text-xs text-accent/70 leading-relaxed">Fix: {m.fix}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function MobileHowWeHelp({ industry }: { industry: IndustryItem }) {
+  const growthSystem = industryGrowthSystems[industry.slug] || industryGrowthSystems["dental-healthcare"];
+  return (
+    <section className="py-[72px] bg-[#0D0C0B]">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">How we help</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">Our {industry.name} growth framework in 5 steps.</p>
+      </div>
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-6 pb-4">
+        {growthSystem.map((step, i) => (
+          <motion.div
+            key={step.step}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: i * 0.05 }}
+            className="snap-start shrink-0"
+            style={{ width: "calc(85vw - 12px)", maxWidth: "320px" }}
+          >
+            <div className="bg-[#181818] border border-accent/25 rounded-[1.25rem] p-5 h-full">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-9 h-9 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center">
+                  <span className="text-[10px] font-mono text-accent font-semibold">{step.step}</span>
+                </div>
+                <span className="text-[9px] font-mono text-accent/60 tracking-wider uppercase">Step {step.step}</span>
+              </div>
+              <h3 className="font-display text-[clamp(1.0625rem,4vw,1.1875rem)] font-semibold text-white mb-2">{step.title}</h3>
+              <p className="text-xs text-text-secondary/70 leading-relaxed mb-4">{step.desc}</p>
+              <div className="flex gap-1">
+                {growthSystem.map((_, j) => (
+                  <div key={j} className={`w-1.5 h-1.5 rounded-full transition-colors ${j === i ? "bg-accent/60" : "bg-accent/15"}`} />
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileTools({ industry }: { industry: IndustryItem }) {
+  const [categories, setCategories] = useState<{ name: string; tools: { name: string; description: string; slug: string }[] }[]>([]);
+  useEffect(() => {
+    import("@/data/tools").then((mod) => {
+      const all: { name: string; tools: { name: string; description: string; slug: string }[] }[] = [];
+      for (const key in mod.toolCategories) {
+        const cat = (mod.toolCategories as any)[key];
+        all.push({ name: cat.name || key, tools: (cat.tools || []).filter((t: any) => industry.relevantTools.includes(t.slug)) });
+      }
+      setCategories(all);
+    });
+  }, [industry.relevantTools]);
+  const allTools = categories.flatMap((c) => c.tools).slice(0, 4);
+  if (allTools.length === 0) return null;
+  return (
+    <section className="py-[72px] bg-ground">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Free tools</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">Resources to audit and improve your presence.</p>
+      </div>
+      <div className="px-6 space-y-2">
+        {allTools.map((tool) => (
+          <Link key={tool.slug} href={`/${tool.slug}`} className="block group">
+            <div className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4 group-hover:border-accent/40 transition-all duration-200">
+              <div className="flex items-center justify-between">
+                <div className="flex-1 min-w-0 mr-2">
+                  <h3 className="text-sm font-medium text-white group-hover:text-accent transition-colors">{tool.name}</h3>
+                  <p className="text-xs text-text-secondary/60 leading-relaxed mt-0.5 line-clamp-1">{tool.description}</p>
+                </div>
+                <ArrowRight size={14} className="text-accent/40 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileCaseStudies({ industry }: { industry: IndustryItem }) {
+  const [expanded, setExpanded] = useState(false);
+  const industryCases = caseStudies.filter((cs) => {
+    const tags = cs.tags || [];
+    return tags.some((t: string) => industry.name.toLowerCase().includes(t.toLowerCase())) || cs.industry === industry.name;
+  }).slice(0, 3);
+  if (industryCases.length === 0) return null;
+  const featured = industryCases[0];
+  const rest = industryCases.slice(1);
+  return (
+    <section className="py-[72px] bg-[#0A0A0A]">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Case studies</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">Real results from businesses like yours.</p>
+      </div>
+      <div className="px-6 space-y-4">
+        <div className="bg-[#181818] border border-accent/30 rounded-[1.25rem] p-5">
+          <span className="text-[9px] font-mono text-accent/60 tracking-wider uppercase block mb-2">Featured case</span>
+          <h3 className="font-display text-lg font-semibold text-white mb-1">{featured.client}</h3>
+           <p className="text-xs text-text-secondary/70 leading-relaxed mb-3">{featured.description}</p>
+          <div className="grid grid-cols-2 gap-2">
+            {featured.metrics.map((m) => (
+              <div key={m.label} className="bg-[#1E1E1E] rounded-lg p-2.5 text-center">
+                <span className="font-display text-base font-semibold text-accent block leading-none">{m.value}</span>
+                <span className="text-[8px] font-mono text-text-secondary/60 block mt-0.5">{m.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        {rest.length > 0 && (
+          <>
+            <button
+              onClick={() => setExpanded(!expanded)}
+              className="w-full flex items-center justify-center gap-2 text-xs text-accent/70 py-3"
+              style={{ minHeight: "44px" }}
+            >
+              {expanded ? "Hide" : `View ${rest.length} more case ${rest.length === 1 ? "study" : "studies"}`}
+              {expanded ? <CaretDown size={12} /> : <CaretRight size={12} />}
+            </button>
+            {expanded && (
+              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} className="overflow-hidden space-y-3">
+                {rest.map((cs) => (
+                  <div key={cs.client} className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4">
+                    <h4 className="text-sm font-medium text-white mb-1">{cs.client}</h4>
+                    <p className="text-xs text-text-secondary/60 leading-relaxed">{cs.description}</p>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function MobileFAQ({ industry }: { industry: IndustryItem }) {
+  const faqs = industryFAQs[industry.slug] || industryFAQs["dental-healthcare"];
+  const extra = expandedFAQs[industry.slug] || expandedFAQs["dental-healthcare"];
+  const allFAQs = [...faqs, ...extra];
+  const [showAll, setShowAll] = useState(false);
+  const visible = showAll ? allFAQs : allFAQs.slice(0, 4);
+  const [openQ, setOpenQ] = useState<number | null>(null);
+  return (
+    <section className="py-[72px] bg-ground">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">FAQs</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">Common questions about {industry.name} growth.</p>
+      </div>
+      <div className="px-6 space-y-2">
+        {visible.map((faq, i) => {
+          const isOpen = openQ === i;
+          return (
+            <div key={i} className="bg-[#181818] border border-accent/15 rounded-xl overflow-hidden">
+              <button
+                onClick={() => setOpenQ(isOpen ? null : i)}
+                className="w-full flex items-center justify-between px-4 py-3 text-left"
+                style={{ minHeight: "44px" }}
+              >
+                <span className="text-sm font-medium text-white flex-1 pr-2">{faq.q}</span>
+                {isOpen ? <CaretDown size={14} className="text-accent/60 shrink-0" /> : <Plus size={14} className="text-accent/40 shrink-0" />}
+              </button>
+              {isOpen && (
+                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} transition={{ duration: 0.2 }} className="overflow-hidden">
+                  <div className="px-4 pb-4">
+                    <p className="text-xs text-text-secondary/70 leading-relaxed">{faq.a}</p>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          );
+        })}
+        {allFAQs.length > 4 && (
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="w-full text-center text-xs text-accent/70 py-3"
+            style={{ minHeight: "44px" }}
+          >
+            {showAll ? "Show less" : `Show all ${allFAQs.length} FAQs`}
+          </button>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function MobileResources({ industry }: { industry: IndustryItem }) {
+  const resources = industryResources[industry.slug] || industryResources["dental-healthcare"];
+  if (resources.length === 0) return null;
+  return (
+    <section className="py-[72px] bg-[#0D0C0B]">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Learn more</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">Guides and insights for {industry.name}.</p>
+      </div>
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-6 pb-4">
+        {resources.map((r, i) => (
+          <motion.div
+            key={r.title}
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: i * 0.05 }}
+            className="snap-start shrink-0"
+            style={{ width: "calc(85vw - 12px)", maxWidth: "320px" }}
+          >
+            <div className={`bg-[#181818] border border-accent/25 rounded-[1.25rem] p-5 h-full ${i === 0 ? "border-accent/40" : ""}`}>
+              {i === 0 && <span className="text-[9px] font-mono text-accent/60 tracking-wider uppercase block mb-2">Featured guide</span>}
+              <span className="text-[10px] font-mono text-accent/60 tracking-wider uppercase block mb-1">{r.tag}</span>
+              <h3 className="font-display text-[clamp(1rem,3.5vw,1.125rem)] font-semibold text-white mb-1 leading-snug">{r.title}</h3>
+              <p className="text-xs text-text-secondary/60 leading-relaxed mb-3 line-clamp-2">{r.excerpt}</p>
+              <span className="text-[10px] font-mono text-text-secondary/40">{r.readTime}</span>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileTimeline({ industry }: { industry: IndustryItem }) {
+  const milestones = [
+    { month: "Month 1", title: "Audit & Foundation", desc: "Full digital audit, baseline setup, and quick wins." },
+    { month: "Month 2", title: "Strategy & Content", desc: "Tailored strategy and initial content production." },
+    { month: "Month 3", title: "Launch & Optimise", desc: "Deploy campaigns, optimise based on early data." },
+    { month: "Month 6", title: "Scale & Expand", desc: "Double down on what works, expand into new areas." },
+    { month: "Ongoing", title: "Continuous Growth", desc: "Sustain momentum with ongoing optimisation." },
+  ];
+  return (
+    <section className="py-[72px] bg-ground">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Timeline</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">What to expect in your growth journey.</p>
+      </div>
+      <div className="px-6 relative">
+        <div className="absolute left-[23px] top-0 bottom-0 w-px bg-gradient-to-b from-accent/40 via-accent/20 to-transparent" />
+        <div className="space-y-6">
+          {milestones.map((m, i) => (
+            <motion.div key={m.month} initial={{ opacity: 0, x: -8 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.35, delay: i * 0.06 }} className="relative pl-10">
+              <div className="absolute left-[17px] top-1 w-3 h-3 rounded-full bg-accent/20 border-2 border-accent/60" />
+              <span className="text-[9px] font-mono text-accent/60 tracking-wider uppercase block mb-0.5">{m.month}</span>
+              <h3 className="text-sm font-semibold text-white mb-0.5">{m.title}</h3>
+              <p className="text-xs text-text-secondary/60 leading-relaxed">{m.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileTrends({ industry }: { industry: IndustryItem }) {
+  const trends = industryTrends[industry.slug] || industryTrends["dental-healthcare"];
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  return (
+    <section className="py-[72px] bg-[#0A0A0A]">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Trends</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">What's shaping {industry.name} right now.</p>
+      </div>
+      <div className="px-6 space-y-2">
+        {trends.map((t, i) => {
+          const isOpen = openIdx === i;
+          return (
+            <div key={t.trend} className="bg-[#181818] border border-accent/20 rounded-[1.25rem] overflow-hidden">
+              <button
+                onClick={() => setOpenIdx(isOpen ? null : i)}
+                className="w-full flex items-center justify-between px-4 py-3 text-left"
+                style={{ minHeight: "44px" }}
+              >
+                <div className="flex-1 pr-2">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="text-xs font-medium text-white">{t.trend}</span>
+                    <span className="text-[8px] font-mono text-accent/40 px-1.5 py-0.5 rounded-full border border-accent/20">{t.timeline}</span>
+                  </div>
+                </div>
+                {isOpen ? <CaretDown size={14} className="text-accent/60 shrink-0" /> : <CaretRight size={14} className="text-text-secondary/40 shrink-0" />}
+              </button>
+              {isOpen && (
+                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} transition={{ duration: 0.2 }} className="overflow-hidden">
+                  <div className="px-4 pb-4">
+                    <p className="text-xs text-text-secondary/70 leading-relaxed">{t.desc}</p>
+                    <span className="text-[10px] font-mono text-accent/50 block mt-2">Impact: {t.impact}</span>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function MobileTestimonials({ industry }: { industry: IndustryItem }) {
+  const testimonials = industryTestimonials[industry.slug] || industryTestimonials["dental-healthcare"];
+  if (!testimonials || testimonials.length === 0) return null;
+  return (
+    <section className="py-[72px] bg-ground">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Testimonials</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">What clients in {industry.name} say.</p>
+      </div>
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-6 pb-4">
+        {testimonials.map((t, i) => (
+          <motion.div
+            key={t.author}
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: i * 0.06 }}
+            className="snap-start shrink-0"
+            style={{ width: "calc(85vw - 12px)", maxWidth: "320px" }}
+          >
+            <div className="bg-[#181818] border border-accent/25 rounded-[1.25rem] p-5 h-full">
+              <span className="text-[10px] font-mono text-accent/60 tracking-wider uppercase block mb-2">Client result</span>
+              <p className="text-xs text-text-secondary/80 leading-relaxed mb-4 italic">"{t.quote}"</p>
+              <div className="pt-3 border-t border-accent/10">
+                <span className="text-sm font-medium text-white block">{t.author}</span>
+                <span className="text-[10px] font-mono text-text-secondary/50">{t.role}</span>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileApproachComparison({ industry }: { industry: IndustryItem }) {
+  const comparison = industryApproachComparison[industry.slug] || industryApproachComparison["dental-healthcare"];
+  if (!comparison || comparison.length === 0) return null;
+  return (
+    <section className="py-[72px] bg-[#0D0C0B]">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">Approach</h2>
+        <p className="text-text-secondary/70 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed">Traditional vs. our connected approach.</p>
+      </div>
+      <div className="px-6 space-y-3">
+        {comparison.map((row, i) => (
+          <motion.div key={i} initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: i * 0.05 }}>
+            <div className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <XCircle size={12} className="text-danger shrink-0" />
+                <span className="text-xs text-text-secondary/60 line-through">{row.traditional}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle size={12} className="text-accent shrink-0" />
+                <span className="text-xs text-white">{row.zon}</span>
+              </div>
+              {row.impact && (
+                <span className="text-[9px] font-mono text-accent/60 block mt-2 px-2 py-1 rounded-full border border-accent/20 inline-block">{row.impact}</span>
+              )}
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileAboutIndustry({ industry }: { industry: IndustryItem }) {
+  const slug = industry.slug;
+  const snap = industrySnapshotData[slug] || industrySnapshotData["dental-healthcare"];
+  const stats = industryStats[slug] || industryStats["dental-healthcare"];
+  return (
+    <section className="py-[72px] bg-ground">
+      <div className="px-6 mb-6">
+        <h2 className="font-display font-semibold text-[clamp(2.125rem,8vw,2.375rem)] tracking-[-0.025em] leading-[1.08] text-white mb-2">About this industry</h2>
+      </div>
+      <div className="px-6 space-y-4">
+        <div className="space-y-3">
+          <p className="text-sm text-text-secondary/80 leading-relaxed">{industry.description.slice(0, 200)}</p>
+          <p className="text-sm text-text-secondary/70 leading-relaxed">With {snap.searchDemand}/100 search demand and {snap.digitalMaturity}% digital maturity, there is significant opportunity for businesses investing in modern digital acquisition.</p>
+          <p className="text-sm text-text-secondary/70 leading-relaxed">The average lead value of £{snap.avgLeadValue.toLocaleString()} makes every conversion highly valuable in this sector.</p>
+        </div>
+        <div className="grid grid-cols-2 gap-3 pt-2">
+          <div className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4">
+            <span className="text-[9px] font-mono text-text-secondary/50 block mb-1">Search Volume</span>
+            <span className="font-display text-base font-semibold text-white">{stats.searchVolume}</span>
+          </div>
+          <div className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4">
+            <span className="text-[9px] font-mono text-text-secondary/50 block mb-1">Avg CPC</span>
+            <span className="font-display text-base font-semibold text-white">{stats.cpc}</span>
+          </div>
+          <div className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4">
+            <span className="text-[9px] font-mono text-text-secondary/50 block mb-1">Conversion</span>
+            <span className="font-display text-base font-semibold text-white">{stats.avgConversionRate}%</span>
+          </div>
+          <div className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4">
+            <span className="text-[9px] font-mono text-text-secondary/50 block mb-1">Customer LTV</span>
+            <span className="font-display text-base font-semibold text-white">£{stats.customerLTV.toLocaleString()}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileCTA() {
+  return (
+    <section className="py-[72px] bg-[#0A0A0A]">
+      <div className="px-6 text-center">
+        <h2 className="font-display font-semibold text-[clamp(1.75rem,7vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-white mb-4">
+          Ready to grow?
+        </h2>
+        <p className="text-text-secondary/72 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed mb-8 max-w-[34ch] mx-auto">
+          Book a free discovery call. We'll build a growth plan tailored to your industry.
+        </p>
+        <Link href="/contact" className="group relative inline-flex items-center gap-2.5 bg-accent text-ground px-7 py-3.5 rounded-full font-semibold text-sm active:scale-[0.98] transition-all duration-200" style={{ minHeight: "56px" }}>
+          <span className="relative">Book a discovery call</span>
+          <ArrowRight size={14} weight="bold" className="relative transition-transform duration-300 group-hover:translate-x-0.5" />
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function MobileIndustryPage({ industry }: { industry: IndustryItem }) {
+  const slug = industry.slug;
+  return (
+    <>
+      <MobileHero industry={industry} slug={slug} />
+      <MobileSnapshot industry={industry} />
+      <MobileBuyingJourney industry={industry} />
+      <MobileOpportunities industry={industry} />
+      <MobileChallenges industry={industry} />
+      <MobileHowWeHelp industry={industry} />
+      <MobileTools industry={industry} />
+      <MobileCaseStudies industry={industry} />
+      <MobileResources industry={industry} />
+      <MobileFAQ industry={industry} />
+      <MobileTimeline industry={industry} />
+      <MobileTrends industry={industry} />
+      <MobileTestimonials industry={industry} />
+      <MobileApproachComparison industry={industry} />
+      <MobileAboutIndustry industry={industry} />
+      <MobileCTA />
+    </>
+  );
+}

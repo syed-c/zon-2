@@ -186,7 +186,7 @@ export function TeamContent() {
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">
               Culture
             </span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-4">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.1] text-text-primary mb-4">
               How we work.
             </h2>
             <p className="text-text-secondary leading-relaxed max-w-[55ch]">
@@ -223,7 +223,7 @@ export function TeamContent() {
         </div>
       </section>
 
-      <section className="py-24 lg:py-28 bg-[#0D0C0B] relative overflow-hidden">
+      <section className="py-16 sm:py-20 lg:py-28 bg-[#0D0C0B] relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -269,11 +269,11 @@ export function TeamContent() {
           </motion.div>
         </div>
       </section>
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <Breadcrumbs crumbs={getBreadcrumbs("team", "hub")} />
         <div className="text-center mb-12">
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">More About ZON</h2>
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">More About ZON</h2>
         </div>
         <RelatedSection
           groups={[

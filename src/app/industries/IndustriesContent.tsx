@@ -1,11 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import RelatedSection from "@/components/RelatedSection";
-import { getBreadcrumbs } from "@/data/relations";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import ShapeGrid from "@/components/ShapeGrid";
 import {
   ArrowRight, ArrowLineUpRight, CaretRight, CaretDown, Mouse,
@@ -14,7 +11,7 @@ import {
   Users, Wrench, Building, Storefront, Globe, Handshake, PuzzlePiece,
   Circle, Plus, Heartbeat, Briefcase, CalendarBlank, Target, Scales,
   Broom, House, ShoppingCart, Sparkle, GraduationCap, MapPin, Code,
-  Heart,
+  Heart, X,
 } from "@phosphor-icons/react";
 import { industries } from "@/data/industries";
 import type { IndustryItem } from "@/data/industries";
@@ -25,18 +22,6 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 const ease = [0.32, 0.72, 0, 1] as const;
-
-/* ─── CSS ANIMATIONS ─── */
-
-const animStyles = `
-  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeInCard { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes fadeInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-  .animate-fadeIn { animation: fadeInCard 0.5s both ease-out; }
-  .animate-fadeInLeft { animation: fadeInLeft 0.4s both ease-out; }
-  .animate-fadeInRight { animation: fadeInRight 0.4s both ease-out; }
-`;
 
 /* ─── EXTENDED DATA ─── */
 
@@ -528,7 +513,7 @@ function Section1Explorer() {
   const Icon = (iconMap[current.icon] || Target) as React.ComponentType<any>;
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="explorer" />
         <BgRadials position="tl" />
@@ -536,7 +521,7 @@ function Section1Explorer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Industry Explorer</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Explore your <span className="text-accent">industry.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12 lg:mb-16">
@@ -586,10 +571,9 @@ function Section1Explorer() {
                       <span className={`text-sm flex-1 ${mobileOpen === i ? "text-accent" : "text-text-secondary"}`}>{ind.name}</span>
                       {mobileOpen === i ? <CaretDown size={12} className="text-accent/60" /> : <CaretRight size={12} className="text-text-secondary/40" />}
                     </button>
-                    <AnimatePresence mode="wait">
                       {mobileOpen === i && (
                         <motion.div
-                          initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                          initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
@@ -607,7 +591,6 @@ function Section1Explorer() {
                           </div>
                         </motion.div>
                       )}
-                    </AnimatePresence>
                   </div>
                 </div>
               );
@@ -616,15 +599,13 @@ function Section1Explorer() {
 
           {/* Right preview panel - sticky */}
           <div className="hidden lg:block lg:col-span-6 lg:col-start-7 lg:sticky lg:top-32 lg:h-fit">
-            <AnimatePresence mode="wait">
               <motion.div
                 key={current.slug}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.35, ease }}
               >
-                <PanelCard className="p-6 lg:p-8">
+                <PanelCard className="p-5 sm:p-6 lg:p-8">
                   <div className="flex items-center gap-3 mb-5">
                     <div className="w-10 h-10 rounded-xl bg-accent/15 border border-accent/35 flex items-center justify-center">
                       <Icon size={20} className="text-accent" />
@@ -678,7 +659,6 @@ function Section1Explorer() {
                   </div>
                 </PanelCard>
               </motion.div>
-            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -692,7 +672,7 @@ function Section2Featured() {
   const featured = industries.filter((ind) => featuredIndustries.includes(ind.name));
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="featured" />
         <BgRadials position="br" />
@@ -700,7 +680,7 @@ function Section2Featured() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Featured Industries</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Industry deep <span className="text-accent">dives.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12 lg:mb-16">
@@ -809,7 +789,7 @@ function Section3Challenges() {
   const [expandedIndustry, setExpandedIndustry] = useState<number | null>(null);
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="challenges" />
         <BgRadials position="bl" />
@@ -817,7 +797,7 @@ function Section3Challenges() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Challenges</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Every industry has <span className="text-accent">hurdles.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Explore the specific challenges each industry faces — and how we solve them.</p>
@@ -894,7 +874,7 @@ function Section4Dashboard() {
   const metrics = industryMetrics[current.name] || industryMetrics["Dental & Healthcare"];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="dashboard" />
         <BgRadials position="tr" />
@@ -902,7 +882,7 @@ function Section4Dashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Growth Dashboard</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Industry growth <span className="text-accent">metrics.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-8">Select an industry to see its growth potential across seven key dimensions.</p>
@@ -928,15 +908,13 @@ function Section4Dashboard() {
           })}
         </div>
 
-        <AnimatePresence mode="wait">
           <motion.div
             key={current.slug}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35, ease }}
           >
-            <PanelCard className="p-6 lg:p-8">
+            <PanelCard className="p-5 sm:p-6 lg:p-8">
               <div className="flex items-center gap-3 mb-6">
                 <span className="text-[10px] font-mono text-text-secondary/50 tracking-wider uppercase">{current.name}</span>
                 <span className="w-px h-4 bg-accent/20" />
@@ -964,7 +942,7 @@ function Section4Dashboard() {
               </div>
             </PanelCard>
           </motion.div>
-        </AnimatePresence>
+
       </div>
     </section>
   );
@@ -985,7 +963,7 @@ function Section5Frameworks() {
   const steps = industryFrameworks[current.name] || defaultFramework;
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="frameworks" />
         <BgRadials position="br" />
@@ -993,7 +971,7 @@ function Section5Frameworks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Frameworks</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Industry-specific <span className="text-accent">roadmaps.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-8">Every industry requires a unique sequence of growth actions. Select an industry to see its framework.</p>
@@ -1019,13 +997,11 @@ function Section5Frameworks() {
           })}
         </div>
 
-        <AnimatePresence mode="wait">
           {/* Desktop: Timeline flow */}
           <motion.div
             key={`${current.slug}-desktop`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4, ease }}
             className="hidden lg:block"
           >
@@ -1062,7 +1038,6 @@ function Section5Frameworks() {
             key={`${current.slug}-mobile`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="lg:hidden overflow-x-auto snap-x snap-mandatory scrollbar-none -mx-4 px-4"
           >
@@ -1095,7 +1070,7 @@ function Section5Frameworks() {
               ))}
             </div>
           </motion.div>
-        </AnimatePresence>
+
       </div>
     </section>
   );
@@ -1109,7 +1084,7 @@ function Section6Solutions() {
   const solutions = industrySolutions[current.name] || [];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0D0C0B] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="solutions" />
         <BgRadials position="tl" />
@@ -1117,7 +1092,7 @@ function Section6Solutions() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Solutions</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Solutions by <span className="text-accent">industry.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-8">Select an industry to see which of our solutions we recommend for its unique challenges.</p>
@@ -1143,12 +1118,10 @@ function Section6Solutions() {
           })}
         </div>
 
-        <AnimatePresence mode="wait">
           <motion.div
             key={current.slug}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35, ease }}
           >
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -1173,7 +1146,7 @@ function Section6Solutions() {
               })}
             </div>
           </motion.div>
-        </AnimatePresence>
+
       </div>
     </section>
   );
@@ -1187,7 +1160,7 @@ function Section7Metrics() {
   const kpis = industryKPIs[current.name] || [];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="metrics" />
         <BgRadials position="center" />
@@ -1195,7 +1168,7 @@ function Section7Metrics() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Success Metrics</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Measurable <span className="text-accent">results.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-8">Key performance indicators that matter most for each industry.</p>
@@ -1221,12 +1194,10 @@ function Section7Metrics() {
           })}
         </div>
 
-        <AnimatePresence mode="wait">
           <motion.div
             key={current.slug}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.35, ease }}
           >
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -1248,7 +1219,7 @@ function Section7Metrics() {
               })}
             </div>
           </motion.div>
-        </AnimatePresence>
+
       </div>
     </section>
   );
@@ -1258,7 +1229,7 @@ function Section7Metrics() {
 
 function Section8CaseStudies() {
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="cases" />
         <BgRadials position="bl" />
@@ -1267,7 +1238,7 @@ function Section8CaseStudies() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Case Studies</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Real results, real <span className="text-accent">industries.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">How we&rsquo;ve helped businesses across different industries achieve measurable growth.</p>
@@ -1282,7 +1253,7 @@ function Section8CaseStudies() {
                 className="group animate-fadeIn"
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
-                <PanelCard className="p-6 h-full flex flex-col transition-all duration-500 group-hover:border-accent/50">
+                <PanelCard className="p-5 sm:p-6 h-full flex flex-col transition-all duration-500 group-hover:border-accent/50">
                   <div className="absolute inset-0 rounded-[1.5rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                     style={{ boxShadow: "inset 0 0 40px rgba(212,168,73,0.04)" }}
                   />
@@ -1353,7 +1324,7 @@ function Section9Comparison() {
   ];
 
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="comparison" />
         <BgRadials position="tr" />
@@ -1361,7 +1332,7 @@ function Section9Comparison() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Strategy Comparison</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Why Healthcare ≠ <span className="text-accent">SaaS.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-8">Every industry demands a unique strategic approach. Select two industries to compare their growth strategies side by side.</p>
@@ -1404,7 +1375,6 @@ function Section9Comparison() {
           })}
         </div>
 
-        <AnimatePresence mode="wait">
           <motion.div
             key={`${selectedA}-${selectedB}`}
             initial={{ opacity: 0, y: 12 }}
@@ -1464,7 +1434,7 @@ function Section9Comparison() {
               ))}
             </div>
           </motion.div>
-        </AnimatePresence>
+
       </div>
     </section>
   );
@@ -1478,7 +1448,7 @@ function Section10Navigator() {
   const CurrentIcon = (iconMap[current.icon] || Target) as React.ComponentType<any>;
 
   return (
-    <section className="relative py-24 lg:py-32 bg-[#0A0A0A] overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-[#0A0A0A] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="navigator" />
         <BgRadials position="center" />
@@ -1486,7 +1456,7 @@ function Section10Navigator() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Industry Navigator</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Find your <span className="text-accent">industry.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-8">Select an industry to preview its growth profile, challenges, and recommended solutions.</p>
@@ -1528,12 +1498,10 @@ function Section10Navigator() {
         </div>
 
         {/* Preview panel - shows below grid */}
-        <AnimatePresence mode="wait">
           {selectedIdx !== null && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3, ease }}
               className="mt-8"
             >
@@ -1570,7 +1538,7 @@ function Section10Navigator() {
               </PanelCard>
             </motion.div>
           )}
-        </AnimatePresence>
+
       </div>
     </section>
   );
@@ -1580,7 +1548,7 @@ function Section10Navigator() {
 
 function Section11Insights() {
   return (
-    <section className="relative py-24 lg:py-32 bg-ground overflow-hidden">
+    <section className="relative py-16 sm:py-20 lg:py-32 bg-ground overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="insights" />
         <BgRadials position="br" />
@@ -1588,7 +1556,7 @@ function Section11Insights() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <FadeIn>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block">Insights</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,2.8rem)] tracking-[-0.025em] leading-[1.05] text-white mb-4">
             Industry <span className="text-accent">thinking.</span>
           </h2>
           <p className="text-text-secondary leading-relaxed max-w-[55ch] mb-12">Perspectives, analysis, and strategies from our team working across industries every day.</p>
@@ -1603,7 +1571,7 @@ function Section11Insights() {
             transition={{ duration: 0.6, ease }}
           >
             <div className="block h-full">
-              <PanelCard className="p-6 lg:p-8 h-full flex flex-col relative overflow-hidden">
+              <PanelCard className="p-5 sm:p-6 lg:p-8 h-full flex flex-col relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-48 h-48 bg-accent/[0.02] rounded-full -translate-y-1/2 translate-x-1/2" />
                 <div className="flex-1 relative z-10">
                   <div className="flex items-center gap-3 mb-4">
@@ -1658,7 +1626,7 @@ function Section11Insights() {
 
 function Section12CTA() {
   return (
-    <section className="relative py-28 lg:py-36 overflow-hidden bg-[#0A0A0A]">
+    <section className="relative py-16 sm:py-20 lg:py-36 overflow-hidden bg-[#0A0A0A]">
       <div className="absolute inset-0 pointer-events-none">
         <BgDiagonal id="cta-industries" />
         <BgDots />
@@ -1697,14 +1665,99 @@ function Section12CTA() {
 /* ─── MAIN EXPORT ─── */
 
 export function IndustriesContent() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [selectedIndustry, setSelectedIndustry] = useState(0);
+  const [showSelector, setShowSelector] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
+  if (isMobile) {
+    return (
+      <>
+        <MobileHero />
+        <MobileIndustryPicker selected={selectedIndustry} onSelect={setSelectedIndustry} onOpenSelector={() => setShowSelector(true)} />
+        <MobileIndustryDashboard industry={industries[selectedIndustry]} />
+        <MobileRoadmap industry={industries[selectedIndustry]} />
+        <MobileSolutions industry={industries[selectedIndustry]} />
+        <MobileMetrics industry={industries[selectedIndustry]} />
+        <MobileCaseStudies />
+        <MobileComparison />
+        <MobileArticles />
+        <MobileCTA />
+
+        {/* Floating industry selector button */}
+        <button
+          onClick={() => setShowSelector(true)}
+          className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-accent text-ground shadow-lg shadow-accent/25 flex items-center justify-center active:scale-[0.92] transition-transform duration-150"
+        >
+          {(() => {
+            const IndIcon = (iconMap[industries[selectedIndustry].icon] || Target) as React.ComponentType<any>;
+            return <IndIcon size={22} weight="fill" />;
+          })()}
+        </button>
+
+        {/* Industry selector bottom sheet */}
+          {showSelector && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className="fixed inset-0 bg-black/60 z-50"
+                onClick={() => setShowSelector(false)}
+              />
+              <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+                className="fixed bottom-0 left-0 right-0 z-50 bg-[#181818] border-t border-accent/20 rounded-t-[1.5rem] max-h-[70vh] overflow-y-auto"
+              >
+                <div className="sticky top-0 bg-[#181818] z-10 px-6 pt-5 pb-3 border-b border-accent/10 flex items-center justify-between">
+                  <span className="text-sm font-medium text-white">Choose Industry</span>
+                  <button onClick={() => setShowSelector(false)} className="w-8 h-8 rounded-full bg-surface flex items-center justify-center">
+                    <X size={14} className="text-text-secondary" />
+                  </button>
+                </div>
+                <div className="p-6 space-y-1">
+                  {industries.map((ind, i) => {
+                    const IndIcon = (iconMap[ind.icon] || Target) as React.ComponentType<any>;
+                    const isActive = selectedIndustry === i;
+                    return (
+                      <button
+                        key={ind.slug}
+                        onClick={() => { setSelectedIndustry(i); setShowSelector(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl text-left transition-all duration-200 ${
+                          isActive ? "bg-accent/10 border border-accent/30" : "hover:bg-surface/50"
+                        }`}
+                      >
+                        <IndIcon size={18} className={isActive ? "text-accent" : "text-text-secondary/50"} />
+                        <div className="flex-1 min-w-0">
+                          <span className={`text-sm font-medium ${isActive ? "text-accent" : "text-text-secondary"}`}>{ind.name}</span>
+                          {isActive && <span className="text-[10px] font-mono text-accent/60 block">Currently selected</span>}
+                        </div>
+                        {isActive && <div className="w-2 h-2 rounded-full bg-accent" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </>
+          )}
+      </>
+    );
+  }
+
   return (
     <>
-      <style>{animStyles}</style>
-
       {/* ─── BANNER (matching /services style) ─── */}
       <motion.section ref={heroRef} className="relative pt-36 pb-20 lg:pb-28 bg-ground overflow-hidden" style={{ opacity: heroOpacity }}>
         <div className="absolute inset-0">
@@ -1753,95 +1806,602 @@ export function IndustriesContent() {
 
       <div className="h-px w-full bg-accent/15" />
 
-      {/* Section 1: Industry Explorer */}
       <Section1Explorer />
-
-      {/* Section 2: Featured Industries */}
       <Section2Featured />
-
-      {/* Section 3: Industry Challenges */}
       <Section3Challenges />
-
-      {/* Section 4: Growth Dashboard */}
       <Section4Dashboard />
-
-      {/* Section 5: Industry Frameworks */}
       <Section5Frameworks />
-
-      {/* Section 6: Recommended Solutions */}
       <Section6Solutions />
-
-      {/* Section 7: Success Metrics */}
       <Section7Metrics />
-
-      {/* Section 8: Case Studies */}
       <Section8CaseStudies />
-
-      {/* Section 9: Strategy Comparison */}
       <Section9Comparison />
-
-      {/* Section 10: Industry Navigator */}
       <Section10Navigator />
-
-      {/* Section 11: Related Insights */}
       <Section11Insights />
-
-      {/* Section 12: CTA */}
       <Section12CTA />
-
-        {/* Hub interlinking */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <Breadcrumbs crumbs={getBreadcrumbs("industries", "hub")} />
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Solutions by Industry</h2>
-            <p className="text-text-secondary text-sm mt-3 max-w-[50ch] mx-auto">
-              See how our services, tools, and solutions apply to your industry.
-            </p>
-          </div>
-          <RelatedSection
-            groups={[
-              {
-                title: "Services",
-                links: [
-                  { label: "SEO Strategy", href: "/seo-strategy" },
-                  { label: "Generative Engine Optimisation", href: "/generative-engine-optimisation" },
-                  { label: "Google Ads", href: "/google-ads" },
-                  { label: "AI Agents & Automation", href: "/ai-agents" },
-                  { label: "All Services", href: "/services" },
-                ],
-              },
-              {
-                title: "Solutions",
-                links: [
-                  { label: "Generate More Qualified Leads", href: "/generate-more-qualified-leads" },
-                  { label: "Improve Search Visibility", href: "/improve-search-visibility" },
-                  { label: "Become Visible in AI Search", href: "/become-visible-in-ai-search" },
-                  { label: "All Solutions", href: "/solutions" },
-                ],
-              },
-              {
-                title: "Tools",
-                links: [
-                  { label: "Local SEO Audit", href: "/local-seo-audit" },
-                  { label: "Website SEO Audit", href: "/seo-audit" },
-                  { label: "GEO Readiness Audit", href: "/geo-readiness" },
-                  { label: "Ads Cost Calculator", href: "/ads-calculator" },
-                  { label: "All Tools", href: "/tools" },
-                ],
-              },
-              {
-                title: "Case Studies",
-                links: [
-                  { label: "Pulse Health — GEO for HealthTech", href: "/pulse-health" },
-                  { label: "Urban Spaces — Real Estate SEO", href: "/urban-spaces" },
-                  { label: "FitSync — SaaS Growth", href: "/fitsync" },
-                  { label: "All Case Studies", href: "/work" },
-                ],
-              },
-            ]}
-          />
-        </section>
     </>
+  );
+}
+
+/* ─── MOBILE SECTIONS ─── */
+
+function MobileHero() {
+  return (
+    <section className="relative pt-32 pb-12 min-h-[550px] bg-ground overflow-hidden">
+      <div className="absolute inset-0">
+        <ShapeGrid speed={0.15} squareSize={36} direction="diagonal" borderColor="#D4A849" hoverFillColor="#D4A849" shape="square" hoverTrailAmount={3} />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ground/90 pointer-events-none" />
+      </div>
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-12 right-[10%] text-[clamp(8rem,18vw,16rem)] font-mono font-semibold text-text-primary/[0.015] leading-none select-none">13</div>
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-[0.015]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.3), transparent 70%)" }} />
+        <div className="absolute top-0 left-0 right-0 h-px bg-accent/15" />
+      </div>
+      <div className="relative z-10 px-6">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease }}>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-text-secondary/70 mb-4 block">Industries</span>
+          <h1 className="font-display font-semibold text-[clamp(2.75rem,8vw,3.25rem)] tracking-[-0.035em] leading-[0.92] text-white">
+            Industry-specific<br /><span className="text-accent relative">growth.<span className="absolute -bottom-1 left-0 right-0 h-[3px] bg-accent/30 rounded-full" /></span>
+          </h1>
+          <p className="text-text-secondary/72 leading-relaxed max-w-[52ch] mt-5 text-[clamp(0.9375rem,2.5vw,1rem)]">
+            Every industry has unique challenges, search behaviour, and growth opportunities. We tailor our approach to yours.
+          </p>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function MobileIndustryPicker({ selected, onSelect, onOpenSelector }: { selected: number; onSelect: (i: number) => void; onOpenSelector: () => void }) {
+  return (
+    <div className="sticky top-0 z-40 bg-ground/95 backdrop-blur-lg border-b border-accent/10">
+      <div className="flex items-center gap-2 px-6 py-3 overflow-x-auto scrollbar-none">
+        {industries.slice(0, 8).map((ind, i) => {
+          const IndIcon = (iconMap[ind.icon] || Target) as React.ComponentType<any>;
+          const isActive = selected === i;
+          return (
+            <button
+              key={ind.slug}
+              onClick={() => onSelect(i)}
+              className={`shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-medium transition-all duration-200 active:scale-[0.96] ${
+                isActive ? "bg-accent text-ground border-accent" : "bg-transparent text-text-secondary/70 border-accent/20 hover:border-accent/40"
+              }`}
+              style={{ minHeight: "44px" }}
+            >
+              <IndIcon size={14} className={isActive ? "text-ground" : "text-accent/60"} />
+              {ind.name.length > 18 ? ind.name.slice(0, 16) + ".." : ind.name}
+            </button>
+          );
+        })}
+        <button
+          onClick={onOpenSelector}
+          className="shrink-0 flex items-center gap-1.5 px-3 py-2.5 rounded-full border border-accent/20 text-text-secondary/50 text-xs font-medium hover:border-accent/40 transition-all"
+          style={{ minHeight: "44px" }}
+        >
+          <Plus size={14} />
+          All
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function MobileIndustryDashboard({ industry }: { industry: IndustryItem }) {
+  const meta = industryMetrics[industry.name] || industryMetrics["Dental & Healthcare"];
+  const metricPairs = Object.entries(meta);
+  const IndIcon = (iconMap[industry.icon] || Target) as React.ComponentType<any>;
+  const panelData = [
+    {
+      id: "overview",
+      label: "Overview",
+      content: (
+        <div className="space-y-4">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center shrink-0">
+              <IndIcon size={22} className="text-accent" />
+            </div>
+            <div>
+              <span className="text-[10px] font-mono text-text-secondary/50 tracking-wider uppercase block">Selected Industry</span>
+              <h3 className="font-display text-xl font-semibold text-white">{industry.name}</h3>
+            </div>
+          </div>
+          <p className="text-sm text-text-secondary/70 leading-relaxed">{industry.description}</p>
+          <Link href={`/${industry.slug}`} className="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-accent text-ground text-sm font-medium active:scale-[0.98] transition-transform duration-150" style={{ minHeight: "44px" }}>
+            View industry details
+            <ArrowRight size={14} weight="bold" className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+      ),
+    },
+    {
+      id: "metrics",
+      label: "Metrics",
+      content: (
+        <div className="space-y-4">
+          <span className="text-[10px] font-mono text-accent/70 tracking-wider uppercase block">Growth Signals</span>
+          <div className="space-y-3">
+            {metricPairs.slice(0, 5).map(([key, val]) => {
+              const label = key.replace(/([A-Z])/g, " $1").trim();
+              return (
+                <div key={key}>
+                  <div className="flex justify-between text-xs mb-1">
+                    <span className="text-text-secondary">{label}</span>
+                    <span className="font-mono text-accent/80">{val}%</span>
+                  </div>
+                  <div className="h-2 bg-[#111] rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${val}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.1, ease }}
+                      className="h-full bg-accent rounded-full"
+                      style={{ boxShadow: "0 0 8px rgba(212,168,73,0.2)" }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ),
+    },
+    {
+      id: "challenges",
+      label: "Challenges",
+      content: (
+        <div className="space-y-3">
+          <span className="text-[10px] font-mono text-accent/70 tracking-wider uppercase block">Key Challenges</span>
+          <div className="space-y-2">
+            {industry.challenges.map((c, i) => (
+              <motion.div
+                key={c}
+                initial={{ opacity: 0, x: -8 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.06 }}
+                className="flex items-start gap-3 p-3 rounded-xl bg-[#1E1E1E] border border-accent/10"
+              >
+                <span className="w-5 h-5 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="text-[8px] font-mono text-accent">{String(i + 1).padStart(2, "0")}</span>
+                </span>
+                <span className="text-sm text-text-secondary/80 leading-relaxed">{c}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <section className="py-24 bg-[#0D0C0B] overflow-hidden">
+      <div className="px-6 mb-8">
+        <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Industry Dashboard</span>
+        <h2 className="font-display font-semibold text-[clamp(1.75rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-white">
+          Industry <span className="text-accent">insights.</span>
+        </h2>
+      </div>
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-6 pb-4">
+        {panelData.map((panel, i) => (
+          <motion.div
+            key={panel.id}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: i * 0.08 }}
+            className="snap-start shrink-0"
+            style={{ width: "calc(85vw - 12px)", maxWidth: "360px" }}
+          >
+            <PanelCard className="p-6 h-full" style={{ minHeight: "320px" }}>
+              <div className="flex items-center gap-2 mb-5">
+                <div className={`w-2 h-2 rounded-full ${i === 0 ? "bg-accent" : i === 1 ? "bg-accent/70" : "bg-accent/40"}`} />
+                <span className="text-[10px] font-mono text-text-secondary/50 tracking-wider uppercase">{panel.label}</span>
+              </div>
+              {panel.content}
+            </PanelCard>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileRoadmap({ industry }: { industry: IndustryItem }) {
+  const defaultFramework = [
+    { step: "01", title: "Discover", desc: "Analyse your market, competition, and current performance." },
+    { step: "02", title: "Strategy", desc: "Design a tailored growth plan aligned to your objectives." },
+    { step: "03", title: "Execute", desc: "Build, launch, and optimise each component." },
+    { step: "04", title: "Measure", desc: "Track performance and identify improvement areas." },
+    { step: "05", title: "Scale", desc: "Expand what works across channels and teams." },
+  ];
+  const steps = industryFrameworks[industry.name] || defaultFramework;
+
+  return (
+    <section className="py-24 bg-ground relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.008]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.3), transparent 70%)" }} />
+      </div>
+      <div className="relative z-10">
+        <div className="px-6 mb-8">
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Roadmap</span>
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-white">
+            Industry-specific <span className="text-accent">roadmaps.</span>
+          </h2>
+        </div>
+        <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-6 pb-4">
+          {steps.map((step, i) => (
+            <motion.div
+              key={step.step}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.06 }}
+              className="snap-start shrink-0"
+              style={{ width: "calc(75vw - 12px)", maxWidth: "300px" }}
+            >
+              <PanelCard className="p-6 h-full">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-9 h-9 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center">
+                    <span className="text-[10px] font-mono text-accent font-semibold">{step.step}</span>
+                  </div>
+                  <span className="text-[9px] font-mono text-accent/60 tracking-wider uppercase">Step {step.step}</span>
+                </div>
+                <h3 className="font-display text-[clamp(1.125rem,3vw,1.25rem)] font-semibold text-white mb-2">{step.title}</h3>
+                <p className="text-sm text-text-secondary/60 leading-relaxed">{step.desc}</p>
+                <div className="flex items-center gap-2 mt-5 pt-4 border-t border-accent/10">
+                  <div className="flex gap-1">
+                    {steps.map((_, j) => (
+                      <div key={j} className={`w-1.5 h-1.5 rounded-full transition-colors ${j === i ? "bg-accent/60" : "bg-accent/15"}`} />
+                    ))}
+                  </div>
+                  <span className="text-[10px] font-mono text-text-secondary/40">{i + 1} of {steps.length}</span>
+                </div>
+              </PanelCard>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileSolutions({ industry }: { industry: IndustryItem }) {
+  const solutions = industrySolutions[industry.name] || [];
+  if (solutions.length === 0) return null;
+
+  const top = solutions[0];
+  const rest = solutions.slice(1);
+  const TopIcon = (iconMap[top.icon] || Target) as React.ComponentType<any>;
+
+  return (
+    <section className="py-24 bg-[#0D0C0B] overflow-hidden">
+      <div className="px-6 mb-8">
+        <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Solutions</span>
+        <h2 className="font-display font-semibold text-[clamp(1.75rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-white">
+          Solutions by <span className="text-accent">industry.</span>
+        </h2>
+      </div>
+      <div className="px-6 space-y-4">
+        <Link href={`/${top.slug}`} className="block group">
+          <PanelCard className="p-6 border-accent/40 group-hover:border-accent/60 transition-all duration-300">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-accent/15 border border-accent/30 flex items-center justify-center">
+                <TopIcon size={20} className="text-accent" />
+              </div>
+              <div className="flex-1">
+                <span className="text-[9px] font-mono text-accent/60 tracking-wider uppercase block mb-0.5">Top Recommendation</span>
+                <h3 className="font-display text-lg font-semibold text-white group-hover:text-accent transition-colors">{top.name}</h3>
+              </div>
+            </div>
+            <p className="text-sm text-text-secondary/70 leading-relaxed mb-4">{top.desc}</p>
+            <span className="inline-flex items-center gap-1.5 text-xs text-accent/70 group-hover:text-accent transition-colors">
+              Explore service <ArrowRight size={12} weight="bold" />
+            </span>
+          </PanelCard>
+        </Link>
+        <div className="grid grid-cols-2 gap-3">
+          {rest.slice(0, 4).map((sol) => {
+            const SolIcon = (iconMap[sol.icon] || Target) as React.ComponentType<any>;
+            return (
+              <Link key={sol.slug} href={`/${sol.slug}`} className="group block">
+                <PanelCard className="p-4 transition-all duration-300 group-hover:border-accent/50 h-full">
+                  <SolIcon size={16} className="text-accent mb-2" />
+                  <h4 className="text-xs font-medium text-white group-hover:text-accent transition-colors mb-1">{sol.name}</h4>
+                  <p className="text-[10px] text-text-secondary/50 leading-relaxed">{sol.desc}</p>
+                </PanelCard>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileMetrics({ industry }: { industry: IndustryItem }) {
+  const kpis = industryKPIs[industry.name] || [];
+
+  return (
+    <section className="py-24 bg-ground overflow-hidden">
+      <div className="px-6 mb-8">
+        <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Success Metrics</span>
+        <h2 className="font-display font-semibold text-[clamp(1.75rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-white">
+          Measurable <span className="text-accent">results.</span>
+        </h2>
+      </div>
+      <div className="px-6">
+        <div className="grid grid-cols-2 gap-4">
+          {kpis.map((kpi, i) => {
+            const KpiIcon = kpi.icon as React.ComponentType<any>;
+            return (
+              <motion.div
+                key={kpi.label}
+                initial={{ y: 20, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-5 transition-all duration-300"
+              >
+                <KpiIcon size={18} className="text-accent mb-2" />
+                <span className="text-[10px] font-mono text-text-secondary/60 tracking-wider uppercase block mb-1">{kpi.label}</span>
+                <span className="font-display text-[clamp(1.75rem,6vw,2.5rem)] font-semibold text-accent leading-none block">
+                  <CountUp target={kpi.value} suffix={kpi.suffix} />
+                </span>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileCaseStudies() {
+  return (
+    <section className="py-24 bg-[#0A0A0A] overflow-hidden">
+      <div className="px-6 mb-8">
+        <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Case Studies</span>
+        <h2 className="font-display font-semibold text-[clamp(1.75rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-white">
+          Real results, real <span className="text-accent">industries.</span>
+        </h2>
+      </div>
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-6 pb-4">
+        {caseStudies.map((cs, i) => {
+          const CaseIcon = cs.icon;
+          return (
+            <motion.div
+              key={cs.client}
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="snap-start shrink-0"
+              style={{ width: "calc(85vw - 12px)", maxWidth: "360px" }}
+            >
+              <PanelCard className="p-6 h-full">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center shrink-0">
+                    <CaseIcon size={18} className="text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="text-[clamp(0.9375rem,2.5vw,1.0625rem)] font-semibold text-white">{cs.client}</h3>
+                    <span className="text-[10px] font-mono text-text-secondary/50">{cs.industry}</span>
+                  </div>
+                </div>
+                <div className="space-y-3 mb-4">
+                  <div className="p-3 rounded-xl bg-[#1E1E1E]">
+                    <span className="text-[9px] font-mono text-accent/70 tracking-wider uppercase block mb-1">Problem</span>
+                    <p className="text-xs text-text-secondary/70 leading-relaxed">{cs.problem}</p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-[#1E1E1E]">
+                    <span className="text-[9px] font-mono text-accent/70 tracking-wider uppercase block mb-1">Solution</span>
+                    <p className="text-xs text-text-secondary/70 leading-relaxed">{cs.solution}</p>
+                  </div>
+                </div>
+                <div className="pt-4 border-t border-accent/10">
+                  <span className="text-[9px] font-mono text-accent/60 tracking-wider uppercase block mb-2">Results</span>
+                  <div className="grid grid-cols-2 gap-2">
+                    {cs.metrics.map((m) => (
+                      <div key={m.label} className="bg-[#1E1E1E] rounded-lg p-2.5 text-center">
+                        <span className="font-display text-base font-semibold text-accent block leading-none">
+                          <CountUp target={parseInt(m.value.replace(/\D/g, ""))} suffix={m.suffix} />
+                        </span>
+                        <span className="text-[8px] font-mono text-text-secondary/60 block mt-0.5">{m.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </PanelCard>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function MobileComparison() {
+  const compareIndustries = ["Dental & Healthcare", "Legal Services", "SaaS & Technology", "E-commerce"];
+  const [selectedA, setSelectedA] = useState(0);
+  const [selectedB, setSelectedB] = useState(1);
+
+  const indA = compareIndustries[selectedA];
+  const indB = compareIndustries[selectedB];
+  const dataA = comparisonData[indA];
+  const dataB = comparisonData[indB];
+
+  const comparisonRows = [
+    { label: "Marketing Focus", key: "marketingFocus" as const },
+    { label: "Primary Channels", key: "primaryChannels" as const },
+    { label: "KPIs", key: "kpis" as const },
+    { label: "Automation Approach", key: "automationApproach" as const },
+    { label: "Content Strategy", key: "contentStrategy" as const },
+  ];
+
+  return (
+    <section className="py-24 bg-ground overflow-hidden">
+      <div className="px-6 mb-8">
+        <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Strategy Comparison</span>
+        <h2 className="font-display font-semibold text-[clamp(1.75rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-white">
+          Why Healthcare ≠ <span className="text-accent">SaaS.</span>
+        </h2>
+      </div>
+      <div className="px-6 space-y-6">
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            { label: "Industry A", selected: selectedA, set: setSelectedA, other: selectedB },
+            { label: "Industry B", selected: selectedB, set: setSelectedB, other: selectedA },
+          ].map((side) => (
+            <div key={side.label}>
+              <span className="text-[9px] font-mono text-text-secondary/50 tracking-wider uppercase block mb-2">{side.label}</span>
+              <div className="flex flex-wrap gap-1.5">
+                {compareIndustries.map((name, i) => {
+                  const IndIcon = (iconMap[industries.find((ind) => ind.name === name)?.icon || "Target"] || Target) as React.ComponentType<any>;
+                  const isSelected = side.selected === i;
+                  const isOther = side.other === i;
+                  return (
+                    <button
+                      key={name}
+                      onClick={() => { if (i !== side.other) side.set(i); }}
+                      disabled={isOther}
+                      className={`shrink-0 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border text-[10px] font-mono transition-all duration-200 ${
+                        isSelected ? "bg-accent/15 border-accent/50 text-accent" : isOther
+                          ? "border-accent/10 text-text-secondary/30 cursor-not-allowed" : "border-accent/20 text-text-secondary/60 hover:border-accent/40"
+                      }`}
+                    >
+                      <IndIcon size={8} />
+                      {name === "Dental & Healthcare" ? "Healthcare" : name === "Legal Services" ? "Legal" : name === "SaaS & Technology" ? "SaaS" : name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="space-y-3">
+          {comparisonRows.map((row, i) => (
+            <motion.div
+              key={row.key}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: i * 0.05 }}
+            >
+              <PanelCard className="p-4">
+                <span className="text-[9px] font-mono text-text-secondary/50 tracking-wider uppercase block mb-2">{row.label}</span>
+                <div className="space-y-2">
+                  <div className="p-2.5 rounded-lg bg-[#1E1E1E]">
+                    <span className="text-[8px] font-mono text-accent/60 block mb-0.5">{indA === "Dental & Healthcare" ? "Healthcare" : indA === "Legal Services" ? "Legal" : indA === "SaaS & Technology" ? "SaaS" : indA}</span>
+                    <span className="text-xs text-text-secondary/80 leading-relaxed block">{dataA?.[row.key]}</span>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-[#1E1E1E]">
+                    <span className="text-[8px] font-mono text-accent/60 block mb-0.5">{indB === "Dental & Healthcare" ? "Healthcare" : indB === "Legal Services" ? "Legal" : indB === "SaaS & Technology" ? "SaaS" : indB}</span>
+                    <span className="text-xs text-text-secondary/80 leading-relaxed block">{dataB?.[row.key]}</span>
+                  </div>
+                </div>
+              </PanelCard>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileArticles() {
+  return (
+    <section className="py-24 bg-ground overflow-hidden">
+      <div className="px-6 mb-8">
+        <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-accent mb-2 block">Insights</span>
+        <h2 className="font-display font-semibold text-[clamp(1.75rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-white">
+          Industry <span className="text-accent">thinking.</span>
+        </h2>
+      </div>
+      <div className="px-6 space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <PanelCard className="p-6 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-accent/[0.02] rounded-full -translate-y-1/2 translate-x-1/2" />
+            <div className="relative z-10">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-[10px] font-mono text-accent/60 tracking-wider uppercase">{insightArticles[0].tag}</span>
+                <span className="w-0.5 h-0.5 rounded-full bg-accent/30" />
+                <span className="text-[10px] font-mono text-text-secondary/50">{insightArticles[0].readTime}</span>
+              </div>
+              <h3 className="font-display text-[clamp(1.125rem,4vw,1.375rem)] font-semibold text-white mb-3 leading-[1.15]">
+                {insightArticles[0].title}
+              </h3>
+              <p className="text-sm text-text-secondary/60 leading-relaxed">{insightArticles[0].excerpt}</p>
+            </div>
+            <div className="pt-5 mt-4 border-t border-accent/10">
+              <span className="inline-flex items-center gap-1 text-xs text-accent/30">
+                Read article <ArrowRight size={10} />
+              </span>
+            </div>
+          </PanelCard>
+        </motion.div>
+
+        {insightArticles.slice(1).map((article, i) => (
+          <motion.div
+            key={article.title}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: i * 0.06 }}
+          >
+            <PanelCard className="p-4">
+              <div className="flex items-center gap-2 mb-1.5">
+                <span className="text-[9px] font-mono text-accent/60 tracking-wider uppercase">{article.tag}</span>
+                <span className="w-0.5 h-0.5 rounded-full bg-text-secondary/30" />
+                <span className="text-[9px] font-mono text-text-secondary/40">{article.readTime}</span>
+              </div>
+              <h4 className="text-sm font-medium text-white leading-snug">{article.title}</h4>
+            </PanelCard>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileCTA() {
+  return (
+    <section className="relative py-24 overflow-hidden bg-[#0A0A0A]">
+      <div className="absolute inset-0 pointer-events-none">
+        <BgDiagonal id="cta-mobile" />
+        <BgDots />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 100%, rgba(212,168,73,0.03), transparent)" }} />
+      </div>
+      <div className="px-6 text-center relative z-10">
+        <motion.h2 className="font-display font-semibold text-[clamp(1.75rem,6vw,2.25rem)] tracking-[-0.025em] leading-[1.08] text-white mb-4"
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease }}
+        >
+          Ready to transform your industry presence?
+        </motion.h2>
+        <motion.p className="text-text-secondary/72 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed mb-8 max-w-[38ch] mx-auto"
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, delay: 0.05, ease }}
+        >
+          Book a free discovery call. We&rsquo;ll analyse your industry, identify your biggest growth opportunities, and build a plan tailored to your market.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, delay: 0.1, ease }}
+        >
+          <Link href="/contact" className="group relative inline-flex items-center gap-2.5 bg-accent text-ground px-7 py-3.5 rounded-full font-semibold text-sm active:scale-[0.98] transition-all duration-200" style={{ minHeight: "56px" }}>
+            <span className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{ boxShadow: "0 0 40px rgba(212,168,73,0.5), 0 0 80px rgba(212,168,73,0.25)" }}
+            />
+            <span className="relative">Book a discovery call</span>
+            <ArrowRight size={14} weight="bold" className="relative transition-transform duration-300 group-hover:translate-x-0.5" />
+          </Link>
+        </motion.div>
+      </div>
+    </section>
   );
 }

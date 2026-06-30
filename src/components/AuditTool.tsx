@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
 
 const auditCategories = [
@@ -28,37 +28,37 @@ export default function AuditTool() {
   };
 
   return (
-    <section className="py-28 lg:py-32 bg-ground border-y border-[#F2EDE6]/[0.04]">
+    <section className="py-16 sm:py-20 lg:py-32 bg-ground border-y border-[#F2EDE6]/[0.04]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <motion.div
             initial={{ y: 32, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
           >
-            <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.02em] leading-[1.05] text-text-primary text-balance mb-4">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.02em] leading-[1.05] text-text-primary text-balance mb-4">
               Audit your digital presence in{" "}
               <span className="text-accent">30 seconds.</span>
             </h2>
-            <p className="text-text-secondary leading-relaxed max-w-[52ch] mb-8">
+            <p className="text-text-secondary leading-relaxed max-w-[52ch] mb-6 lg:mb-8">
               Get an instant snapshot of your technical SEO, content quality, and
               authority signals. No signup, no sales call — just actionable data.
             </p>
 
             <form onSubmit={handleSubmit} className="mb-4">
-              <div className="flex items-center gap-0">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-0">
                 <input
                   type="url"
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="Enter your website URL"
-                  className="flex-1 bg-surface-alt border border-[#F2EDE6]/8 rounded-full px-6 py-4 text-text-primary placeholder:text-text-secondary outline-none focus:outline-[#D4A849] focus:outline-2 focus:outline-offset-0 text-sm transition-all"
+                  className="flex-1 bg-surface-alt border border-[#F2EDE6]/8 rounded-full sm:rounded-r-none px-5 sm:px-6 py-3.5 sm:py-4 text-text-primary placeholder:text-text-secondary outline-none focus:outline-[#D4A849] focus:outline-2 focus:outline-offset-0 text-sm transition-all"
                   required
                 />
                 <button
                   type="submit"
-                  className="-ml-12 bg-accent text-ground px-6 py-4 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150 hover:brightness-105 z-10 flex items-center gap-2"
+                  className="bg-accent text-ground px-6 py-3.5 sm:py-4 rounded-full sm:rounded-l-none font-medium text-sm active:scale-[0.98] transition-transform duration-150 hover:brightness-105 flex items-center justify-center gap-2 z-10"
                 >
                   {scanning ? "Scanning..." : "Audit"}
                   <ArrowRight size={14} weight="bold" />
@@ -81,13 +81,11 @@ export default function AuditTool() {
           >
             <div className="double-bezel">
               <div className="double-bezel-inner p-8">
-                <AnimatePresence mode="wait">
                   {scanning ? (
                     <motion.div
                       key="scanning"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
                       className="flex flex-col items-center justify-center py-12 gap-4"
                     >
                       <MagnifyingGlass size={32} className="text-accent animate-pulse" />
@@ -108,7 +106,6 @@ export default function AuditTool() {
                       key="results"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
                     >
                       <div className="text-center mb-8">
                         <span className="font-mono text-5xl font-medium text-text-primary">78</span>
@@ -144,7 +141,6 @@ export default function AuditTool() {
                       key="empty"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
                       className="flex flex-col items-center justify-center py-12"
                     >
                       <MagnifyingGlass size={32} className="text-text-secondary" weight="light" />
@@ -153,7 +149,6 @@ export default function AuditTool() {
                       </span>
                     </motion.div>
                   )}
-                </AnimatePresence>
               </div>
             </div>
           </motion.div>

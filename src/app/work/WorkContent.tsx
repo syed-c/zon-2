@@ -1,11 +1,8 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import RelatedSection from "@/components/RelatedSection";
-import { getBreadcrumbs } from "@/data/relations";
 import {
   ArrowRight,
   X,
@@ -31,6 +28,11 @@ import {
   SealCheck,
   Quotes,
   BookOpenText,
+  CaretDown,
+  CaretRight,
+  Plus,
+  MagnifyingGlass,
+  ArrowLineUpRight,
 } from "@phosphor-icons/react";
 import CTA from "@/components/CTA";
 import { caseStudies } from "@/data/case-studies";
@@ -136,6 +138,19 @@ const awardMetrics = [
   { label: "Projects Delivered", value: "100+", icon: Lightning },
 ];
 
+const industryImpactData = [
+  { name: "Healthcare", projects: 2, metric: "+340%", sub: "Avg visibility increase", icon: Heartbeat },
+  { name: "Legal", projects: 0, metric: "+180%", sub: "Qualified enquiries", icon: Scales },
+  { name: "SaaS", projects: 1, metric: "+220%", sub: "Organic demos", icon: Cpu },
+  { name: "Construction", projects: 1, metric: "+160%", sub: "Lead volume", icon: HardHat },
+  { name: "Real Estate", projects: 2, metric: "+240%", sub: "Organic traffic", icon: House },
+  { name: "Supply Chain", projects: 2, metric: "+190%", sub: "Lead qualification", icon: Buildings },
+  { name: "E-Commerce", projects: 1, metric: "2.8x", sub: "Referral traffic", icon: ShoppingCart },
+  { name: "EdTech", projects: 1, metric: "-52%", sub: "Cost per acquisition", icon: GraduationCap },
+  { name: "Fintech", projects: 1, metric: "-68%", sub: "Manual processing", icon: TrendUp },
+  { name: "Life Sciences", projects: 1, metric: "94%", sub: "Stakeholder adoption", icon: ChartLineUp },
+];
+
 const insights = [
   { title: "Why AI Search Will Replace Traditional SEO by 2027", slug: "ai-search-future", category: "GEO & AI Search", readTime: "8 min" },
   { title: "How to Build a Technical SEO Strategy That Scales", slug: "technical-seo-scale", category: "SEO", readTime: "12 min" },
@@ -146,12 +161,33 @@ const insights = [
 ];
 
 export function WorkContent() {
+  const [isMobile, setIsMobile] = useState(false);
   const [explorerFilter, setExplorerFilter] = useState("All Industries");
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [hoveredOutcome, setHoveredOutcome] = useState<number | null>(null);
   const [showAllOutcomes, setShowAllOutcomes] = useState(false);
   const [showAllTransformations, setShowAllTransformations] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const sectionRefs = {
+    explorer: useRef<HTMLDivElement>(null),
+    featured: useRef<HTMLDivElement>(null),
+    dashboard: useRef<HTMLDivElement>(null),
+    outcomes: useRef<HTMLDivElement>(null),
+    cta: useRef<HTMLDivElement>(null),
+  };
+
+  if (isMobile) {
+    return <MobileWorkPage />;
+  }
+
   const featured = caseStudies.slice(0, 3);
   const filteredByExplorer =
     explorerFilter === "All Industries"
@@ -161,32 +197,11 @@ export function WorkContent() {
   const displayedOutcomes = showAllOutcomes ? outcomeCards : outcomeCards.slice(0, 3);
   const displayedTransformations = showAllTransformations ? caseStudies : caseStudies.slice(0, 4);
 
-  const industryImpactData = [
-    { name: "Healthcare", projects: 2, metric: "+340%", sub: "Avg visibility increase", icon: Heartbeat },
-    { name: "Legal", projects: 0, metric: "+180%", sub: "Qualified enquiries", icon: Scales },
-    { name: "SaaS", projects: 1, metric: "+220%", sub: "Organic demos", icon: Cpu },
-    { name: "Construction", projects: 1, metric: "+160%", sub: "Lead volume", icon: HardHat },
-    { name: "Real Estate", projects: 2, metric: "+240%", sub: "Organic traffic", icon: House },
-    { name: "Supply Chain", projects: 2, metric: "+190%", sub: "Lead qualification", icon: Buildings },
-    { name: "E-Commerce", projects: 1, metric: "2.8x", sub: "Referral traffic", icon: ShoppingCart },
-    { name: "EdTech", projects: 1, metric: "-52%", sub: "Cost per acquisition", icon: GraduationCap },
-    { name: "Fintech", projects: 1, metric: "-68%", sub: "Manual processing", icon: TrendUp },
-    { name: "Life Sciences", projects: 1, metric: "94%", sub: "Stakeholder adoption", icon: ChartLineUp },
-  ];
-
   const timelineData = caseStudies.map((s, i) => ({
     ...s,
     quarter: `Q${(i % 4) + 1} 202${Math.min(4, 2026 - 2020 + Math.floor(i / 4))}`,
     year: 2023 + Math.floor(i / 4),
   }));
-
-  const sectionRefs = {
-    explorer: useRef<HTMLDivElement>(null),
-    featured: useRef<HTMLDivElement>(null),
-    dashboard: useRef<HTMLDivElement>(null),
-    outcomes: useRef<HTMLDivElement>(null),
-    cta: useRef<HTMLDivElement>(null),
-  };
 
   return (
     <>
@@ -215,7 +230,7 @@ export function WorkContent() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="mb-12">
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Explore Our Portfolio</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                 Browse by <span className="text-accent">industry.</span>
               </h2>
             </motion.div>
@@ -272,7 +287,6 @@ export function WorkContent() {
               </div>
 
               <div>
-                <AnimatePresence mode="wait">
                   <div className="grid sm:grid-cols-2 gap-4">
                     {filteredByExplorer.map((study, index) => {
                       const Icon = industryIcons[study.industry] || Globe;
@@ -281,7 +295,6 @@ export function WorkContent() {
                           key={study.slug}
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
                           transition={{ duration: 0.4, delay: index * 0.03, ease: [0.32, 0.72, 0, 1] }}
                         >
                           <Link href={`/${study.slug}`} className="block h-full group">
@@ -312,9 +325,8 @@ export function WorkContent() {
                       );
                     })}
                   </div>
-                </AnimatePresence>
                 {filteredByExplorer.length === 0 && (
-                  <div className="text-center py-20">
+                  <div className="text-center py-12 sm:py-16 lg:py-20">
                     <p className="text-text-secondary/40">No projects in this category yet. Select another industry.</p>
                   </div>
                 )}
@@ -324,12 +336,12 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 2: Featured Success Stories */}
-        <section ref={sectionRefs.featured} className="py-20 lg:py-28 bg-[#0D0C0B] relative overflow-hidden">
+        <section ref={sectionRefs.featured} className="py-12 sm:py-16 lg:py-28 bg-[#0D0C0B] relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 0%, rgba(212,168,73,0.03), transparent)" }} />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="mb-12">
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Featured Success Stories</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                 Our <span className="text-accent">best work.</span>
               </h2>
             </motion.div>
@@ -421,14 +433,14 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 3: Results Dashboard */}
-        <section ref={sectionRefs.dashboard} className="py-20 lg:py-28 relative overflow-hidden">
+        <section ref={sectionRefs.dashboard} className="py-12 sm:py-16 lg:py-28 relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute -bottom-40 -left-40 w-[600px] h-[600px] rounded-full opacity-[0.005]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.4), transparent 70%)" }} />
           </div>
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}>
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Results Dashboard</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary mb-12">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary mb-12">
                 The <span className="text-accent">numbers</span> speak for themselves.
               </h2>
             </motion.div>
@@ -467,13 +479,13 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 4: Transformation Gallery */}
-        <section className="py-20 lg:py-28 bg-[#0D0C0B] relative">
+        <section className="py-12 sm:py-16 lg:py-28 bg-[#0D0C0B] relative">
           <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 30% 50%, rgba(212,168,73,0.02), transparent)" }} />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="flex items-end justify-between mb-12">
               <div>
                 <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Transformation Gallery</span>
-                <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+                <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                   Before <span className="text-accent">&</span> After.
                 </h2>
               </div>
@@ -552,11 +564,11 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 5: Interactive Case Study Wall */}
-        <section className="py-20 lg:py-28">
+        <section className="py-12 sm:py-16 lg:py-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="mb-12">
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Case Study Wall</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                 Every project <span className="text-accent">tells a story.</span>
               </h2>
             </motion.div>
@@ -610,12 +622,12 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 6: Industry Impact */}
-        <section className="py-20 lg:py-28 bg-[#0D0C0B] relative">
+        <section className="py-12 sm:py-16 lg:py-28 bg-[#0D0C0B] relative">
           <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 70% 30%, rgba(212,168,73,0.02), transparent)" }} />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="mb-12">
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Industry Impact</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                 Proven results across <span className="text-accent">10 industries.</span>
               </h2>
             </motion.div>
@@ -649,11 +661,11 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 7: What We Built — Interactive Service Ecosystem */}
-        <section className="py-20 lg:py-28">
+        <section className="py-12 sm:py-16 lg:py-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="mb-12">
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Services in Action</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                 What <span className="text-accent">we built.</span>
               </h2>
               <p className="text-text-secondary/60 text-sm mt-3 max-w-lg">Click a service to see related projects. Everything we build is connected.</p>
@@ -710,14 +722,14 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 8: Process Behind Every Success */}
-        <section className="py-20 lg:py-28 bg-[#0D0C0B] relative overflow-hidden">
+        <section className="py-12 sm:py-16 lg:py-28 bg-[#0D0C0B] relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-[0.008]" style={{ background: "radial-gradient(circle, rgba(212,168,73,0.3), transparent 70%)" }} />
           </div>
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="mb-12">
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Our Process</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                 The method behind <span className="text-accent">every result.</span>
               </h2>
             </motion.div>
@@ -750,12 +762,12 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 9: Client Outcomes */}
-        <section ref={sectionRefs.outcomes} className="py-20 lg:py-28">
+        <section ref={sectionRefs.outcomes} className="py-12 sm:py-16 lg:py-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="flex items-end justify-between mb-12">
               <div>
                 <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Client Outcomes</span>
-                <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+                <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                   Results that <span className="text-accent">change businesses.</span>
                 </h2>
               </div>
@@ -823,12 +835,12 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 10: Technologies Used */}
-        <section className="py-20 lg:py-28 bg-[#0D0C0B] relative">
+        <section className="py-12 sm:py-16 lg:py-28 bg-[#0D0C0B] relative">
           <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 100%, rgba(212,168,73,0.02), transparent)" }} />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="mb-12">
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Technology Ecosystem</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                 Tools we <span className="text-accent">trust.</span>
               </h2>
               <p className="text-text-secondary/60 text-sm mt-3 max-w-lg">Hover a technology to see which projects used it.</p>
@@ -889,11 +901,11 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 11: Awards / Recognition */}
-        <section className="py-20 lg:py-28">
+        <section className="py-12 sm:py-16 lg:py-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="mb-12">
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">By the Numbers</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                 Recognition through <span className="text-accent">results.</span>
               </h2>
             </motion.div>
@@ -921,11 +933,11 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 12: Project Timeline */}
-        <section className="py-20 lg:py-28">
+        <section className="py-12 sm:py-16 lg:py-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="mb-12">
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Project Timeline</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                 Our journey <span className="text-accent">in projects.</span>
               </h2>
             </motion.div>
@@ -972,12 +984,12 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 13: Related Insights */}
-        <section className="py-20 lg:py-28 bg-[#0D0C0B] relative">
+        <section className="py-12 sm:py-16 lg:py-28 bg-[#0D0C0B] relative">
           <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 70% 50%, rgba(212,168,73,0.02), transparent)" }} />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} className="mb-12">
               <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent mb-3 block">Related Insights</span>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1.05] text-text-primary">
                 Resources to <span className="text-accent">go deeper.</span>
               </h2>
             </motion.div>
@@ -1012,7 +1024,7 @@ export function WorkContent() {
         </section>
 
         {/* SECTION 14: CTA */}
-        <section className="py-28 lg:py-32 bg-[#0D0C0B] relative overflow-hidden">
+        <section className="py-16 sm:py-20 lg:py-32 bg-[#0D0C0B] relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(800px circle at 50% 0%, rgba(212,168,73,0.06), transparent)" }} />
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -1069,58 +1081,672 @@ export function WorkContent() {
           </div>
         </section>
 
-        {/* Hub interlinking */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <Breadcrumbs crumbs={getBreadcrumbs("work", "hub")} />
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">The Full Picture</h2>
-            <p className="text-text-secondary text-sm mt-3 max-w-[50ch] mx-auto">
-              See how our services, tools, and solutions drive these results.
-            </p>
-          </div>
-          <RelatedSection
-            groups={[
-              {
-                title: "Services",
-                links: [
-                  { label: "SEO Strategy", href: "/seo-strategy" },
-                  { label: "Generative Engine Optimisation", href: "/generative-engine-optimisation" },
-                  { label: "Content Strategy", href: "/content-strategy" },
-                  { label: "All Services", href: "/services" },
-                ],
-              },
-              {
-                title: "Solutions",
-                links: [
-                  { label: "Generate More Qualified Leads", href: "/generate-more-qualified-leads" },
-                  { label: "Improve Search Visibility", href: "/improve-search-visibility" },
-                  { label: "Become Visible in AI Search", href: "/become-visible-in-ai-search" },
-                  { label: "All Solutions", href: "/solutions" },
-                ],
-              },
-              {
-                title: "Tools",
-                links: [
-                  { label: "Website SEO Audit", href: "/seo-audit" },
-                  { label: "GEO Readiness Audit", href: "/geo-readiness" },
-                  { label: "AI Visibility Checker", href: "/ai-visibility" },
-                  { label: "All Tools", href: "/tools" },
-                ],
-              },
-              {
-                title: "Industries We Serve",
-                links: [
-                  { label: "Dental & Healthcare", href: "/dental-healthcare" },
-                  { label: "E-commerce", href: "/ecommerce" },
-                  { label: "SaaS & Technology", href: "/saas-technology" },
-                  { label: "All Industries", href: "/industries" },
-                ],
-              },
-            ]}
-          />
-        </section>
       </div>
+    </>
+  );
+}
+
+/* ─── MOBILE SECTIONS ─── */
+
+const mobileEase = [0.32, 0.72, 0, 1] as const;
+
+const mobileProcessSteps = [
+  { step: "01", title: "Research", desc: "Market intelligence, competitor analysis, and opportunity mapping." },
+  { step: "02", title: "Analysis", desc: "Audience behaviour, search landscapes, and channel performance." },
+  { step: "03", title: "Strategy", desc: "Architecture, tech decisions, and systems design." },
+  { step: "04", title: "Execution", desc: "Iterative build, continuous delivery, quality gates." },
+  { step: "05", title: "Scaling", desc: "Playbooks, automation, and repeatable growth engines." },
+];
+
+const mobileStatPills = [
+  { label: "Projects", value: "12", icon: Lightning },
+  { label: "Industries", value: "10", icon: Globe },
+  { label: "Retention", value: "96%", icon: Star },
+  { label: "Avg ROI", value: "4.2x", icon: TrendUp },
+];
+
+function MobileHero() {
+  return (
+    <section className="relative pt-28 pb-8 bg-ground overflow-hidden">
+      <div className="px-5">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: mobileEase }}>
+          <span className="text-[10px] font-medium tracking-[0.15em] uppercase text-text-secondary/70 mb-3 block">Our Work</span>
+          <h1 className="font-display font-semibold text-[clamp(2.375rem,9vw,2.75rem)] tracking-[-0.025em] leading-[1] text-white mb-4">
+            Proof that <span className="text-accent">growth is possible.</span>
+          </h1>
+          <p className="text-text-secondary/80 text-[clamp(0.9375rem,2.5vw,1rem)] leading-relaxed mb-3">
+            Every project, campaign, and platform we publish includes the strategy, the execution, and the measurable business impact.
+          </p>
+          <p className="text-text-secondary/60 text-sm leading-relaxed mb-6">
+            No fluff. No marketing speak. Just results.
+          </p>
+          <Link href="/contact" className="group inline-flex items-center gap-2 bg-accent text-ground px-6 py-3 rounded-full font-semibold text-sm active:scale-[0.98] transition-all duration-200" style={{ minHeight: "48px" }}>
+            Start your growth story
+            <ArrowRight size={14} weight="bold" className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </motion.div>
+      </div>
+      <div className="px-5 mt-6">
+        <div className="grid grid-cols-4 gap-2">
+          {mobileStatPills.map((s) => {
+            const SvgIcon = s.icon;
+            return (
+              <div key={s.label} className="bg-[#181818] border border-accent/20 rounded-xl p-2.5 text-center">
+                <SvgIcon size={12} className="text-accent/60 mx-auto mb-1" />
+                <span className="font-mono text-sm font-semibold text-accent block">{s.value}</span>
+                <span className="text-[8px] text-text-secondary/50 block mt-0.5">{s.label}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileIndustryFilter({ selected, onSelect }: { selected: string; onSelect: (v: string) => void }) {
+  const cats = categoryExplorer.slice(0, 8);
+  return (
+    <div className="sticky top-0 z-40 bg-ground/95 backdrop-blur-lg border-b border-accent/10">
+      <div className="flex items-center gap-1.5 px-4 py-2.5 overflow-x-auto scrollbar-none">
+        <button
+          onClick={() => onSelect("All Industries")}
+          className={`shrink-0 px-3.5 py-2 rounded-full border text-xs font-medium transition-all duration-200 active:scale-[0.96] ${
+            selected === "All Industries" ? "bg-accent text-ground border-accent" : "bg-transparent text-text-secondary/70 border-accent/20 hover:border-accent/40"
+          }`}
+          style={{ minHeight: "44px" }}
+        >
+          All
+        </button>
+        {cats.filter(c => c.label !== "All Industries").map((cat) => {
+          const Icon = cat.icon;
+          const isActive = selected === cat.label;
+          const count = cat.label === "All Industries" ? caseStudies.length : caseStudies.filter((s) => s.industry === cat.label).length;
+          return (
+            <button
+              key={cat.label}
+              onClick={() => onSelect(cat.label)}
+              className={`shrink-0 flex items-center gap-1.5 px-3.5 py-2 rounded-full border text-xs font-medium transition-all duration-200 active:scale-[0.96] ${
+                isActive ? "bg-accent text-ground border-accent" : "bg-transparent text-text-secondary/70 border-accent/20 hover:border-accent/40"
+              }`}
+              style={{ minHeight: "44px" }}
+            >
+              <Icon size={12} className={isActive ? "text-ground" : "text-accent/60"} />
+              <span>{cat.label}</span>
+              <span className={`text-[9px] font-mono ${isActive ? "text-ground/60" : "text-text-secondary/30"}`}>{count}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function MobileProjectList({ filter }: { filter: string }) {
+  const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
+  const filtered = filter === "All Industries" ? caseStudies : caseStudies.filter((s) => s.industry === filter);
+
+  return (
+    <section className="py-[60px] bg-ground">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white">
+          {filter === "All Industries" ? "All projects" : filter}
+        </h2>
+      </div>
+      <div className="px-5 space-y-3">
+        {filtered.map((study) => {
+          const Icon = industryIcons[study.industry] || Globe;
+          const isExpanded = expandedSlug === study.slug;
+          return (
+            <motion.div
+              key={study.slug}
+              layout
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.3 }}
+            >
+              <div
+                onClick={() => setExpandedSlug(isExpanded ? null : study.slug)}
+                className="bg-[#181818] border border-accent/20 rounded-[1.25rem] overflow-hidden cursor-pointer active:scale-[0.99] transition-transform duration-150"
+              >
+                <div className="p-4" style={{ minHeight: "160px" }}>
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <Icon size={12} className="text-accent" />
+                    <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent">{study.industry}</span>
+                  </div>
+                  <h3 className="font-display text-base font-semibold text-white mb-1">{study.project}</h3>
+                  <p className="text-sm font-mono font-semibold text-accent mb-2">{study.result}</p>
+                  <div className="flex flex-wrap gap-1">
+                    {study.tags.slice(0, 3).map((tag) => (
+                      <span key={tag} className="text-[9px] text-text-secondary/50 bg-surface px-2 py-0.5 rounded-full border border-accent/5">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-1 mt-2">
+                    <span className="text-[10px] text-accent/60">{isExpanded ? "Tap to collapse" : "Tap for details"}</span>
+                    {isExpanded ? <CaretDown size={10} className="text-accent/40" /> : <CaretRight size={10} className="text-accent/40" />}
+                  </div>
+                </div>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    transition={{ duration: 0.25, ease: mobileEase }}
+                    className="overflow-hidden border-t border-accent/10"
+                  >
+                    <div className="p-4 space-y-4">
+                      <div>
+                        <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-text-secondary/50 mb-1 block">Challenge</span>
+                        <p className="text-xs text-text-secondary/70 leading-relaxed">{study.challenge.slice(0, 160)}...</p>
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-text-secondary/50 mb-1 block">Approach</span>
+                        <p className="text-xs text-text-secondary/70 leading-relaxed">{study.approach.slice(0, 160)}...</p>
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-text-secondary/50 mb-1 block">Results</span>
+                        <div className="grid grid-cols-2 gap-2">
+                          {study.metrics.slice(0, 4).map((m, i) => (
+                            <div key={i} className="bg-surface/50 border border-accent/5 rounded-lg p-2.5 text-center">
+                              <span className="text-xs font-mono font-semibold text-accent block">{m.value}</span>
+                              <span className="text-[8px] text-text-secondary/50 block mt-0.5">{m.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <Link href={`/${study.slug}`} className="group inline-flex items-center gap-1.5 text-xs text-accent/70">
+                        View full case study <ArrowLineUpRight size={10} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </Link>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function MobileBestWork() {
+  const featured = caseStudies.slice(0, 4);
+  return (
+    <section className="py-[60px] bg-[#0D0C0B]">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white mb-1">Best work</h2>
+        <p className="text-text-secondary/60 text-sm">Our most impactful projects.</p>
+      </div>
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-5 pb-4">
+        {featured.map((study, i) => {
+          const Icon = industryIcons[study.industry] || Globe;
+          return (
+            <motion.div
+              key={study.slug}
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: i * 0.06 }}
+              className="snap-start shrink-0"
+              style={{ width: "calc(85vw - 12px)", maxWidth: "320px" }}
+            >
+              <div className="bg-[#181818] border border-accent/25 rounded-[1.25rem] p-5 h-full flex flex-col">
+                <div className="flex items-center gap-2 mb-2">
+                  <Icon size={12} className="text-accent" />
+                  <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent">{study.industry}</span>
+                </div>
+                <h3 className="font-display text-base font-semibold text-white mb-1">{study.project}</h3>
+                <p className="text-sm font-mono font-semibold text-accent mb-2">{study.result}</p>
+                <p className="text-xs text-text-secondary/60 leading-relaxed mb-4 line-clamp-2">{study.description}</p>
+                <div className="mt-auto">
+                  <Link href={`/${study.slug}`} className="group inline-flex items-center gap-1.5 text-xs text-accent/70">
+                    Read case study <ArrowRight size={10} className="transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function MobileMetrics() {
+  const stats = [
+    { label: "Traffic Growth", value: "+312%", icon: TrendUp },
+    { label: "Leads Generated", value: "2,400+", icon: Users },
+    { label: "Revenue Impact", value: "$3.7M", icon: TrendUp },
+    { label: "CPA Reduction", value: "-57%", icon: Target },
+    { label: "Conversion Uplift", value: "+68%", icon: ChartLineUp },
+    { label: "Client Retention", value: "100%", icon: Star },
+    { label: "Avg ROI", value: "4.2x", icon: Lightning },
+    { label: "Projects Done", value: "12+", icon: CheckCircle },
+  ];
+  return (
+    <section className="py-[60px] bg-ground">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white mb-1">The numbers</h2>
+        <p className="text-text-secondary/60 text-sm">Performance across every engagement.</p>
+      </div>
+      <div className="px-5">
+        <div className="grid grid-cols-2 gap-3">
+          {stats.map((s, i) => {
+            const SvgIcon = s.icon;
+            return (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.3, delay: i * 0.04 }}
+                className="bg-[#181818] border border-accent/20 rounded-xl p-3 flex items-center gap-3"
+                style={{ minHeight: "72px" }}
+              >
+                <SvgIcon size={18} className="text-accent/60 shrink-0" />
+                <div>
+                  <span className="font-mono text-base font-semibold text-accent block leading-none">{s.value}</span>
+                  <span className="text-[10px] text-text-secondary/60 block mt-0.5">{s.label}</span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileBeforeAfter() {
+  const items = caseStudies.slice(0, 5);
+  return (
+    <section className="py-[60px] bg-[#0D0C0B]">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white mb-1">Before & after</h2>
+        <p className="text-text-secondary/60 text-sm">See the transformation.</p>
+      </div>
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-5 pb-4">
+        {items.map((study, i) => (
+          <motion.div
+            key={study.slug}
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: i * 0.05 }}
+            className="snap-start shrink-0"
+            style={{ width: "calc(85vw - 12px)", maxWidth: "320px" }}
+          >
+            <div className="bg-[#181818] border border-accent/20 rounded-[1.25rem] overflow-hidden" style={{ minHeight: "200px" }}>
+              <div className="p-4 border-b border-accent/10">
+                <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-text-secondary/50 block mb-1">Before</span>
+                <p className="text-xs text-text-secondary/70 leading-relaxed">{study.challenge.slice(0, 100)}...</p>
+              </div>
+              <div className="p-4">
+                <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent/70 block mb-1">After</span>
+                <p className="text-sm font-mono font-semibold text-accent mb-2">{study.result}</p>
+                <div className="flex flex-wrap gap-1.5 mb-3">
+                  {study.metrics.slice(0, 3).map((m, j) => (
+                    <span key={j} className="text-[9px] font-mono text-accent/60 bg-accent/5 px-2 py-0.5 rounded-full">{m.value}</span>
+                  ))}
+                </div>
+                <Link href={`/${study.slug}`} className="group inline-flex items-center gap-1 text-[10px] text-accent/60">
+                  Full story <ArrowRight size={9} className="transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileCaseStudies() {
+  return (
+    <section className="py-[60px] bg-ground">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white mb-1">Case studies</h2>
+        <p className="text-text-secondary/60 text-sm">Every project tells a story.</p>
+      </div>
+      <div className="px-5 space-y-3">
+        {caseStudies.slice(0, 6).map((study, i) => {
+          const isFeatured = i === 0 || i === 3;
+          const Icon = industryIcons[study.industry] || Globe;
+          return (
+            <Link key={study.slug} href={`/${study.slug}`} className="block group">
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.35, delay: i * 0.04 }}
+                className={`bg-[#181818] border border-accent/20 rounded-[1.25rem] group-hover:border-accent/40 transition-all duration-200 ${
+                  isFeatured ? "p-5" : "p-4"
+                }`}
+              >
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <Icon size={10} className="text-accent" />
+                  <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-text-secondary/60">{study.industry}</span>
+                  <span className="w-px h-2.5 bg-accent/10" />
+                  <span className="text-[9px] text-text-secondary/40">{study.client}</span>
+                </div>
+                <h3 className={`font-display font-semibold text-white group-hover:text-accent transition-colors ${isFeatured ? "text-base" : "text-sm"}`}>
+                  {study.project}
+                </h3>
+                <p className="text-xs font-mono font-semibold text-accent mt-1">{study.result}</p>
+                {isFeatured && (
+                  <p className="text-xs text-text-secondary/60 leading-relaxed mt-2 line-clamp-2">{study.description}</p>
+                )}
+              </motion.div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function MobileIndustryResults() {
+  return (
+    <section className="py-[60px] bg-[#0D0C0B]">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white mb-1">Industry impact</h2>
+        <p className="text-text-secondary/60 text-sm">Results across sectors.</p>
+      </div>
+      <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-5 pb-4">
+        {industryImpactData.map((item, i) => {
+          const Icon = item.icon;
+          return (
+            <motion.div
+              key={item.name}
+              initial={{ opacity: 0, x: 12 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: i * 0.03 }}
+              className="snap-start shrink-0"
+              style={{ width: "calc(60vw - 12px)", maxWidth: "220px" }}
+            >
+              <div className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <Icon size={14} className="text-accent" />
+                  <span className="text-xs font-medium text-white">{item.name}</span>
+                </div>
+                <p className="text-xl font-mono font-semibold text-accent mb-1">{item.metric}</p>
+                <p className="text-[10px] text-text-secondary/50">{item.sub}</p>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function MobileServicesFilter() {
+  const services = [
+    { label: "All", key: null },
+    { label: "SEO", key: "SEO" },
+    { label: "GEO & AI", key: "GEO & AI Search" },
+    { label: "Digital PR", key: "Digital PR" },
+    { label: "Paid Media", key: "Paid Media" },
+    { label: "AI & Automation", key: "AI & Automation" },
+    { label: "Software", key: "Custom Software" },
+    { label: "Data & Analytics", key: "Data & Analytics" },
+    { label: "Web Dev", key: "Web Development" },
+  ];
+  const [selected, setSelected] = useState<string | null>(null);
+  const filtered = selected ? caseStudies.filter((s) => s.category === selected) : caseStudies;
+
+  return (
+    <section className="py-[60px] bg-ground">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white mb-1">Services in action</h2>
+        <p className="text-text-secondary/60 text-sm">Filter by service type.</p>
+      </div>
+      <div className="flex gap-1.5 overflow-x-auto scrollbar-none px-5 pb-3">
+        {services.map((svc) => (
+          <button
+            key={svc.label}
+            onClick={() => setSelected(selected === svc.key ? null : svc.key)}
+            className={`shrink-0 px-3.5 py-2 rounded-full border text-xs font-medium transition-all duration-200 active:scale-[0.96] ${
+              selected === svc.key ? "bg-accent text-ground border-accent" : "bg-transparent text-text-secondary/70 border-accent/20 hover:border-accent/40"
+            }`}
+            style={{ minHeight: "44px" }}
+          >
+            {svc.label}
+          </button>
+        ))}
+      </div>
+      <div className="px-5 space-y-2">
+        {filtered.slice(0, 6).map((study) => {
+          const Icon = industryIcons[study.industry] || Globe;
+          return (
+            <Link key={study.slug} href={`/${study.slug}`} className="block group">
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.25 }}
+                className="bg-[#181818] border border-accent/15 rounded-xl p-3 group-hover:border-accent/30 transition-all duration-200"
+              >
+                <div className="flex items-center gap-1.5 mb-1">
+                  <Icon size={10} className="text-accent" />
+                  <span className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent/70">{study.industry}</span>
+                </div>
+                <h4 className="text-sm font-medium text-white group-hover:text-accent transition-colors">{study.project}</h4>
+                <p className="text-xs font-mono text-accent mt-0.5">{study.result}</p>
+              </motion.div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function MobileProcess() {
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  return (
+    <section className="py-[60px] bg-[#0D0C0B]">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white mb-1">Our process</h2>
+        <p className="text-text-secondary/60 text-sm">The method behind every result.</p>
+      </div>
+      <div className="px-5 space-y-2">
+        {mobileProcessSteps.map((step, i) => {
+          const isOpen = openIdx === i;
+          return (
+            <div key={step.step} className="bg-[#181818] border border-accent/20 rounded-[1.25rem] overflow-hidden">
+              <button
+                onClick={() => setOpenIdx(isOpen ? null : i)}
+                className="w-full flex items-center gap-3 px-4 py-3 text-left"
+                style={{ minHeight: "48px" }}
+              >
+                <span className="text-[10px] font-mono text-accent/60 font-semibold">{step.step}</span>
+                <span className="text-sm font-medium text-white flex-1">{step.title}</span>
+                {isOpen ? <CaretDown size={14} className="text-accent/60 shrink-0" /> : <CaretRight size={14} className="text-text-secondary/40 shrink-0" />}
+              </button>
+              {isOpen && (
+                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} transition={{ duration: 0.2 }} className="overflow-hidden">
+                  <div className="px-4 pb-4 pl-11">
+                    <p className="text-xs text-text-secondary/70 leading-relaxed">{step.desc}</p>
+                  </div>
+                </motion.div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function MobileClientResults() {
+  return (
+    <section className="py-[60px] bg-ground">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white mb-1">Client outcomes</h2>
+        <p className="text-text-secondary/60 text-sm">Results that change businesses.</p>
+      </div>
+      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pl-5 pb-4">
+        {outcomeCards.map((card, i) => (
+          <motion.div
+            key={card.metric}
+            initial={{ opacity: 0, x: 16 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: i * 0.04 }}
+            className="snap-start shrink-0"
+            style={{ width: "calc(80vw - 12px)", maxWidth: "300px" }}
+          >
+            <div className="bg-[#181818] border border-accent/20 rounded-[1.25rem] p-4" style={{ minHeight: "180px", maxHeight: "220px" }}>
+              <p className="font-display text-base font-semibold text-white mb-2">{card.metric}</p>
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-text-secondary/50">Industry</span>
+                  <span className="text-xs text-text-secondary/80">{card.industry}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-text-secondary/50">Timeline</span>
+                  <span className="text-xs text-text-secondary/80">{card.timeline}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] text-text-secondary/50">KPI</span>
+                  <span className="text-xs font-mono text-accent">{card.kpi}</span>
+                </div>
+              </div>
+              <p className="font-mono text-lg font-semibold text-accent mt-3">{card.delta}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MobileTools() {
+  const [selectedTech, setSelectedTech] = useState<string | null>(null);
+  const topTech = techEcosystem.sort((a, b) => b.count - a.count).slice(0, 10);
+  return (
+    <section className="py-[60px] bg-[#0D0C0B]">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white mb-1">Tools we trust</h2>
+        <p className="text-text-secondary/60 text-sm">Tap a technology to see related projects.</p>
+      </div>
+      <div className="px-5">
+        <div className="flex flex-wrap gap-2 mb-4">
+          {topTech.map((tech) => {
+            const isSelected = selectedTech === tech.slug;
+            return (
+              <button
+                key={tech.slug}
+                onClick={() => setSelectedTech(isSelected ? null : tech.slug)}
+                className={`px-3 py-1.5 rounded-full border text-xs font-medium transition-all duration-200 active:scale-[0.96] ${
+                  isSelected ? "bg-accent text-ground border-accent" : "bg-[#181818] text-text-secondary/70 border-accent/20 hover:border-accent/40"
+                }`}
+                style={{ minHeight: "36px" }}
+              >
+                {tech.name}
+                <span className={`ml-1.5 text-[9px] font-mono ${isSelected ? "text-ground/60" : "text-text-secondary/30"}`}>{tech.count}</span>
+              </button>
+            );
+          })}
+        </div>
+        {selectedTech && (
+          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="bg-[#181818] border border-accent/20 rounded-xl p-4">
+            <p className="text-[9px] font-medium tracking-[0.1em] uppercase text-accent/70 mb-2">Projects using {techEcosystem.find((t) => t.slug === selectedTech)?.name}</p>
+            <div className="space-y-1.5">
+              {caseStudies.filter((s) =>
+                s.tags.some((t) => t.toLowerCase().includes(selectedTech.toLowerCase())) ||
+                s.servicesUsed.some((sv) => sv.toLowerCase().includes(selectedTech.toLowerCase()))
+              ).slice(0, 3).map((study) => (
+                <Link key={study.slug} href={`/${study.slug}`} className="block group">
+                  <div className="flex items-center justify-between py-1.5 border-b border-accent/5 last:border-0">
+                    <span className="text-xs text-text-secondary/80 group-hover:text-accent transition-colors">{study.client}</span>
+                    <span className="text-[9px] text-text-secondary/40">{study.industry}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function MobileRecognition() {
+  return (
+    <section className="py-[60px] bg-ground">
+      <div className="px-5 mb-5">
+        <h2 className="font-display font-semibold text-[clamp(1.625rem,7vw,2rem)] tracking-[-0.025em] leading-[1.08] text-white mb-1">Recognition</h2>
+        <p className="text-text-secondary/60 text-sm">By the numbers.</p>
+      </div>
+      <div className="px-5">
+        <div className="grid grid-cols-2 gap-3">
+          {awardMetrics.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.3, delay: i * 0.04 }}
+                className="bg-[#181818] border border-accent/20 rounded-xl p-4 text-center"
+                style={{ minHeight: "80px" }}
+              >
+                <Icon size={18} className="text-accent/60 mx-auto mb-1.5" />
+                <span className="font-mono text-lg font-semibold text-accent block leading-none">{item.value}</span>
+                <span className="text-[9px] text-text-secondary/50 block mt-1 uppercase tracking-[0.08em]">{item.label}</span>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MobileCTA() {
+  return (
+    <section className="py-[60px] bg-[#0D0C0B]">
+      <div className="px-5 text-center">
+        <h2 className="font-display font-semibold text-[clamp(1.75rem,7vw,2.25rem)] tracking-[-0.03em] leading-[1.05] text-white mb-3">
+          Let&apos;s build your <span className="text-accent">success story.</span>
+        </h2>
+        <p className="text-text-secondary/70 text-sm leading-relaxed mb-6 max-w-[32ch] mx-auto">
+          Free audit. No commitment. First results within 60 days or we fix it.
+        </p>
+        <Link href="/seo-audit" className="group inline-flex items-center gap-2 bg-accent text-ground pl-7 pr-2 py-2.5 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150" style={{ minHeight: "48px" }}>
+          Get Free Audit
+          <span className="w-7 h-7 rounded-full bg-ground/10 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5">
+            <ArrowRight size={12} weight="bold" />
+          </span>
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+function MobileWorkPage() {
+  const [industryFilter, setIndustryFilter] = useState("All Industries");
+
+  return (
+    <>
+      <MobileHero />
+      <MobileIndustryFilter selected={industryFilter} onSelect={setIndustryFilter} />
+      <MobileProjectList filter={industryFilter} />
+      <MobileBestWork />
+      <MobileMetrics />
+      <MobileBeforeAfter />
+      <MobileCaseStudies />
+      <MobileIndustryResults />
+      <MobileServicesFilter />
+      <MobileProcess />
+      <MobileClientResults />
+      <MobileTools />
+      <MobileRecognition />
+      <MobileCTA />
     </>
   );
 }

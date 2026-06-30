@@ -1,10 +1,18 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import NoiseOverlay from "@/components/NoiseOverlay";
 
 const siteUrl = "https://zon-growth.com";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: "#080807",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -82,7 +90,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body className="min-h-[100dvh] flex flex-col antialiased">
+      <body className="min-h-[100dvh] flex flex-col antialiased" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
         <NoiseOverlay />
         <Nav />
         <main className="flex-1">{children}</main>

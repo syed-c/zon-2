@@ -1481,7 +1481,7 @@ function ProcessGrid({ steps }: { steps: { step: string; title: string; desc: st
     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {steps.map((step) => (
         <motion.div key={step.step} {...fadeUp} transition={eased} className="double-bezel group">
-          <div className="double-bezel-inner p-6 lg:p-8 group-hover:bg-surface-alt transition-all duration-500">
+          <div className="double-bezel-inner p-5 sm:p-6 lg:p-8 group-hover:bg-surface-alt transition-all duration-500">
             <span className="font-display text-2xl font-semibold text-accent mb-3 block">{step.step}</span>
             <h3 className="font-display text-base font-medium text-text-primary mb-2">{step.title}</h3>
             <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
@@ -1527,7 +1527,7 @@ function StrategyLayout({ service, pillar, Icon, description, deliverables, faq,
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -1615,10 +1615,10 @@ function StrategyLayout({ service, pillar, Icon, description, deliverables, faq,
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -1653,7 +1653,7 @@ function TechnicalLayout({ service, pillar, Icon, description, deliverables, faq
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-6">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -1745,10 +1745,10 @@ function TechnicalLayout({ service, pillar, Icon, description, deliverables, faq
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -1781,7 +1781,7 @@ function ContentLayout({ service, pillar, Icon, description, deliverables, faq, 
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -1852,10 +1852,10 @@ function ContentLayout({ service, pillar, Icon, description, deliverables, faq, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -1887,7 +1887,7 @@ function AuthorityLayout({ service, pillar, Icon, description, deliverables, faq
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-6">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -1919,7 +1919,7 @@ function AuthorityLayout({ service, pillar, Icon, description, deliverables, faq
               const PIcon = p.icon;
               return (
                 <motion.div key={p.label} {...fadeUp} transition={eased} className="double-bezel group">
-                  <div className="double-bezel-inner p-6 group-hover:bg-surface-alt transition-all duration-500">
+                  <div className="double-bezel-inner p-5 sm:p-6 group-hover:bg-surface-alt transition-all duration-500">
                     <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
                       <PIcon size={18} className="text-accent" />
                     </div>
@@ -1978,10 +1978,10 @@ function AuthorityLayout({ service, pillar, Icon, description, deliverables, faq
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -2007,7 +2007,7 @@ function SpecializedLayout({ service, pillar, Icon, description, deliverables, f
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -2062,10 +2062,10 @@ function SpecializedLayout({ service, pillar, Icon, description, deliverables, f
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -2105,10 +2105,10 @@ function DefaultLayout({ service, pillar, Icon, description, deliverables, faq, 
 
       <section className="py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8 lg:gap-12 items-start">
             <motion.div {...fadeUp} transition={eased}>
               <div className="double-bezel">
-                <div className="double-bezel-inner p-6 lg:p-8">
+                <div className="double-bezel-inner p-5 sm:p-6 lg:p-8">
                   <Icon size={28} className="text-accent mb-4" />
                   <h2 className="font-display text-xl font-medium text-text-primary mb-3">{pillar.name}</h2>
                   <p className="text-sm text-text-secondary leading-relaxed mb-6">Part of our {pillar.name} pillar. Every service in this category works together as a connected system — not isolated tactics.</p>
@@ -2157,10 +2157,10 @@ function DefaultLayout({ service, pillar, Icon, description, deliverables, faq, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -2186,7 +2186,7 @@ function GEOCoreLayout({ service, pillar, Icon, description, deliverables, faq, 
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -2274,10 +2274,10 @@ function GEOCoreLayout({ service, pillar, Icon, description, deliverables, faq, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -2311,7 +2311,7 @@ function GEOAuditLayout({ service, pillar, Icon, description, deliverables, faq,
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-6">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -2416,10 +2416,10 @@ function GEOAuditLayout({ service, pillar, Icon, description, deliverables, faq,
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -2452,7 +2452,7 @@ function GEOStructureLayout({ service, pillar, Icon, description, deliverables, 
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -2523,10 +2523,10 @@ function GEOStructureLayout({ service, pillar, Icon, description, deliverables, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -2552,7 +2552,7 @@ function GEOAuthorityLayout({ service, pillar, Icon, description, deliverables, 
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-6">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -2622,10 +2622,10 @@ function GEOAuthorityLayout({ service, pillar, Icon, description, deliverables, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -2651,7 +2651,7 @@ function PRCampaignLayout({ service, pillar, Icon, description, deliverables, fa
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -2739,10 +2739,10 @@ function PRCampaignLayout({ service, pillar, Icon, description, deliverables, fa
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -2768,7 +2768,7 @@ function PRMediaLayout({ service, pillar, Icon, description, deliverables, faq, 
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -2856,10 +2856,10 @@ function PRMediaLayout({ service, pillar, Icon, description, deliverables, faq, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -2892,7 +2892,7 @@ function PRPositioningLayout({ service, pillar, Icon, description, deliverables,
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -2963,10 +2963,10 @@ function PRPositioningLayout({ service, pillar, Icon, description, deliverables,
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -2992,7 +2992,7 @@ function PRReputationLayout({ service, pillar, Icon, description, deliverables, 
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-6">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -3062,10 +3062,10 @@ function PRReputationLayout({ service, pillar, Icon, description, deliverables, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -3091,7 +3091,7 @@ function PaidSearchLayout({ service, pillar, Icon, description, deliverables, fa
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -3177,10 +3177,10 @@ function PaidSearchLayout({ service, pillar, Icon, description, deliverables, fa
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -3206,7 +3206,7 @@ function PaidDisplayLayout({ service, pillar, Icon, description, deliverables, f
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -3292,10 +3292,10 @@ function PaidDisplayLayout({ service, pillar, Icon, description, deliverables, f
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -3321,7 +3321,7 @@ function PaidStrategyLayout({ service, pillar, Icon, description, deliverables, 
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -3409,10 +3409,10 @@ function PaidStrategyLayout({ service, pillar, Icon, description, deliverables, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -3438,7 +3438,7 @@ function PaidOptimisationLayout({ service, pillar, Icon, description, deliverabl
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -3526,10 +3526,10 @@ function PaidOptimisationLayout({ service, pillar, Icon, description, deliverabl
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -3555,7 +3555,7 @@ function SocialStrategyLayout({ service, pillar, Icon, description, deliverables
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -3641,10 +3641,10 @@ function SocialStrategyLayout({ service, pillar, Icon, description, deliverables
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -3670,7 +3670,7 @@ function ContentCreateLayout({ service, pillar, Icon, description, deliverables,
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -3758,10 +3758,10 @@ function ContentCreateLayout({ service, pillar, Icon, description, deliverables,
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -3787,7 +3787,7 @@ function BrandMessagingLayout({ service, pillar, Icon, description, deliverables
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -3873,10 +3873,10 @@ function BrandMessagingLayout({ service, pillar, Icon, description, deliverables
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -3902,7 +3902,7 @@ function EmailSystemsLayout({ service, pillar, Icon, description, deliverables, 
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -3990,10 +3990,10 @@ function EmailSystemsLayout({ service, pillar, Icon, description, deliverables, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -4019,7 +4019,7 @@ function WebsiteDevLayout({ service, pillar, Icon, description, deliverables, fa
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -4107,10 +4107,10 @@ function WebsiteDevLayout({ service, pillar, Icon, description, deliverables, fa
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -4136,7 +4136,7 @@ function EcomCmsLayout({ service, pillar, Icon, description, deliverables, faq, 
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -4224,10 +4224,10 @@ function EcomCmsLayout({ service, pillar, Icon, description, deliverables, faq, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -4253,7 +4253,7 @@ function UXAppLayout({ service, pillar, Icon, description, deliverables, faq, pr
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -4341,10 +4341,10 @@ function UXAppLayout({ service, pillar, Icon, description, deliverables, faq, pr
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -4370,7 +4370,7 @@ function PerfAccessLayout({ service, pillar, Icon, description, deliverables, fa
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -4458,10 +4458,10 @@ function PerfAccessLayout({ service, pillar, Icon, description, deliverables, fa
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -4487,7 +4487,7 @@ function AIStrategyLayout({ service, pillar, Icon, description, deliverables, fa
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -4575,10 +4575,10 @@ function AIStrategyLayout({ service, pillar, Icon, description, deliverables, fa
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -4604,7 +4604,7 @@ function AIAgentsLayout({ service, pillar, Icon, description, deliverables, faq,
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -4692,10 +4692,10 @@ function AIAgentsLayout({ service, pillar, Icon, description, deliverables, faq,
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -4721,7 +4721,7 @@ function AIAutomationLayout({ service, pillar, Icon, description, deliverables, 
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -4809,10 +4809,10 @@ function AIAutomationLayout({ service, pillar, Icon, description, deliverables, 
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -4838,7 +4838,7 @@ function AIWorkflowLayout({ service, pillar, Icon, description, deliverables, fa
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -4926,10 +4926,10 @@ function AIWorkflowLayout({ service, pillar, Icon, description, deliverables, fa
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -4955,7 +4955,7 @@ function SoftwareDevLayout({ service, pillar, Icon, description, deliverables, f
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -5043,10 +5043,10 @@ function SoftwareDevLayout({ service, pillar, Icon, description, deliverables, f
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -5072,7 +5072,7 @@ function PlatformToolsLayout({ service, pillar, Icon, description, deliverables,
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -5160,10 +5160,10 @@ function PlatformToolsLayout({ service, pillar, Icon, description, deliverables,
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -5189,7 +5189,7 @@ function DashboardsLayout({ service, pillar, Icon, description, deliverables, fa
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -5275,10 +5275,10 @@ function DashboardsLayout({ service, pillar, Icon, description, deliverables, fa
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -5304,7 +5304,7 @@ function APIIntegrationsLayout({ service, pillar, Icon, description, deliverable
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -5392,10 +5392,10 @@ function APIIntegrationsLayout({ service, pillar, Icon, description, deliverable
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -5421,7 +5421,7 @@ function AnalyticsSetupLayout({ service, pillar, Icon, description, deliverables
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -5507,10 +5507,10 @@ function AnalyticsSetupLayout({ service, pillar, Icon, description, deliverables
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -5536,7 +5536,7 @@ function DataDashboardsLayout({ service, pillar, Icon, description, deliverables
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -5622,10 +5622,10 @@ function DataDashboardsLayout({ service, pillar, Icon, description, deliverables
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -5651,7 +5651,7 @@ function DataAttributionLayout({ service, pillar, Icon, description, deliverable
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -5737,10 +5737,10 @@ function DataAttributionLayout({ service, pillar, Icon, description, deliverable
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>
@@ -5766,7 +5766,7 @@ function DataAuditLayout({ service, pillar, Icon, description, deliverables, faq
       <section className="relative pt-36 pb-20 bg-ground overflow-hidden">
         <HeroBg />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div className="lg:col-span-7">
               <Link href="/services" className="text-[11px] font-medium tracking-[0.15em] uppercase text-text-secondary mb-4 block hover:text-accent transition-colors">{pillar.name}</Link>
               <h1 className="font-display font-semibold text-[clamp(2.5rem,4.5vw,4rem)] tracking-[-0.035em] leading-[0.95] text-text-primary mb-6">{service.name}</h1>
@@ -5854,10 +5854,10 @@ function DataAuditLayout({ service, pillar, Icon, description, deliverables, faq
       {(getRelatedContent(service.slug, "service").solutions.length > 0 ||
         getRelatedContent(service.slug, "service").industries.length > 0 ||
         getRelatedContent(service.slug, "service").caseStudies.length > 0) && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center mb-12">
             <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
+            <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">
               Connected Services & Solutions
             </h2>
           </div>

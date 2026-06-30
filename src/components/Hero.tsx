@@ -361,7 +361,7 @@ function StaggeredHeadline() {
   return (
     <motion.h1
       className="font-display font-semibold tracking-[-0.03em] leading-[0.93]"
-      style={{ fontSize: "clamp(3.2rem, 5.5vw, 5.8rem)" }}
+      style={{ fontSize: "clamp(2.4rem, 5.5vw, 5.8rem)" }}
       initial="hidden"
       animate="visible"
     >
@@ -387,7 +387,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-[100dvh] bg-ground flex items-center overflow-hidden" id="hero">
       {/* Background layers */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute inset-0 z-0 opacity-20 md:opacity-40">
         <Beams
           beamWidth={2.5}
           beamHeight={25}
@@ -399,7 +399,9 @@ export default function Hero() {
           rotation={25}
         />
       </div>
-      <HeroGrid />
+      <div className="hidden md:block">
+        <HeroGrid />
+      </div>
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
@@ -413,15 +415,15 @@ export default function Hero() {
       <HeroGrain />
 
       {/* Content */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-8 md:px-16 min-h-[100dvh] flex items-center pt-24 pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-[58fr_42fr] gap-12 lg:gap-16 w-full items-center">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8 md:px-16 min-h-[100dvh] flex flex-col justify-center pt-28 pb-16 md:pt-24">
+        <div className="grid grid-cols-1 md:grid-cols-[58fr_42fr] gap-8 md:gap-12 lg:gap-16 w-full items-center">
           {/* Left column */}
-          <div className="max-w-[620px]">
+          <div className="max-w-[620px] text-center md:text-left mx-auto md:mx-0">
             <motion.p
               initial={{ y: 12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.25, ease: [0.32, 0.72, 0, 1] }}
-              className="text-[11px] font-medium tracking-[0.18em] uppercase text-text-secondary flex items-center gap-2 mb-8"
+              className="text-[11px] font-medium tracking-[0.18em] uppercase text-text-secondary flex items-center justify-center md:justify-start gap-2 mb-6 md:mb-8"
             >
               <span className="inline-block w-4 h-px bg-accent" />
               AI-driven growth agency
@@ -433,26 +435,25 @@ export default function Hero() {
               initial={{ y: 16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.85, ease: [0.32, 0.72, 0, 1] }}
-              className="text-text-secondary text-[1rem] leading-[1.65] max-w-[50ch] mt-8"
+              className="text-text-secondary text-[0.9375rem] sm:text-[1rem] leading-[1.65] max-w-[50ch] mt-6 md:mt-8"
             >
               We combine technical search, AI content systems, and custom
-              software to turn organic traffic into measurable revenue &mdash; not
-              vanity metrics.
+              software to turn organic traffic into measurable revenue.
             </motion.p>
 
             <motion.div
               initial={{ y: 12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.95, ease: [0.32, 0.72, 0, 1] }}
-              className="flex flex-wrap items-center gap-6 mt-8"
+              className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mt-8"
             >
-              <div className="relative">
+              <div className="relative w-full sm:w-auto">
                 <Link
                   href="/seo-audit"
-                  className="group inline-flex items-center gap-2 bg-accent text-ground pl-6 pr-2 py-2 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150 relative z-10"
+                  className="group inline-flex items-center justify-center gap-2 bg-accent text-ground px-6 sm:pl-6 sm:pr-2 py-3 sm:py-2 rounded-full font-medium text-sm active:scale-[0.98] transition-transform duration-150 relative z-10 w-full sm:w-auto"
                 >
                   Get Free Audit
-                  <span className="w-7 h-7 rounded-full bg-ground/10 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-px">
+                  <span className="hidden sm:inline-flex w-7 h-7 rounded-full bg-ground/10 items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-px">
                     <ArrowRight size={14} weight="bold" />
                   </span>
                 </Link>
@@ -465,7 +466,7 @@ export default function Hero() {
               </div>
               <Link
                 href="/work"
-                className="text-text-secondary/60 underline underline-offset-4 hover:text-text-primary text-sm transition-colors duration-200"
+                className="text-text-secondary/60 underline underline-offset-4 hover:text-text-primary text-sm sm:text-base transition-colors duration-200 py-2"
               >
                 See our work
               </Link>
@@ -474,23 +475,6 @@ export default function Hero() {
 
           {/* Right column — Metric Constellation (desktop only) */}
           <MetricConstellation />
-        </div>
-
-        {/* Mobile fallback — single card */}
-        <div className="md:hidden mt-10 flex justify-center">
-          <motion.div
-            initial={{ y: 20, opacity: 0, filter: "blur(4px)" }}
-            animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.75, delay: 0.8, ease: [0.32, 0.72, 0, 1] }}
-            className="w-full max-w-[280px]"
-          >
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, repeatType: "loop", ease: "easeInOut", delay: 2.4 }}
-            >
-              <RevenueCard />
-            </motion.div>
-          </motion.div>
         </div>
       </div>
     </section>

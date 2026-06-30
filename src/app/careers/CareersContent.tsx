@@ -120,7 +120,7 @@ export function CareersContent() {
         </div>
       </section>
 
-      <section className="py-20 lg:py-24 bg-[#0D0C0B]">
+      <section className="py-12 sm:py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ y: 32, opacity: 0 }}
@@ -166,7 +166,7 @@ export function CareersContent() {
         </div>
       </section>
 
-      <section className="py-20 lg:py-24 bg-ground">
+      <section className="py-12 sm:py-16 lg:py-24 bg-ground">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ y: 32, opacity: 0 }}
@@ -233,7 +233,7 @@ export function CareersContent() {
         </div>
       </section>
 
-      <section className="py-20 lg:py-24 bg-[#0D0C0B]">
+      <section className="py-12 sm:py-16 lg:py-24 bg-[#0D0C0B]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ y: 32, opacity: 0 }}
@@ -277,7 +277,7 @@ export function CareersContent() {
         </div>
       </section>
 
-      <section className="py-28 lg:py-32 bg-ground relative overflow-hidden">
+      <section className="py-16 sm:py-20 lg:py-32 bg-ground relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -324,11 +324,11 @@ export function CareersContent() {
           </motion.div>
         </div>
       </section>
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <Breadcrumbs crumbs={getBreadcrumbs("careers", "hub")} />
         <div className="text-center mb-12">
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-          <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">More About ZON</h2>
+          <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">More About ZON</h2>
         </div>
         <RelatedSection
           groups={[

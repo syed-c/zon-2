@@ -1,10 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import RelatedSection from "@/components/RelatedSection";
-import { getBreadcrumbs, getRelatedContent } from "@/data/relations";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   Binoculars, Robot, MegaphoneSimple, Lightning, PencilCircle,
@@ -434,7 +431,7 @@ function Pillar1({ pillar, index }: { pillar: PillarData; index: number }) {
   ];
 
   return (
-    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-36 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
+    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-16 sm:py-20 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="p1" />
         <BgRadials position="br" />
@@ -447,11 +444,11 @@ function Pillar1({ pillar, index }: { pillar: PillarData; index: number }) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div style={{ opacity: p, y: useTransform(p, [0, 1], [30, 0]) }}>
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-16">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-10 sm:mb-16">
             <div className="lg:col-span-7">
               <FadeIn><SectionLabel icon={Icon} index={index} /></FadeIn>
               <FadeIn delay={0.05}>
-                <h2 className="font-display font-semibold text-[clamp(2.2rem,4vw,3.5rem)] tracking-[-0.025em] leading-[1] text-white mb-5">
+                <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.025em] leading-[1] text-white mb-5">
                   {pillar.name}
                 </h2>
               </FadeIn>
@@ -548,7 +545,7 @@ function Pillar2({ pillar, index }: { pillar: PillarData; index: number }) {
   const bg = sectionBgs[index];
 
   return (
-    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-36 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
+    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-16 sm:py-20 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="p2" />
         <BgRadials position="br" />
@@ -560,11 +557,11 @@ function Pillar2({ pillar, index }: { pillar: PillarData; index: number }) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <motion.div className="lg:col-span-5" style={{ opacity: p, x: useTransform(p, [0, 1], [-40, 0]) }}>
             <FadeIn><SectionLabel icon={Icon} index={index} /></FadeIn>
             <FadeIn delay={0.05}>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
             </FadeIn>
             <FadeIn delay={0.1}>
               <p className="text-[rgba(255,255,255,0.72)] text-[15px] leading-relaxed max-w-[46ch] mb-8">{pillarDescriptions[pillar.slug]}</p>
@@ -617,7 +614,7 @@ function Pillar3({ pillar, index }: { pillar: PillarData; index: number }) {
   const bg = sectionBgs[index];
 
   return (
-    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-36 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
+    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-16 sm:py-20 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
       <div className="absolute inset-0 pointer-events-none">
         <BgHorizontals />
         <BgRadials position="center" />
@@ -643,7 +640,7 @@ function Pillar3({ pillar, index }: { pillar: PillarData; index: number }) {
           <motion.div className="lg:col-span-6 lg:col-start-7" style={{ opacity: p, y: useTransform(p, [0, 1], [24, 0]) }}>
             <FadeIn><SectionLabel icon={Icon} index={index} /></FadeIn>
             <FadeIn delay={0.05}>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
             </FadeIn>
             <FadeIn delay={0.1}>
               <p className="text-[rgba(255,255,255,0.72)] text-[15px] leading-relaxed max-w-[46ch] mb-8">{pillarDescriptions[pillar.slug]}</p>
@@ -677,7 +674,7 @@ function Pillar4({ pillar, index }: { pillar: PillarData; index: number }) {
   const bg = sectionBgs[index];
 
   return (
-    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-36 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
+    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-16 sm:py-20 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
       <div className="absolute inset-0 pointer-events-none">
         <BgDiagonal id="p4" />
         <BgRadials position="br" />
@@ -690,17 +687,17 @@ function Pillar4({ pillar, index }: { pillar: PillarData; index: number }) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div style={{ opacity: p, y: useTransform(p, [0, 1], [30, 0]) }}>
-          <div className="mb-16 lg:mb-20">
+          <div className="mb-10 sm:mb-16 lg:mb-20">
             <FadeIn><SectionLabel icon={Icon} index={index} /></FadeIn>
             <FadeIn delay={0.05}>
-              <h2 className="font-display font-semibold text-[clamp(2.2rem,4vw,3.5rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
             </FadeIn>
             <FadeIn delay={0.1}>
               <p className="text-[rgba(255,255,255,0.72)] text-[15px] leading-relaxed max-w-[52ch]">{pillarDescriptions[pillar.slug]}</p>
             </FadeIn>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
             <div className="lg:col-span-8">
               <FadeIn delay={0.15}>
                 <div className="grid grid-cols-3 gap-px bg-accent/15 rounded-2xl overflow-hidden mb-8">
@@ -745,7 +742,7 @@ function Pillar5({ pillar, index }: { pillar: PillarData; index: number }) {
   const bg = sectionBgs[index];
 
   return (
-    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-36 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
+    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-16 sm:py-20 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="p5" />
         <BgRadials position="tl" />
@@ -758,11 +755,11 @@ function Pillar5({ pillar, index }: { pillar: PillarData; index: number }) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div style={{ opacity: p, y: useTransform(p, [0, 1], [24, 0]) }}>
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-5 lg:col-start-2">
               <FadeIn><SectionLabel icon={Icon} index={index} /></FadeIn>
               <FadeIn delay={0.05}>
-                <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
+                <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
               </FadeIn>
               <FadeIn delay={0.1}>
                 <p className="text-[rgba(255,255,255,0.72)] text-[15px] leading-relaxed max-w-[46ch] mb-8">{pillarDescriptions[pillar.slug]}</p>
@@ -815,7 +812,7 @@ function Pillar6({ pillar, index }: { pillar: PillarData; index: number }) {
   const bg = sectionBgs[index];
 
   return (
-    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-36 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
+    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-16 sm:py-20 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
       <div className="absolute inset-0 pointer-events-none">
         <BgDots id="p6" />
         <BgRadials position="br" />
@@ -831,7 +828,7 @@ function Pillar6({ pillar, index }: { pillar: PillarData; index: number }) {
           <div className="mb-12">
             <FadeIn><SectionLabel icon={Icon} index={index} /></FadeIn>
             <FadeIn delay={0.05}>
-              <h2 className="font-display font-semibold text-[clamp(2.2rem,4vw,3.5rem)] tracking-[-0.025em] leading-[1] text-white mb-3">{pillar.name}</h2>
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.025em] leading-[1] text-white mb-3">{pillar.name}</h2>
             </FadeIn>
             <FadeIn delay={0.1}>
               <p className="text-[rgba(255,255,255,0.72)] text-[15px] leading-relaxed max-w-[52ch]">{pillarDescriptions[pillar.slug]}</p>
@@ -883,7 +880,7 @@ function Pillar7({ pillar, index }: { pillar: PillarData; index: number }) {
   const bg = sectionBgs[index];
 
   return (
-    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-36 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
+    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-16 sm:py-20 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="p7" />
         <BgRadials position="center" />
@@ -895,11 +892,11 @@ function Pillar7({ pillar, index }: { pillar: PillarData; index: number }) {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <motion.div className="lg:col-span-6" style={{ opacity: p, x: useTransform(p, [0, 1], [-30, 0]) }}>
             <FadeIn><SectionLabel icon={Icon} index={index} /></FadeIn>
             <FadeIn delay={0.05}>
-              <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
+              <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
             </FadeIn>
             <FadeIn delay={0.1}>
               <p className="text-[rgba(255,255,255,0.72)] text-[15px] leading-relaxed max-w-[48ch] mb-8">{pillarDescriptions[pillar.slug]}</p>
@@ -947,7 +944,7 @@ function Pillar8({ pillar, index }: { pillar: PillarData; index: number }) {
   const bg = sectionBgs[index];
 
   return (
-    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-36 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
+    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-16 sm:py-20 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
       <div className="absolute inset-0 pointer-events-none">
         <BgDiagonal id="p8" />
         <BgRadials position="tl" />
@@ -960,11 +957,11 @@ function Pillar8({ pillar, index }: { pillar: PillarData; index: number }) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div style={{ opacity: p, y: useTransform(p, [0, 1], [30, 0]) }}>
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-6">
               <FadeIn><SectionLabel icon={Icon} index={index} /></FadeIn>
               <FadeIn delay={0.05}>
-                <h2 className="font-display font-semibold text-[clamp(2rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
+                <h2 className="font-display font-semibold text-[clamp(1.75rem,3.5vw,3rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
               </FadeIn>
               <FadeIn delay={0.1}>
                 <p className="text-[rgba(255,255,255,0.72)] text-[15px] leading-relaxed max-w-[48ch] mb-8">{pillarDescriptions[pillar.slug]}</p>
@@ -989,7 +986,7 @@ function Pillar8({ pillar, index }: { pillar: PillarData; index: number }) {
                 <div className="relative">
                   <div className="absolute -bottom-3 -right-3 w-[90%] h-[90%] bg-[#1E1E1E] rounded-2xl border border-accent/20 -z-10" />
                   <div className="absolute -bottom-6 -right-6 w-[80%] h-[80%] bg-[#181818] rounded-2xl border border-accent/12 -z-20" />
-                  <PanelCard className="p-6">
+                  <PanelCard className="p-6 lg:p-8">
                     <div className="w-full aspect-[4/3]"><Illo /></div>
                   </PanelCard>
                 </div>
@@ -1011,7 +1008,7 @@ function Pillar9({ pillar, index }: { pillar: PillarData; index: number }) {
   const bg = sectionBgs[index];
 
   return (
-    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-36 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
+    <motion.section ref={ref} id={`pillar-${pillar.slug}`} className={`relative py-16 sm:py-20 lg:py-52 scroll-mt-24 overflow-hidden ${bg}`}>
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0" style={{
           backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(212,168,73,0.005) 79px, rgba(212,168,73,0.005) 80px)`,
@@ -1030,7 +1027,7 @@ function Pillar9({ pillar, index }: { pillar: PillarData; index: number }) {
             <div className="max-w-[52ch]">
               <FadeIn><SectionLabel icon={Icon} index={index} /></FadeIn>
               <FadeIn delay={0.05}>
-                <h2 className="font-display font-semibold text-[clamp(2.2rem,4vw,3.5rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
+                <h2 className="font-display font-semibold text-[clamp(1.75rem,4vw,3.5rem)] tracking-[-0.025em] leading-[1] text-white mb-5">{pillar.name}</h2>
               </FadeIn>
               <FadeIn delay={0.1}>
                 <p className="text-[rgba(255,255,255,0.72)] text-[15px] leading-relaxed">{pillarDescriptions[pillar.slug]}</p>
@@ -1075,14 +1072,14 @@ function Pillar9({ pillar, index }: { pillar: PillarData; index: number }) {
 /* ─── System constellation ─── */
 function SystemConstellation() {
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden bg-[#0D0D0C]">
+    <section className="relative py-16 sm:py-20 lg:py-32 overflow-hidden bg-[#0D0D0C]">
       <div className="absolute inset-0 pointer-events-none">
         <BgGrid id="constellation" />
         <BgRadials position="center" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div className="text-center mb-16" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+        <motion.div className="text-center mb-10 sm:mb-16" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent/70 mb-4 block">The Growth System</span>
           <h2 className="font-display font-semibold text-[clamp(1.8rem,3vw,2.8rem)] tracking-[-0.02em] leading-[1.05] text-white">
             Nine pillars,<br /><span className="text-accent">one interconnected engine.</span>
@@ -1122,7 +1119,7 @@ function SystemConstellation() {
 /* ─── Amber CTA ─── */
 function AmberCTA() {
   return (
-    <section className="relative py-28 lg:py-36 overflow-hidden bg-[#0A0A0A]">
+    <section className="relative py-16 sm:py-20 lg:py-36 overflow-hidden bg-[#0A0A0A]">
       <div className="absolute inset-0 pointer-events-none">
         <BgDiagonal id="cta" />
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 100%, rgba(212,168,73,0.03), transparent)" }} />
@@ -1148,11 +1145,142 @@ function AmberCTA() {
   );
 }
 
+/* ─── MOBILE PILLAR ACCORDION ─── */
+
+function MobilePillarAccordion() {
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [expandedChips, setExpandedChips] = useState<Set<string>>(new Set());
+
+  const togglePillar = (slug: string) => {
+    setOpenId(openId === slug ? null : slug);
+    setExpandedChips(new Set());
+  };
+
+  const showAllChips = (slug: string) => {
+    setExpandedChips(prev => new Set([...prev, slug]));
+  };
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:hidden">
+      {pillarData.map((pillar, i) => {
+        const Icon = (iconMap[pillar.slug] || Binoculars) as React.ComponentType<any>;
+        const Illo = (pillarIllustrations[pillar.slug] || IllustrationSERP) as React.ComponentType<any>;
+        const isOpen = openId === pillar.slug;
+        const outcomes = pillarOutcomes[pillar.slug] ?? [];
+        const visibleChips = expandedChips.has(pillar.slug) ? pillar.services : pillar.services.slice(0, 6);
+        const remaining = pillar.services.length - 6;
+
+        return (
+          <div key={pillar.slug} className="border-b border-accent/10 last:border-b-0">
+            <button
+              onClick={() => togglePillar(pillar.slug)}
+              className="w-full flex items-center gap-3 py-4 text-left"
+              style={{ minHeight: 56 }}
+            >
+              <div className="w-9 h-9 rounded-lg bg-accent/[0.18] flex items-center justify-center shrink-0 ring-1 ring-accent/30">
+                <Icon size={15} className="text-accent" weight="duotone" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="font-mono text-[9px] text-accent/60 tracking-[0.16em] uppercase block">
+                  Pillar {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="font-display text-sm font-medium text-white block truncate">
+                  {pillar.name}
+                </span>
+              </div>
+              <motion.span
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+                className="text-accent/50 shrink-0"
+                style={{ fontSize: 14 }}
+              >
+                &#709;
+              </motion.span>
+            </button>
+
+            <motion.div
+              initial={false}
+              animate={{
+                height: isOpen ? "auto" : 0,
+                opacity: isOpen ? 1 : 0,
+              }}
+              transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="pb-6 space-y-4">
+                <p className="text-[13px] text-[rgba(255,255,255,0.72)] leading-relaxed">
+                  {pillarDescriptions[pillar.slug]}
+                </p>
+
+                {outcomes.length > 0 && (
+                  <div className="flex flex-wrap gap-x-4 gap-y-1">
+                    {outcomes.map(t => (
+                      <div key={t} className="flex items-center gap-2">
+                        <span className="w-1 h-1 rounded-full bg-accent/70" />
+                        <span className="text-[10px] text-accent/85 font-mono tracking-wide">{t}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="bg-[#181818] border border-accent/25 rounded-xl p-4">
+                  <div className="w-full aspect-[16/9]">
+                    <Illo />
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5">
+                  {visibleChips.map(svc => (
+                    <Link
+                      key={svc.slug}
+                      href={`/${svc.slug}`}
+                      className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border border-accent/30 bg-[#181818] text-[11px] text-[rgba(255,255,255,0.65)] hover:text-white transition-colors"
+                      style={{ minHeight: 44 }}
+                    >
+                      {svc.name}
+                    </Link>
+                  ))}
+                  {remaining > 0 && !expandedChips.has(pillar.slug) && (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); showAllChips(pillar.slug); }}
+                      className="inline-flex items-center px-3 text-[11px] text-accent/60 hover:text-accent transition-colors"
+                      style={{ minHeight: 44 }}
+                    >
+                      +{remaining} More
+                    </button>
+                  )}
+                </div>
+
+                <Link
+                  href={`/${pillar.slug}`}
+                  className="group inline-flex items-center gap-1.5 text-xs text-accent/70 hover:text-accent transition-colors"
+                >
+                  Explore all capabilities
+                  <ArrowRight size={11} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 /* ─── MAIN EXPORT ─── */
 export function ServicesContent() {
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const layouts = [Pillar1, Pillar2, Pillar3, Pillar4, Pillar5, Pillar6, Pillar7, Pillar8, Pillar9];
 
@@ -1201,71 +1329,16 @@ export function ServicesContent() {
 
       <div className="h-px w-full bg-accent/15" />
 
-      {pillarData.map((pillar, i) => {
-        const Layout = layouts[i];
-        return <Layout key={pillar.slug} pillar={pillar} index={i} />;
-      })}
+      {isMobile ? (
+        <MobilePillarAccordion />
+      ) : (
+        pillarData.map((pillar, i) => {
+          const Layout = layouts[i];
+          return <Layout key={pillar.slug} pillar={pillar} index={i} />;
+        })
+      )}
 
       <AmberCTA />
-
-        {/* Hub interlinking */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <Breadcrumbs crumbs={getBreadcrumbs("services", "hub")} />
-          <div className="text-center mb-12">
-            <span className="text-[11px] font-medium tracking-[0.15em] uppercase text-accent">Explore More</span>
-            <h2 className="font-display font-semibold text-[clamp(2rem,4vw,3.5rem)] tracking-[-0.03em] leading-[0.95] text-text-primary mt-3">Beyond Our Services</h2>
-            <p className="text-text-secondary text-sm mt-3 max-w-[50ch] mx-auto">
-              Our services connect with solutions, tools, and real results.
-            </p>
-          </div>
-          <RelatedSection
-            groups={[
-              {
-                title: "Solutions",
-                links: [
-                  { label: "Generate More Qualified Leads", href: "/generate-more-qualified-leads" },
-                  { label: "Improve Search Visibility", href: "/improve-search-visibility" },
-                  { label: "Become Visible in AI Search", href: "/become-visible-in-ai-search" },
-                  { label: "Reduce Manual Work With Automation", href: "/reduce-manual-work-automation" },
-                  { label: "Build a Custom CRM", href: "/build-custom-crm" },
-                  { label: "All Solutions", href: "/solutions" },
-                ],
-              },
-              {
-                title: "Tools",
-                links: [
-                  { label: "Website SEO Audit", href: "/seo-audit" },
-                  { label: "GEO Readiness Audit", href: "/geo-readiness" },
-                  { label: "SERP Preview Tool", href: "/serp-preview-tool" },
-                  { label: "Schema Generator", href: "/schema-generator" },
-                  { label: "Ads Cost Calculator", href: "/ads-calculator" },
-                  { label: "All Tools", href: "/tools" },
-                ],
-              },
-              {
-                title: "Industries We Serve",
-                links: [
-                  { label: "Dental & Healthcare", href: "/dental-healthcare" },
-                  { label: "E-commerce", href: "/ecommerce" },
-                  { label: "SaaS & Technology", href: "/saas-technology" },
-                  { label: "Real Estate", href: "/real-estate" },
-                  { label: "Legal Services", href: "/legal-services" },
-                  { label: "All Industries", href: "/industries" },
-                ],
-              },
-              {
-                title: "Case Studies",
-                links: [
-                  { label: "Pulse Health — GEO for HealthTech", href: "/pulse-health" },
-                  { label: "Urban Spaces — Real Estate SEO", href: "/urban-spaces" },
-                  { label: "FitSync — SaaS Growth", href: "/fitsync" },
-                  { label: "GreenLeaf — E-commerce CRO", href: "/greenleaf" },
-                  { label: "All Case Studies", href: "/work" },
-                ],
-              },
-            ]}
-          />
-        </section>
     </>
   );
 }
